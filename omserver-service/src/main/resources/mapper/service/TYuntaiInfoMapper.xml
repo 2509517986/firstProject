@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiInfoMapper">
+    
+    <resultMap type="TYuntaiInfo" id="TYuntaiInfoResult">
+        <result property="id"    column="id"    />
+        <result property="code"    column="code"    />
+        <result property="name"    column="name"    />
+        <result property="pasword"    column="pasword"    />
+        <result property="kind"    column="kind"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="deptName"    column="dept_name"    />
+        <result property="lineId"    column="line_id"    />
+        <result property="lineName"    column="line_name"    />
+        <result property="towerId"    column="tower_id"    />
+        <result property="towerName"    column="tower_name"    />
+        <result property="unit"    column="unit"    />
+        <result property="level"    column="level"    />
+        <result property="direction"    column="direction"    />
+        <result property="intoType"    column="into_type"    />
+        <result property="cardNum"    column="card_num"    />
+        <result property="cardNum2"    column="card_num2"    />
+        <result property="network"    column="network"    />
+        <result property="installState"    column="install_state"    />
+        <result property="installDate"    column="install_date"    />
+        <result property="hiddenDanger"    column="hidden_danger"    />
+        <result property="hiddenDangerDes"    column="hidden_danger_des"    />
+        <result property="factory"    column="factory"    />
+        <result property="monitorType"    column="monitor_type"    />
+        <result property="ip"    column="IP"    />
+        <result property="address"    column="address"    />
+        <result property="imageStatus"    column="image_status"    />
+        <result property="defectRecord"    column="defect_record"    />
+        <result property="state"    column="state"    />
+        <result property="onlineTime"    column="online_time"    />
+        <result property="onlineDuration"    column="online_duration"    />
+        <result property="electricPower"    column="electric_power"    />
+        <result property="remark"    column="remark"    />
+        <result property="longitude"    column="longitude"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="image"    column="image"    />
+        <result property="version"    column="version"    />
+        <result property="versionUpdate"    column="version_update"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="modifyUser"    column="modify_user"    />
+        <result property="modifyTime"    column="modify_time"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+    </resultMap>
+
+    <resultMap type="TYuntaiStatistic" id="TYuntaiStatisticResult">
+        <result property="total"    column="total"    />
+        <result property="online"    column="online"    />
+        <result property="onlineRate"    column="online_rate"    />
+        <result property="offline"    column="offline"    />
+        <result property="offlineRate"    column="offline_rate"    />
+        <result property="dormancy"    column="dormancy"    />
+    </resultMap>
+
+    <resultMap type="TInspectionYuntaiStatistic" id="TInspectionYuntaiStatistic">
+        <result property="total"    column="total"    />
+        <result property="online"    column="online"    />
+        <result property="onlineRate"    column="online_rate"    />
+        <result property="offline"    column="offline"    />
+        <result property="offlineRate"    column="offline_rate"    />
+    </resultMap>
+
+    <resultMap type="TInspectionYuntaiHiddenDanger" id="TInspectionYuntaiHiddenDanger">
+        <result property="hiddenDanger"    column="hidden_danger"    />
+        <result property="total"    column="total"    />
+    </resultMap>
+
+
+    <sql id="selectTYuntaiInfoVo">
+        select id, code, name, pasword, kind, dept_id,(select dept_name from sys_dept where t_yuntai_info.dept_id=sys_dept.dept_id LIMIT 1) dept_name, line_id,(select name from t_line_info where t_yuntai_info.line_id=t_line_info.id LIMIT 1) line_name, tower_id,(select name from t_tower_info where t_yuntai_info.tower_id=t_tower_info.id LIMIT 1) tower_name, unit, level, direction, into_type, card_num, card_num2, network, install_state, install_date, hidden_danger, hidden_danger_des, factory, monitor_type, IP, address, image_status, defect_record, state, online_time, online_duration,electric_power, remark, longitude, latitude, image, version, version_update, create_user, create_time, modify_user, modify_time, spare0, spare1, spare2, spare3, spare4 from t_yuntai_info
+    </sql>
+
+    <select id="selectTYuntaiInfoList" parameterType="TYuntaiInfo" resultMap="TYuntaiInfoResult">
+        <include refid="selectTYuntaiInfoVo"/>
+        <where>  
+            <if test="code != null  and code != ''"> and code like concat('%', #{code}, '%')</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="kind != null  and kind != ''"> and kind = #{kind}</if>
+            <if test="deptId != null "> and dept_id = #{deptId}</if>
+            <if test="deptName != null  and deptName != ''"> and dept_name like concat('%', #{deptName}, '%')</if>
+            <if test="lineId != null "> and line_id = #{lineId}</if>
+            <if test="lineName != null "> and line_name = #{lineName}</if>
+            <if test="towerId != null "> and tower_id = #{towerId}</if>
+            <if test="towerName != null "> and tower_name = #{towerName}</if>
+            <if test="unit != null "> and unit = #{unit}</if>
+            <if test="level != null  and level != ''"> and level = #{level}</if>
+            <if test="direction != null  and direction != ''"> and direction = #{direction}</if>
+            <if test="intoType != null "> and into_type = #{intoType}</if>
+            <if test="cardNum != null  and cardNum != ''"> and card_num = #{cardNum}</if>
+            <if test="cardNum2 != null  and cardNum2 != ''"> and card_num2 = #{cardNum2}</if>
+            <if test="network != null  and network != ''"> and network in(#{network})</if>
+            <if test="installState != null  and installState != ''"> and install_state = #{installState}</if>
+            <if test="installDate != null "> and install_date = #{installDate}</if>
+            <if test="hiddenDanger != null  and hiddenDanger != ''"> and hidden_danger = #{hiddenDanger}</if>
+            <if test="hiddenDangerDes != null  and hiddenDangerDes != ''"> and hidden_danger_des = #{hiddenDangerDes}</if>
+            <if test="factory != null  and factory != ''"> and factory in(#{factory})</if>
+            <if test="monitorType != null  and monitorType != ''"> and monitor_type in( #{monitorType})</if>
+            <if test="ip != null  and ip != ''"> and IP = #{ip}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="imageStatus != null "> and image_status = #{imageStatus}</if>
+            <if test="defectRecord != null  and defectRecord != ''"> and defect_record = #{defectRecord}</if>
+            <if test="state != null "> and state = #{state}</if>
+            <if test="onlineTime != null "> and online_time = #{onlineTime}</if>
+            <if test="onlineDuration != null  and onlineDuration != ''"> and online_duration = #{onlineDuration}</if>
+            <if test="electricPower != null "> and electric_power = #{electricPower}</if>
+            <if test="longitude != null  and longitude != ''"> and longitude = #{longitude}</if>
+            <if test="latitude != null  and latitude != ''"> and latitude = #{latitude}</if>
+            <if test="image != null  and image != ''"> and image = #{image}</if>
+            <if test="version != null  and version != ''"> and version = #{version}</if>
+            <if test="versionUpdate != null  and versionUpdate != ''"> and version_update = #{versionUpdate}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="modifyUser != null  and modifyUser != ''"> and modify_user = #{modifyUser}</if>
+            <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+            <if test="lineIds != null  and lineIds != ''"> and line_id in(#{lineIds})</if>
+            <if test="towerIds != null  and towerIds != ''"> and tower_id in(#{towerIds})</if>
+            <if test="spare0 != null  and spare0 != ''"> and id in(#{spare0})</if>
+            <if test="states != null"> and state in
+                <foreach item="state" collection="states" open="(" separator="," close=")">
+                    #{state}
+                </foreach>
+            </if>
+            <if test="factorys != null"> and factory in
+                <foreach item="factory" collection="factorys" open="(" separator="," close=")">
+                    #{factory}
+                </foreach>
+            </if>
+            <if test="hiddenDangers != null"> and hidden_danger in
+                <foreach item="hiddenDanger" collection="hiddenDangers" open="(" separator="," close=")">
+                    #{hiddenDanger}
+                </foreach>
+            </if>
+            <if test="lineIdList != null"> and line_id in
+                <foreach item="lineId" collection="lineIdList" open="(" separator="," close=")">
+                    #{lineId}
+                </foreach>
+            </if>
+            <if test="towerIdList != null"> and tower_id in
+                <foreach item="towerId" collection="towerIdList" open="(" separator="," close=")">
+                    #{towerId}
+                </foreach>
+            </if>
+            <if test="imageStatuss != null  and imageStatuss != ''"> and image_status in(#{imageStatuss})</if>
+            <if test="sBegDate != null  and sBegDate != '' and sEndDate != null  and sEndDate != '' "> and install_date BETWEEN #{sBegDate}  and  #{sEndDate}</if>
+            <if test="keyword != null and keyword != ''"> and ( code like concat('%', #{keyword}, '%') or name like concat('%', #{keyword}, '%'))</if>
+        </where>
+        <if test="powerOrd == null">
+            order by create_time DESC
+        </if>
+        <if test="powerOrd == 1">
+            order by electric_power ASC
+        </if>
+        <if test="powerOrd == 0">
+            order by electric_power DESC
+        </if>
+    </select>
+
+    <select id="selectTYuntaiInfoListHeartbeat" parameterType="TYuntaiInfo" resultMap="TYuntaiInfoResult">
+        <include refid="selectTYuntaiInfoVo"/>
+        <where>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="kind != null  and kind != ''"> and kind = #{kind}</if>
+            <if test="deptId != null "> and dept_id = #{deptId}</if>
+            <if test="deptName != null  and deptName != ''"> and dept_name like concat('%', #{deptName}, '%')</if>
+            <if test="lineId != null "> and line_id = #{lineId}</if>
+            <if test="lineName != null "> and line_name = #{lineName}</if>
+            <if test="towerId != null "> and tower_id = #{towerId}</if>
+            <if test="towerName != null "> and tower_name = #{towerName}</if>
+            <if test="unit != null "> and unit = #{unit}</if>
+            <if test="level != null  and level != ''"> and level = #{level}</if>
+            <if test="direction != null  and direction != ''"> and direction = #{direction}</if>
+            <if test="intoType != null "> and into_type = #{intoType}</if>
+            <if test="cardNum != null  and cardNum != ''"> and card_num = #{cardNum}</if>
+            <if test="cardNum2 != null  and cardNum2 != ''"> and card_num2 = #{cardNum2}</if>
+            <if test="network != null  and network != ''"> and network =#{network}</if>
+            <if test="installState != null  and installState != ''"> and install_state = #{installState}</if>
+            <if test="installDate != null "> and install_date = #{installDate}</if>
+            <if test="hiddenDanger != null  and hiddenDanger != ''"> and hidden_danger = #{hiddenDanger}</if>
+            <if test="hiddenDangerDes != null  and hiddenDangerDes != ''"> and hidden_danger_des = #{hiddenDangerDes}</if>
+            <if test="factory != null  and factory != ''"> and factory in(#{factory})</if>
+            <if test="monitorType != null  and monitorType != ''"> and monitor_type = #{monitorType}</if>
+            <if test="ip != null  and ip != ''"> and IP = #{ip}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="imageStatus != null "> and image_status = #{imageStatus}</if>
+            <if test="defectRecord != null  and defectRecord != ''"> and defect_record = #{defectRecord}</if>
+            <if test="state != null "> and state = #{state}</if>
+            <if test="onlineTime != null "> and online_time = #{onlineTime}</if>
+            <if test="onlineDuration != null  and onlineDuration != ''"> and online_duration = #{onlineDuration}</if>
+            <if test="electricPower != null "> and electric_power = #{electricPower}</if>
+            <if test="longitude != null  and longitude != ''"> and longitude = #{longitude}</if>
+            <if test="latitude != null  and latitude != ''"> and latitude = #{latitude}</if>
+            <if test="image != null  and image != ''"> and image = #{image}</if>
+            <if test="version != null  and version != ''"> and version = #{version}</if>
+            <if test="versionUpdate != null  and versionUpdate != ''"> and version_update = #{versionUpdate}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="modifyUser != null  and modifyUser != ''"> and modify_user = #{modifyUser}</if>
+            <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+            <if test="lineIds != null  and lineIds != ''"> and line_id in(#{lineIds})</if>
+            <if test="towerIds != null  and towerIds != ''"> and tower_id in(#{towerIds})</if>
+            <if test="spare0 != null  and spare0 != ''"> and id in(#{spare0})</if>
+            <if test="keyword != null and keyword != ''"> and ( code like concat('%', #{keyword}, '%') or name like concat('%', #{keyword}, '%'))</if>
+        </where>
+            order by create_time DESC
+
+    </select>
+
+    <!-- 今日抓拍分页查询，这里的分页与普通分页不一样的逻辑，是按云台个数来分页4个8个16个 -->
+    <select id="selectTYuntaiInfoListPage" parameterType="TYuntaiInfo" resultMap="TYuntaiInfoResult">
+        <include refid="selectTYuntaiInfoVo"/>
+        <where>
+            <if test="spare0 != null  and spare0 != ''"> and id in(#{spare0})</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="kind != null  and kind != ''"> and kind = #{kind}</if>
+            <if test="deptId != null "> and dept_id = #{deptId}</if>
+            <if test="deptName != null  and deptName != ''"> and dept_name like concat('%', #{deptName}, '%')</if>
+            <if test="lineId != null "> and line_id = #{lineId}</if>
+            <if test="lineName != null "> and line_name = #{lineName}</if>
+            <if test="towerId != null "> and tower_id = #{towerId}</if>
+            <if test="towerName != null "> and tower_name = #{towerName}</if>
+            <if test="unit != null "> and unit = #{unit}</if>
+            <if test="level != null  and level != ''"> and level = #{level}</if>
+            <if test="direction != null  and direction != ''"> and direction = #{direction}</if>
+            <if test="intoType != null "> and into_type = #{intoType}</if>
+            <if test="cardNum != null  and cardNum != ''"> and card_num = #{cardNum}</if>
+            <if test="cardNum2 != null  and cardNum2 != ''"> and card_num2 = #{cardNum2}</if>
+            <if test="network != null  and network != ''"> and network = #{network}</if>
+            <if test="installState != null  and installState != ''"> and install_state = #{installState}</if>
+            <if test="installDate != null "> and install_date = #{installDate}</if>
+            <if test="hiddenDanger != null  and hiddenDanger != ''"> and hidden_danger = #{hiddenDanger}</if>
+            <if test="hiddenDangerDes != null  and hiddenDangerDes != ''"> and hidden_danger_des = #{hiddenDangerDes}</if>
+            <if test="factory != null  and factory != ''"> and factory = #{factory}</if>
+            <if test="monitorType != null  and monitorType != ''"> and monitor_type = #{monitorType}</if>
+            <if test="ip != null  and ip != ''"> and IP = #{ip}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="imageStatus != null "> and image_status = #{imageStatus}</if>
+            <if test="defectRecord != null  and defectRecord != ''"> and defect_record = #{defectRecord}</if>
+            <if test="state != null "> and state = #{state}</if>
+            <if test="onlineTime != null "> and online_time = #{onlineTime}</if>
+            <if test="onlineDuration != null  and onlineDuration != ''"> and online_duration = #{onlineDuration}</if>
+            <if test="electricPower != null "> and electric_power = #{electricPower}</if>
+            <if test="longitude != null  and longitude != ''"> and longitude = #{longitude}</if>
+            <if test="latitude != null  and latitude != ''"> and latitude = #{latitude}</if>
+            <if test="image != null  and image != ''"> and image = #{image}</if>
+            <if test="version != null  and version != ''"> and version = #{version}</if>
+            <if test="versionUpdate != null  and versionUpdate != ''"> and version_update = #{versionUpdate}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="modifyUser != null  and modifyUser != ''"> and modify_user = #{modifyUser}</if>
+            <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
+        </where>
+
+    </select>
+
+    <select id="selectTYuntaiInfoCount" parameterType="TYuntaiInfo" resultType="java.lang.Integer">
+        select count(0) from t_yuntai_info
+        <where>
+            <if test="spare0 != null  and spare0 != ''"> and id in(#{spare0})</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="kind != null  and kind != ''"> and kind = #{kind}</if>
+            <if test="deptId != null "> and dept_id = #{deptId}</if>
+            <if test="deptName != null  and deptName != ''"> and dept_name like concat('%', #{deptName}, '%')</if>
+            <if test="lineId != null "> and line_id = #{lineId}</if>
+            <if test="lineName != null "> and line_name = #{lineName}</if>
+            <if test="towerId != null "> and tower_id = #{towerId}</if>
+            <if test="towerName != null "> and tower_name = #{towerName}</if>
+            <if test="unit != null "> and unit = #{unit}</if>
+            <if test="level != null  and level != ''"> and level = #{level}</if>
+            <if test="direction != null  and direction != ''"> and direction = #{direction}</if>
+            <if test="intoType != null "> and into_type = #{intoType}</if>
+            <if test="cardNum != null  and cardNum != ''"> and card_num = #{cardNum}</if>
+            <if test="cardNum2 != null  and cardNum2 != ''"> and card_num2 = #{cardNum2}</if>
+            <if test="network != null  and network != ''"> and network = #{network}</if>
+            <if test="installState != null  and installState != ''"> and install_state = #{installState}</if>
+            <if test="installDate != null "> and install_date = #{installDate}</if>
+            <if test="hiddenDanger != null  and hiddenDanger != ''"> and hidden_danger = #{hiddenDanger}</if>
+            <if test="hiddenDangerDes != null  and hiddenDangerDes != ''"> and hidden_danger_des = #{hiddenDangerDes}</if>
+            <if test="factory != null  and factory != ''"> and factory = #{factory}</if>
+            <if test="monitorType != null  and monitorType != ''"> and monitor_type = #{monitorType}</if>
+            <if test="ip != null  and ip != ''"> and IP = #{ip}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="imageStatus != null "> and image_status = #{imageStatus}</if>
+            <if test="defectRecord != null  and defectRecord != ''"> and defect_record = #{defectRecord}</if>
+            <if test="state != null "> and state = #{state}</if>
+            <if test="onlineTime != null "> and online_time = #{onlineTime}</if>
+            <if test="onlineDuration != null  and onlineDuration != ''"> and online_duration = #{onlineDuration}</if>
+            <if test="electricPower != null "> and electric_power = #{electricPower}</if>
+            <if test="longitude != null  and longitude != ''"> and longitude = #{longitude}</if>
+            <if test="latitude != null  and latitude != ''"> and latitude = #{latitude}</if>
+            <if test="image != null  and image != ''"> and image = #{image}</if>
+            <if test="version != null  and version != ''"> and version = #{version}</if>
+            <if test="versionUpdate != null  and versionUpdate != ''"> and version_update = #{versionUpdate}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="modifyUser != null  and modifyUser != ''"> and modify_user = #{modifyUser}</if>
+            <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
+        </where>
+    </select>
+
+    <!-- 查询统计云台各状态数据 -->
+    <select id="selectTYuntaiTotal"  parameterType="TYuntaiInfo" resultMap="TYuntaiStatisticResult">
+        select total,online, ROUND(online/total,2) as online_rate,offline, ROUND(offline/total,2) as offline_rate,dormancy from (select
+        (select count(id) as total from t_yuntai_info
+        <if test="lineIds != null  and lineIds != ''">
+        where line_id in(#{lineIds})
+        </if>
+        ) total,
+
+        (select count(id) as online from t_yuntai_info
+        where 1=1
+        <if test="lineIds != null  and lineIds != ''">
+            and line_id in(#{lineIds})
+        </if>
+        and state=1) online,
+
+        (select count(id) as offline from t_yuntai_info
+        where 1=1
+        <if test="lineIds != null  and lineIds != ''">
+        and line_id in(#{lineIds} )
+        </if>
+        and state=-1) offline,
+
+        (select count(id) as dormancy from t_yuntai_info
+        where 1=1
+        <if test="lineIds != null  and lineIds != ''">
+        and line_id in(#{lineIds})
+        </if>
+        and state=2) dormancy)a
+    </select>
+
+    <select id="selectTYuntaiInfoById" parameterType="Long" resultMap="TYuntaiInfoResult">
+        <include refid="selectTYuntaiInfoVo"/>
+        where id = #{id}
+    </select>
+    <select id="selectTYuntaiInfoByCode" parameterType="String" resultMap="TYuntaiInfoResult">
+        <include refid="selectTYuntaiInfoVo"/>
+        where code = #{code}
+    </select>
+    <!--巡检报告-的云台统计-->
+    <select id="yuntaiStatisticsByDate" parameterType="TInspectionYuntai" resultMap="TInspectionYuntaiStatistic">
+        <if test="lineIds != null  and lineIds != ''">
+            select total,online, ROUND(online/total,2) as online_rate,offline, ROUND(offline/total,2) as offline_rate from (select
+            (select count(id) as total from t_yuntai_info
+            where line_id in(#{lineIds}) ) total,
+
+            (select count(id) as online from t_yuntai_info
+            where line_id in(#{lineIds})  and state=1) online,
+
+            (select count(id) as offline from t_yuntai_info
+            where line_id in(#{lineIds})  and state=-1) offline)a
+        </if>
+
+    </select>
+    <!--巡检报告-的云台隐患-->
+    <select id="yuntaiHiddenDangerByDate" parameterType="TYuntaiInfo" resultMap="TInspectionYuntaiHiddenDanger">
+        <if test="lineIds != null  and lineIds != ''">
+            select hidden_danger,count(hidden_danger) from t_yuntai_info
+            where line_id in(#{lineIds}) and tower_id in(#{towerIds})
+            group by hidden_danger
+        </if>
+    </select>
+
+
+    <select id="selectTYuntaiInfoListByTowerId" parameterType="TYuntaiInfo" resultMap="TYuntaiInfoResult">
+        <include refid="selectTYuntaiInfoVo"/>
+        <where>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="kind != null  and kind != ''"> and kind = #{kind}</if>
+            <if test="deptId != null "> and dept_id = #{deptId}</if>
+            <if test="deptName != null  and deptName != ''"> and dept_name like concat('%', #{deptName}, '%')</if>
+            <if test="lineId != null "> and line_id = #{lineId}</if>
+            <if test="lineName != null "> and line_name = #{lineName}</if>
+            <if test="towerId != null "> and tower_id = #{towerId}</if>
+            <if test="towerName != null "> and tower_name = #{towerName}</if>
+            <if test="unit != null "> and unit = #{unit}</if>
+            <if test="level != null  and level != ''"> and level = #{level}</if>
+            <if test="direction != null  and direction != ''"> and direction = #{direction}</if>
+            <if test="intoType != null "> and into_type = #{intoType}</if>
+            <if test="cardNum != null  and cardNum != ''"> and card_num = #{cardNum}</if>
+            <if test="cardNum2 != null  and cardNum2 != ''"> and card_num2 = #{cardNum2}</if>
+            <if test="network != null  and network != ''"> and network = #{network}</if>
+            <if test="installState != null  and installState != ''"> and install_state = #{installState}</if>
+            <if test="installDate != null "> and install_date = #{installDate}</if>
+            <if test="hiddenDanger != null  and hiddenDanger != ''"> and hidden_danger = #{hiddenDanger}</if>
+            <if test="hiddenDangerDes != null  and hiddenDangerDes != ''"> and hidden_danger_des = #{hiddenDangerDes}</if>
+            <if test="factory != null  and factory != ''"> and factory = #{factory}</if>
+            <if test="monitorType != null  and monitorType != ''"> and monitor_type = #{monitorType}</if>
+            <if test="ip != null  and ip != ''"> and IP = #{ip}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="imageStatus != null "> and image_status = #{imageStatus}</if>
+            <if test="defectRecord != null  and defectRecord != ''"> and defect_record = #{defectRecord}</if>
+            <if test="state != null "> and state = #{state}</if>
+            <if test="onlineTime != null "> and online_time = #{onlineTime}</if>
+            <if test="onlineDuration != null  and onlineDuration != ''"> and online_duration = #{onlineDuration}</if>
+            <if test="electricPower != null "> and electric_power = #{electricPower}</if>
+            <if test="longitude != null  and longitude != ''"> and longitude = #{longitude}</if>
+            <if test="latitude != null  and latitude != ''"> and latitude = #{latitude}</if>
+            <if test="image != null  and image != ''"> and image = #{image}</if>
+            <if test="version != null  and version != ''"> and version = #{version}</if>
+            <if test="versionUpdate != null  and versionUpdate != ''"> and version_update = #{versionUpdate}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="modifyUser != null  and modifyUser != ''"> and modify_user = #{modifyUser}</if>
+            <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+        </where>
+    </select>
+
+
+        
+    <insert id="insertTYuntaiInfo" parameterType="TYuntaiInfo">
+        insert into t_yuntai_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="code != null">code,</if>
+            <if test="name != null">name,</if>
+            <if test="pasword != null">pasword,</if>
+            <if test="kind != null">kind,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="deptName != null">dept_name,</if>
+            <if test="lineId != null">line_id,</if>
+            <if test="lineName != null">line_name,</if>
+            <if test="towerId != null">tower_id,</if>
+            <if test="towerName != null">tower_name,</if>
+            <if test="unit != null">unit,</if>
+            <if test="level != null">level,</if>
+            <if test="direction != null">direction,</if>
+            <if test="intoType != null">into_type,</if>
+            <if test="cardNum != null">card_num,</if>
+            <if test="cardNum2 != null">card_num2,</if>
+            <if test="network != null">network,</if>
+            <if test="installState != null">install_state,</if>
+            <if test="installDate != null">install_date,</if>
+            <if test="hiddenDanger != null">hidden_danger,</if>
+            <if test="hiddenDangerDes != null">hidden_danger_des,</if>
+            <if test="factory != null">factory,</if>
+            <if test="monitorType != null">monitor_type,</if>
+            <if test="ip != null">IP,</if>
+            <if test="address != null">address,</if>
+            <if test="imageStatus != null">image_status,</if>
+            <if test="defectRecord != null">defect_record,</if>
+            <if test="state != null">state,</if>
+            <if test="onlineTime != null">online_time,</if>
+            <if test="onlineDuration != null">online_duration,</if>
+            <if test="electricPower != null">electric_power,</if>
+            <if test="remark != null">remark,</if>
+            <if test="longitude != null">longitude,</if>
+            <if test="latitude != null">latitude,</if>
+            <if test="image != null">image,</if>
+            <if test="version != null">version,</if>
+            <if test="versionUpdate != null">version_update,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="modifyUser != null">modify_user,</if>
+            <if test="modifyTime != null">modify_time,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="code != null">#{code},</if>
+            <if test="name != null">#{name},</if>
+            <if test="pasword != null">#{pasword},</if>
+            <if test="kind != null">#{kind},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="deptName != null">#{deptName},</if>
+            <if test="lineId != null">#{lineId},</if>
+            <if test="lineName != null">#{lineName},</if>
+            <if test="towerId != null">#{towerId},</if>
+            <if test="towerName != null">#{towerName},</if>
+            <if test="unit != null">#{unit},</if>
+            <if test="level != null">#{level},</if>
+            <if test="direction != null">#{direction},</if>
+            <if test="intoType != null">#{intoType},</if>
+            <if test="cardNum != null">#{cardNum},</if>
+            <if test="cardNum2 != null">#{cardNum2},</if>
+            <if test="network != null">#{network},</if>
+            <if test="installState != null">#{installState},</if>
+            <if test="installDate != null">#{installDate},</if>
+            <if test="hiddenDanger != null">#{hiddenDanger},</if>
+            <if test="hiddenDangerDes != null">#{hiddenDangerDes},</if>
+            <if test="factory != null">#{factory},</if>
+            <if test="monitorType != null">#{monitorType},</if>
+            <if test="ip != null">#{ip},</if>
+            <if test="address != null">#{address},</if>
+            <if test="imageStatus != null">#{imageStatus},</if>
+            <if test="defectRecord != null">#{defectRecord},</if>
+            <if test="state != null">#{state},</if>
+            <if test="onlineTime != null">#{onlineTime},</if>
+            <if test="onlineDuration != null">#{onlineDuration},</if>
+            <if test="electricPower != null">#{electricPower},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="longitude != null">#{longitude},</if>
+            <if test="latitude != null">#{latitude},</if>
+            <if test="image != null">#{image},</if>
+            <if test="version != null">#{version},</if>
+            <if test="versionUpdate != null">#{versionUpdate},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="modifyUser != null">#{modifyUser},</if>
+            <if test="modifyTime != null">#{modifyTime},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYuntaiInfo" parameterType="TYuntaiInfo">
+        update t_yuntai_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="id != null">id = #{id},</if>
+            <if test="code != null">code = #{code},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="pasword != null">pasword = #{pasword},</if>
+            <if test="kind != null">kind = #{kind},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="deptName != null">dept_name = #{deptName},</if>
+            <if test="lineId != null">line_id = #{lineId},</if>
+            <if test="lineName != null">line_name = #{lineName},</if>
+            <if test="towerId != null">tower_id = #{towerId},</if>
+            <if test="towerName != null">tower_name = #{towerName},</if>
+            <if test="unit != null">unit = #{unit},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="direction != null">direction = #{direction},</if>
+            <if test="intoType != null">into_type = #{intoType},</if>
+            <if test="cardNum != null">card_num = #{cardNum},</if>
+            <if test="cardNum2 != null">card_num2 = #{cardNum2},</if>
+            <if test="network != null">network = #{network},</if>
+            <if test="installState != null">install_state = #{installState},</if>
+            <if test="installDate != null">install_date = #{installDate},</if>
+            <if test="hiddenDanger != null">hidden_danger = #{hiddenDanger},</if>
+            <if test="hiddenDangerDes != null">hidden_danger_des = #{hiddenDangerDes},</if>
+            <if test="factory != null">factory = #{factory},</if>
+            <if test="monitorType != null">monitor_type = #{monitorType},</if>
+            <if test="ip != null">IP = #{ip},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="imageStatus != null">image_status = #{imageStatus},</if>
+            <if test="defectRecord != null">defect_record = #{defectRecord},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="onlineTime != null">online_time = #{onlineTime},</if>
+            <if test="onlineDuration != null">online_duration = #{onlineDuration},</if>
+            <if test="electricPower != null">electric_power = #{electricPower},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="longitude != null">longitude = #{longitude},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="versionUpdate != null">version_update = #{versionUpdate},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="modifyUser != null">modify_user = #{modifyUser},</if>
+            <if test="modifyTime != null">modify_time = #{modifyTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiInfoById" parameterType="Long">
+        delete from t_yuntai_info where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiInfoByIds" parameterType="String">
+        delete from t_yuntai_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

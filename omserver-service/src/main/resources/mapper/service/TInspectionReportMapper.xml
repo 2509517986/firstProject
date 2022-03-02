@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TInspectionReportMapper">
+    
+    <resultMap type="TInspectionReport" id="TInspectionReportResult">
+        <result property="id"    column="id"    />
+        <result property="inspector"    column="inspector"    />
+        <result property="inspectionPlan"    column="inspection_plan"    />
+        <result property="installType"    column="install_type"    />
+        <result property="hiddenDanger"    column="hidden_danger"    />
+        <result property="sceneType"    column="scene_type"    />
+        <result property="inspectionTime"    column="inspection_time"    />
+        <result property="inspectionResult"    column="inspection_result"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="modifyUser"    column="modify_user"    />
+        <result property="modifyTime"    column="modify_time"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+        <result property="lineIds"    column="line_id"    />
+        <result property="offline"    column="offline"    />
+        <result property="offlineRate"    column="offline_rate"    />
+        <result property="online"    column="online"    />
+        <result property="onlineRate"    column="online_rate"    />
+        <result property="total"    column="total"    />
+    </resultMap>
+
+    <sql id="selectTInspectionReportVo">
+        select id, inspector, inspection_plan, hidden_danger, scene_type, inspection_time, inspection_result, create_user, create_time, modify_user, modify_time, spare0, spare1, spare2, spare3, spare4, line_id, offline, offline_rate, online, online_rate, total from t_inspection_report    </sql>
+
+    <select id="selectTInspectionReportList" parameterType="TInspectionReport" resultMap="TInspectionReportResult">
+        <include refid="selectTInspectionReportVo"/>
+        <where>
+            <if test="id != null  and id != ''"> and id = #{id}</if>
+            <if test="lineIds != null  and lineIds != ''"> and line_id = #{lineIds}</if>
+            <if test="inspector != null  and inspector != ''"> and inspector = #{inspector}</if>
+            <if test="inspectionPlan != null  and inspectionPlan != ''"> and inspection_plan = #{inspectionPlan}</if>
+            <if test="hiddenDanger != null  and hiddenDanger != ''"> and hidden_danger = #{hiddenDanger}</if>
+            <if test="sceneType != null  and sceneType != ''"> and scene_type = #{sceneType}</if>
+            <if test="inspectionTime != null "> and inspection_time = #{inspectionTime}</if>
+            <if test="inspectionResult != null  and inspectionResult != ''"> and inspection_result = #{inspectionResult}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="modifyUser != null  and modifyUser != ''"> and modify_user = #{modifyUser}</if>
+            <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+            <if test="createTime != null">and create_time = #{createTime}</if>
+            <if test="keyword != null and keyword != ''"> and ( inspection_plan like concat('%', #{keyword}, '%') or inspection_result like concat('%', #{keyword}, '%'))</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <select id="selectTInspectionReportById" parameterType="Long" resultMap="TInspectionReportResult">
+        <include refid="selectTInspectionReportVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="findReportByDate" parameterType="String" resultMap="TInspectionReportResult">
+        <include refid="selectTInspectionReportVo"/>
+        where 1=1
+        <if test="spare0 != null "> and date_format(inspection_time,'%Y-%m-%d')= #{spare0}</if>
+    </select>
+
+    <insert id="insertTInspectionReport" parameterType="TInspectionReport">
+        insert into t_inspection_report
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="lineIds != null">line_id,</if>
+            <if test="inspector != null">inspector,</if>
+            <if test="inspectionPlan != null">inspection_plan,</if>
+            <if test="hiddenDanger != null">hidden_danger,</if>
+            <if test="sceneType != null">scene_type,</if>
+            <if test="inspectionTime != null">inspection_time,</if>
+            <if test="inspectionResult != null">inspection_result,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="modifyUser != null">modify_user,</if>
+            <if test="modifyTime != null">modify_time,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+            <if test="offline != null">offline,</if>
+            <if test="offlineRate != null">offline_rate,</if>
+            <if test="online != null">online,</if>
+            <if test="onlineRate != null">online_rate,</if>
+            <if test="total != null">total,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="lineIds != null">#{lineIds},</if>
+            <if test="inspector != null">#{inspector},</if>
+            <if test="inspectionPlan != null">#{inspectionPlan},</if>
+            <if test="hiddenDanger != null">#{hiddenDanger},</if>
+            <if test="sceneType != null">#{sceneType},</if>
+            <if test="inspectionTime != null">#{inspectionTime},</if>
+            <if test="inspectionResult != null">#{inspectionResult},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="modifyUser != null">#{modifyUser},</if>
+            <if test="modifyTime != null">#{modifyTime},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+            <if test="offline != null">#{offline},</if>
+            <if test="offlineRate != null">#{offlineRate},</if>
+            <if test="online != null">#{online},</if>
+            <if test="onlineRate != null">#{onlineRate},</if>
+            <if test="total != null">#{total},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTInspectionReport" parameterType="TInspectionReport">
+        update t_inspection_report
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="inspector != null">inspector = #{inspector},</if>
+            <if test="inspectionPlan != null">inspection_plan = #{inspectionPlan},</if>
+            <if test="hiddenDanger != null">hidden_danger = #{hiddenDanger},</if>
+            <if test="sceneType != null">scene_type = #{sceneType},</if>
+            <if test="inspectionTime != null">inspection_time = #{inspectionTime},</if>
+            <if test="inspectionResult != null">inspection_result = #{inspectionResult},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="modifyUser != null">modify_user = #{modifyUser},</if>
+            <if test="modifyTime != null">modify_time = #{modifyTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+            <if test="lineIds != null">line_id = #{lineIds},</if>
+            <if test="offline != null">offline = #{offline},</if>
+            <if test="offlineRate != null">offline_rate = #{offlineRate},</if>
+            <if test="online != null">online = #{online},</if>
+            <if test="onlineRate != null">online_rate = #{onlineRate},</if>
+            <if test="total != null">total = #{total},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTInspectionReportById" parameterType="Long">
+        delete from t_inspection_report where id = #{id}
+    </delete>
+
+    <delete id="deleteTInspectionReportByIds" parameterType="String">
+        delete from t_inspection_report where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

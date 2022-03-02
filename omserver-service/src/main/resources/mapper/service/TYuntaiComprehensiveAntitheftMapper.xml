@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiComprehensiveAntitheftMapper">
+    
+    <resultMap type="TYuntaiComprehensiveAntitheft" id="TYuntaiComprehensiveAntitheftResult">
+        <result property="id"    column="id"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="extForceDesPolice"    column="ext_force_des_police"    />
+        <result property="speedEff"    column="speed_eff"    />
+        <result property="shockPolice"    column="shock_police"    />
+        <result property="infraredPolice"    column="infrared_police"    />
+        <result property="infraredDetectionArea"    column="infrared_detection_area"    />
+        <result property="state"    column="state"    />
+        <result property="time"    column="time"    />
+    </resultMap>
+
+    <sql id="selectTYuntaiComprehensiveAntitheftVo">
+        select id, yuntai_id, channel_id, ext_force_des_police, speed_eff, shock_police, infrared_police, infrared_detection_area, state, time from t_yuntai_comprehensive_antitheft
+    </sql>
+
+    <select id="selectTYuntaiComprehensiveAntitheftList" parameterType="TYuntaiComprehensiveAntitheft" resultMap="TYuntaiComprehensiveAntitheftResult">
+        <include refid="selectTYuntaiComprehensiveAntitheftVo"/>
+        <where>  
+            <if test="yuntaiId != null  and yuntaiId != ''"> and yuntai_id = #{yuntaiId}</if>
+            <if test="channelId != null  and channelId != ''"> and channel_id = #{channelId}</if>
+            <if test="extForceDesPolice != null  and extForceDesPolice != ''"> and ext_force_des_police = #{extForceDesPolice}</if>
+            <if test="speedEff != null  and speedEff != ''"> and speed_eff = #{speedEff}</if>
+            <if test="shockPolice != null  and shockPolice != ''"> and shock_police = #{shockPolice}</if>
+            <if test="infraredPolice != null  and infraredPolice != ''"> and infrared_police = #{infraredPolice}</if>
+            <if test="infraredDetectionArea != null  and infraredDetectionArea != ''"> and infrared_detection_area = #{infraredDetectionArea}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+            <if test="time != null "> and time = #{time}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYuntaiComprehensiveAntitheftById" parameterType="Long" resultMap="TYuntaiComprehensiveAntitheftResult">
+        <include refid="selectTYuntaiComprehensiveAntitheftVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYuntaiComprehensiveAntitheft" parameterType="TYuntaiComprehensiveAntitheft" useGeneratedKeys="true" keyProperty="id">
+        insert into t_yuntai_comprehensive_antitheft
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id,</if>
+            <if test="channelId != null">channel_id,</if>
+            <if test="extForceDesPolice != null">ext_force_des_police,</if>
+            <if test="speedEff != null">speed_eff,</if>
+            <if test="shockPolice != null">shock_police,</if>
+            <if test="infraredPolice != null">infrared_police,</if>
+            <if test="infraredDetectionArea != null">infrared_detection_area,</if>
+            <if test="state != null">state,</if>
+            <if test="time != null">time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+            <if test="channelId != null">#{channelId},</if>
+            <if test="extForceDesPolice != null">#{extForceDesPolice},</if>
+            <if test="speedEff != null">#{speedEff},</if>
+            <if test="shockPolice != null">#{shockPolice},</if>
+            <if test="infraredPolice != null">#{infraredPolice},</if>
+            <if test="infraredDetectionArea != null">#{infraredDetectionArea},</if>
+            <if test="state != null">#{state},</if>
+            <if test="time != null">#{time},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYuntaiComprehensiveAntitheft" parameterType="TYuntaiComprehensiveAntitheft">
+        update t_yuntai_comprehensive_antitheft
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+            <if test="channelId != null">channel_id = #{channelId},</if>
+            <if test="extForceDesPolice != null">ext_force_des_police = #{extForceDesPolice},</if>
+            <if test="speedEff != null">speed_eff = #{speedEff},</if>
+            <if test="shockPolice != null">shock_police = #{shockPolice},</if>
+            <if test="infraredPolice != null">infrared_police = #{infraredPolice},</if>
+            <if test="infraredDetectionArea != null">infrared_detection_area = #{infraredDetectionArea},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="time != null">time = #{time},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiComprehensiveAntitheftById" parameterType="Long">
+        delete from t_yuntai_comprehensive_antitheft where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiComprehensiveAntitheftByIds" parameterType="String">
+        delete from t_yuntai_comprehensive_antitheft where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiEquipmentFailureMapper">
+    
+    <resultMap type="TYuntaiEquipmentFailure" id="TYuntaiEquipmentFailureResult">
+        <result property="id"    column="id"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="time"    column="time"    />
+        <result property="functioncode"    column="functionCode"    />
+        <result property="faultcode"    column="faultCode"    />
+        <result property="state"    column="state"    />
+    </resultMap>
+
+    <sql id="selectTYuntaiEquipmentFailureVo">
+        select id, yuntai_id, channel_id, time, functionCode, faultCode, state from t_yuntai_equipment_failure
+    </sql>
+
+    <select id="selectTYuntaiEquipmentFailureList" parameterType="TYuntaiEquipmentFailure" resultMap="TYuntaiEquipmentFailureResult">
+        <include refid="selectTYuntaiEquipmentFailureVo"/>
+        <where>  
+            <if test="yuntaiId != null  and yuntaiId != ''"> and yuntai_id = #{yuntaiId}</if>
+            <if test="channelId != null  and channelId != ''"> and channel_id = #{channelId}</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="functioncode != null  and functioncode != ''"> and functionCode = #{functioncode}</if>
+            <if test="faultcode != null  and faultcode != ''"> and faultCode = #{faultcode}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYuntaiEquipmentFailureById" parameterType="Long" resultMap="TYuntaiEquipmentFailureResult">
+        <include refid="selectTYuntaiEquipmentFailureVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYuntaiEquipmentFailure" parameterType="TYuntaiEquipmentFailure" useGeneratedKeys="true" keyProperty="id">
+        insert into t_yuntai_equipment_failure
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id,</if>
+            <if test="channelId != null">channel_id,</if>
+            <if test="time != null">time,</if>
+            <if test="functioncode != null">functionCode,</if>
+            <if test="faultcode != null">faultCode,</if>
+            <if test="state != null">state,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+            <if test="channelId != null">#{channelId},</if>
+            <if test="time != null">#{time},</if>
+            <if test="functioncode != null">#{functioncode},</if>
+            <if test="faultcode != null">#{faultcode},</if>
+            <if test="state != null">#{state},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYuntaiEquipmentFailure" parameterType="TYuntaiEquipmentFailure">
+        update t_yuntai_equipment_failure
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+            <if test="channelId != null">channel_id = #{channelId},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="functioncode != null">functionCode = #{functioncode},</if>
+            <if test="faultcode != null">faultCode = #{faultcode},</if>
+            <if test="state != null">state = #{state},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiEquipmentFailureById" parameterType="Long">
+        delete from t_yuntai_equipment_failure where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiEquipmentFailureByIds" parameterType="String">
+        delete from t_yuntai_equipment_failure where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

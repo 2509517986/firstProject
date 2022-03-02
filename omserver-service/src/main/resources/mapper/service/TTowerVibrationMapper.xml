@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TTowerVibrationMapper">
+    
+    <resultMap type="TTowerVibration" id="TTowerVibrationResult">
+        <result property="id"    column="id"    />
+        <result property="towerId"    column="tower_id"    />
+        <result property="channelName"    column="channel_name"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="time"    column="time"    />
+        <result property="vibrationFre"    column="vibration_fre"    />
+        <result property="amplitude"    column="amplitude"    />
+        <result property="state"    column="state"    />
+    </resultMap>
+
+    <sql id="selectTTowerVibrationVo">
+        select id, tower_id, channel_name, channel_id, time, vibration_fre, amplitude, state from t_tower_vibration
+    </sql>
+
+    <select id="selectTTowerVibrationList" parameterType="TTowerVibration" resultMap="TTowerVibrationResult">
+        <include refid="selectTTowerVibrationVo"/>
+        <where>  
+            <if test="towerId != null  and towerId != ''"> and tower_id = #{towerId}</if>
+            <if test="channelName != null  and channelName != ''"> and channel_name like concat('%', #{channelName}, '%')</if>
+            <if test="channelId != null  and channelId != ''"> and channel_id = #{channelId}</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="vibrationFre != null  and vibrationFre != ''"> and vibration_fre = #{vibrationFre}</if>
+            <if test="amplitude != null  and amplitude != ''"> and amplitude = #{amplitude}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+        </where>
+    </select>
+    
+    <select id="selectTTowerVibrationById" parameterType="Long" resultMap="TTowerVibrationResult">
+        <include refid="selectTTowerVibrationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTTowerVibration" parameterType="TTowerVibration" useGeneratedKeys="true" keyProperty="id">
+        insert into t_tower_vibration
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="towerId != null">tower_id,</if>
+            <if test="channelName != null">channel_name,</if>
+            <if test="channelId != null">channel_id,</if>
+            <if test="time != null">time,</if>
+            <if test="vibrationFre != null">vibration_fre,</if>
+            <if test="amplitude != null">amplitude,</if>
+            <if test="state != null">state,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="towerId != null">#{towerId},</if>
+            <if test="channelName != null">#{channelName},</if>
+            <if test="channelId != null">#{channelId},</if>
+            <if test="time != null">#{time},</if>
+            <if test="vibrationFre != null">#{vibrationFre},</if>
+            <if test="amplitude != null">#{amplitude},</if>
+            <if test="state != null">#{state},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTTowerVibration" parameterType="TTowerVibration">
+        update t_tower_vibration
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="towerId != null">tower_id = #{towerId},</if>
+            <if test="channelName != null">channel_name = #{channelName},</if>
+            <if test="channelId != null">channel_id = #{channelId},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="vibrationFre != null">vibration_fre = #{vibrationFre},</if>
+            <if test="amplitude != null">amplitude = #{amplitude},</if>
+            <if test="state != null">state = #{state},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTTowerVibrationById" parameterType="Long">
+        delete from t_tower_vibration where id = #{id}
+    </delete>
+
+    <delete id="deleteTTowerVibrationByIds" parameterType="String">
+        delete from t_tower_vibration where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

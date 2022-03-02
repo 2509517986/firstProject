@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiMountainFireAlarmMapper">
+    
+    <resultMap type="TYuntaiMountainFireAlarm" id="TYuntaiMountainFireAlarmResult">
+        <result property="id"    column="id"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="time"    column="time"    />
+        <result property="policeStatus"    column="police_status"    />
+        <result property="currentPoliceFre"    column="current_police_fre"    />
+        <result property="state"    column="state"    />
+    </resultMap>
+
+    <sql id="selectTYuntaiMountainFireAlarmVo">
+        select id, yuntai_id, channel_id, time, police_status, current_police_fre, state from t_yuntai_mountain_fire_alarm
+    </sql>
+
+    <select id="selectTYuntaiMountainFireAlarmList" parameterType="TYuntaiMountainFireAlarm" resultMap="TYuntaiMountainFireAlarmResult">
+        <include refid="selectTYuntaiMountainFireAlarmVo"/>
+        <where>  
+            <if test="yuntaiId != null "> and yuntai_id = #{yuntaiId}</if>
+            <if test="channelId != null "> and channel_id = #{channelId}</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="policeStatus != null  and policeStatus != ''"> and police_status = #{policeStatus}</if>
+            <if test="currentPoliceFre != null  and currentPoliceFre != ''"> and current_police_fre = #{currentPoliceFre}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYuntaiMountainFireAlarmById" parameterType="Long" resultMap="TYuntaiMountainFireAlarmResult">
+        <include refid="selectTYuntaiMountainFireAlarmVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYuntaiMountainFireAlarm" parameterType="TYuntaiMountainFireAlarm" useGeneratedKeys="true" keyProperty="id">
+        insert into t_yuntai_mountain_fire_alarm
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id,</if>
+            <if test="channelId != null">channel_id,</if>
+            <if test="time != null">time,</if>
+            <if test="policeStatus != null">police_status,</if>
+            <if test="currentPoliceFre != null">current_police_fre,</if>
+            <if test="state != null">state,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+            <if test="channelId != null">#{channelId},</if>
+            <if test="time != null">#{time},</if>
+            <if test="policeStatus != null">#{policeStatus},</if>
+            <if test="currentPoliceFre != null">#{currentPoliceFre},</if>
+            <if test="state != null">#{state},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYuntaiMountainFireAlarm" parameterType="TYuntaiMountainFireAlarm">
+        update t_yuntai_mountain_fire_alarm
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+            <if test="channelId != null">channel_id = #{channelId},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="policeStatus != null">police_status = #{policeStatus},</if>
+            <if test="currentPoliceFre != null">current_police_fre = #{currentPoliceFre},</if>
+            <if test="state != null">state = #{state},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiMountainFireAlarmById" parameterType="Long">
+        delete from t_yuntai_mountain_fire_alarm where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiMountainFireAlarmByIds" parameterType="String">
+        delete from t_yuntai_mountain_fire_alarm where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

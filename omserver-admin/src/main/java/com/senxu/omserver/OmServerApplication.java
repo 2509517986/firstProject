@@ -1,0 +1,35 @@
+package com.senxu.omserver;
+
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+
+/**
+ * 启动程序
+ * 
+ * @author ruoyi
+ */
+/*@ComponentScan(basePackages = {"com.senxu.omserver.service.domain"})*/
+@EntityScan(basePackages = {"com.senxu.omserver.test"})
+@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
+public class OmServerApplication
+{
+    public static void main(String[] args)
+    {
+        // System.setProperty("spring.devtools.restart.enabled", "false");
+        SpringApplication.run(OmServerApplication.class, args);
+        System.out.println("(♥◠‿◠)ﾉﾞ 在线输电监控系统启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
+                " .-------.       ____     __        \n" +
+                " |  _ _   \\      \\   \\   /  /    \n" +
+                " | ( ' )  |       \\  _. /  '       \n" +
+                " |(_ o _) /        _( )_ .'         \n" +
+                " | (_,_).' __  ___(_ o _)'          \n" +
+                " |  |\\ \\  |  ||   |(_,_)'         \n" +
+                " |  | \\ `'   /|   `-'  /           \n" +
+                " |  |  \\    /  \\      /           \n" +
+                " ''-'   `'-'    `-..-'              ");
+    }
+}

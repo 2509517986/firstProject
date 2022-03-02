@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiLogMapper">
+    
+    <resultMap type="TYuntaiLog" id="TYuntaiLogResult">
+        <result property="id"    column="id"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+        <result property="code"    column="code"    />
+        <result property="name"    column="name"    />
+        <result property="unit"    column="unit"    />
+        <result property="level"    column="level"    />
+        <result property="lineName"    column="line_name"    />
+        <result property="towerName"    column="tower_name"    />
+        <result property="ip"    column="IP"    />
+        <result property="factory"    column="factory"    />
+        <result property="state"    column="state"    />
+        <result property="recordTime"    column="record_time"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+    </resultMap>
+
+    <sql id="selectTYuntaiLogVo">
+        select id, yuntai_id, code, name, unit, level, line_name, tower_name, IP, factory, state, record_time, spare0, spare1, spare2, spare3, spare4 from t_yuntai_log
+    </sql>
+
+    <select id="selectTYuntaiLogList" parameterType="TYuntaiLog" resultMap="TYuntaiLogResult">
+        <include refid="selectTYuntaiLogVo"/>
+        <where>  
+            <if test="yuntaiId != null "> and yuntai_id = #{yuntaiId}</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="unit != null "> and unit = #{unit}</if>
+            <if test="level != null  and level != ''"> and level = #{level}</if>
+            <if test="lineName != null  and lineName != ''"> and line_name like concat('%', #{lineName}, '%')</if>
+            <if test="towerName != null  and towerName != ''"> and tower_name like concat('%', #{towerName}, '%')</if>
+            <if test="ip != null  and ip != ''"> and IP = #{ip}</if>
+            <if test="factory != null  and factory != ''"> and factory = #{factory}</if>
+            <if test="state != null "> and state = #{state}</if>
+            <if test="recordTime != null "> and record_time = #{recordTime}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+            <!-- 通过备用字段spare0,spare1 传入查询时间段 -->
+            <if test="spare0 != null and spare0 != '' and spare1 != null and spare1 != ''"> and record_time between #{spare0} and #{spare1} </if>
+            <!-- 传入部门ID  deptId 查询子部门的所有云台事件-->
+            <if test="deptIds != null  and deptIds != ''">and EXISTS(select * from t_yuntai_info yi where yi.id=t_yuntai_log.yuntai_id  and EXISTS (select * from t_line_info li where li.id=yi.line_id and dept_id in(#{deptIds}))) </if>
+            <!-- 传入线路Id  lineId 查询当前线路的所有云台事件-->
+            <if test="lineIds != null  and lineIds != '' and (towerIds==null or towerIds=='')"> and EXISTS(select * from t_yuntai_info yi where yi.id=t_yuntai_log.yuntai_id and line_id in(#{lineIds}))</if>
+            <!-- 传入杆塔Id  towerId 查询当前杆塔的所有云台事件-->
+            <if test="towerIds != null  and towerIds != '' and (lineIds==null or lineIds=='')"> and EXISTS(select * from t_yuntai_info yi where yi.id=t_yuntai_log.yuntai_id and tower_id in(#{towerIds}))</if>
+
+            <if test="lineIds != null  and lineIds != '' and towerIds != null  and towerIds != ''"> and EXISTS(select * from t_yuntai_info yi where yi.id=t_yuntai_log.yuntai_id and line_id in(#{lineIds}) and tower_id in(#{towerIds}))</if>
+
+
+        </where>
+    </select>
+    
+    <select id="selectTYuntaiLogById" parameterType="Long" resultMap="TYuntaiLogResult">
+        <include refid="selectTYuntaiLogVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYuntaiLog" parameterType="TYuntaiLog">
+        insert into t_yuntai_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="yuntaiId != null">yuntai_id,</if>
+            <if test="code != null">code,</if>
+            <if test="name != null">name,</if>
+            <if test="unit != null">unit,</if>
+            <if test="level != null">level,</if>
+            <if test="lineName != null">line_name,</if>
+            <if test="towerName != null">tower_name,</if>
+            <if test="ip != null">IP,</if>
+            <if test="factory != null">factory,</if>
+            <if test="state != null">state,</if>
+            <if test="recordTime != null">record_time,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+            <if test="code != null">#{code},</if>
+            <if test="name != null">#{name},</if>
+            <if test="unit != null">#{unit},</if>
+            <if test="level != null">#{level},</if>
+            <if test="lineName != null">#{lineName},</if>
+            <if test="towerName != null">#{towerName},</if>
+            <if test="ip != null">#{ip},</if>
+            <if test="factory != null">#{factory},</if>
+            <if test="state != null">#{state},</if>
+            <if test="recordTime != null">#{recordTime},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYuntaiLog" parameterType="TYuntaiLog">
+        update t_yuntai_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+            <if test="code != null">code = #{code},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="unit != null">unit = #{unit},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="lineName != null">line_name = #{lineName},</if>
+            <if test="towerName != null">tower_name = #{towerName},</if>
+            <if test="ip != null">IP = #{ip},</if>
+            <if test="factory != null">factory = #{factory},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="recordTime != null">record_time = #{recordTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiLogById" parameterType="Long">
+        delete from t_yuntai_log where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiLogByIds" parameterType="String">
+        delete from t_yuntai_log where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

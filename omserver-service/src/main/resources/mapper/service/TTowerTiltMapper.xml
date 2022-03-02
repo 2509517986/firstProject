@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TTowerTiltMapper">
+    
+    <resultMap type="TTowerTilt" id="TTowerTiltResult">
+        <result property="id"    column="id"    />
+        <result property="towerId"    column="tower_id"    />
+        <result property="channelName"    column="channel_name"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="time"    column="time"    />
+        <result property="inLineOff"    column="in_line_ofF"    />
+        <result property="horizontalLineOff"    column="horizontal_line_ofF"    />
+        <result property="inLineOfs"    column="in_line_ofS"    />
+        <result property="horizontalLineOfs"    column="horizontal_line_ofS"    />
+        <result property="state"    column="state"    />
+    </resultMap>
+
+    <sql id="selectTTowerTiltVo">
+        select id, tower_id, channel_name, channel_id, time, in_line_ofF, horizontal_line_ofF, in_line_ofS, horizontal_line_ofS, state from t_tower_tilt
+    </sql>
+
+    <select id="selectTTowerTiltList" parameterType="TTowerTilt" resultMap="TTowerTiltResult">
+        <include refid="selectTTowerTiltVo"/>
+        <where>  
+            <if test="towerId != null  and towerId != ''"> and tower_id = #{towerId}</if>
+            <if test="channelName != null  and channelName != ''"> and channel_name like concat('%', #{channelName}, '%')</if>
+            <if test="channelId != null  and channelId != ''"> and channel_id = #{channelId}</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="inLineOff != null  and inLineOff != ''"> and in_line_ofF = #{inLineOff}</if>
+            <if test="horizontalLineOff != null  and horizontalLineOff != ''"> and horizontal_line_ofF = #{horizontalLineOff}</if>
+            <if test="inLineOfs != null  and inLineOfs != ''"> and in_line_ofS = #{inLineOfs}</if>
+            <if test="horizontalLineOfs != null  and horizontalLineOfs != ''"> and horizontal_line_ofS = #{horizontalLineOfs}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+        </where>
+    </select>
+    
+    <select id="selectTTowerTiltById" parameterType="Long" resultMap="TTowerTiltResult">
+        <include refid="selectTTowerTiltVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTTowerTilt" parameterType="TTowerTilt" useGeneratedKeys="true" keyProperty="id">
+        insert into t_tower_tilt
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="towerId != null">tower_id,</if>
+            <if test="channelName != null">channel_name,</if>
+            <if test="channelId != null">channel_id,</if>
+            <if test="time != null">time,</if>
+            <if test="inLineOff != null">in_line_ofF,</if>
+            <if test="horizontalLineOff != null">horizontal_line_ofF,</if>
+            <if test="inLineOfs != null">in_line_ofS,</if>
+            <if test="horizontalLineOfs != null">horizontal_line_ofS,</if>
+            <if test="state != null">state,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="towerId != null">#{towerId},</if>
+            <if test="channelName != null">#{channelName},</if>
+            <if test="channelId != null">#{channelId},</if>
+            <if test="time != null">#{time},</if>
+            <if test="inLineOff != null">#{inLineOff},</if>
+            <if test="horizontalLineOff != null">#{horizontalLineOff},</if>
+            <if test="inLineOfs != null">#{inLineOfs},</if>
+            <if test="horizontalLineOfs != null">#{horizontalLineOfs},</if>
+            <if test="state != null">#{state},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTTowerTilt" parameterType="TTowerTilt">
+        update t_tower_tilt
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="towerId != null">tower_id = #{towerId},</if>
+            <if test="channelName != null">channel_name = #{channelName},</if>
+            <if test="channelId != null">channel_id = #{channelId},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="inLineOff != null">in_line_ofF = #{inLineOff},</if>
+            <if test="horizontalLineOff != null">horizontal_line_ofF = #{horizontalLineOff},</if>
+            <if test="inLineOfs != null">in_line_ofS = #{inLineOfs},</if>
+            <if test="horizontalLineOfs != null">horizontal_line_ofS = #{horizontalLineOfs},</if>
+            <if test="state != null">state = #{state},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTTowerTiltById" parameterType="Long">
+        delete from t_tower_tilt where id = #{id}
+    </delete>
+
+    <delete id="deleteTTowerTiltByIds" parameterType="String">
+        delete from t_tower_tilt where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

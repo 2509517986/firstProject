@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TAirportMapper">
+    
+    <resultMap type="TAirport" id="TAirportResult">
+        <result property="airportId"    column="airport_id"    />
+        <result property="airportName"    column="airport_name"    />
+        <result property="airportCode"    column="airport_code"    />
+        <result property="relname"    column="relname"    />
+        <result property="locationLat"    column="location_lat"    />
+        <result property="locationLon"    column="location_lon"    />
+        <result property="locationAltinm"    column="location_altinM"    />
+        <result property="spareLat"    column="spare_lat"    />
+        <result property="spareLon"    column="spare_lon"    />
+        <result property="spareAltinm"    column="spare_altinM"    />
+        <result property="mount"    column="mount"    />
+        <result property="actionStatus"    column="action_status"    />
+        <result property="state"    column="state"    />
+        <result property="isSmoke"    column="is_smoke"    />
+        <result property="humidity"    column="humidity"    />
+        <result property="isPonding"    column="is_ponding"    />
+        <result property="inTemperature"    column="in_temperature"    />
+        <result property="cityElectricity"    column="city_electricity"    />
+        <result property="intrusion"    column="intrusion"    />
+        <result property="meteorologicalState"    column="meteorological_state"    />
+        <result property="meteorologicalTemperature"    column="meteorological_temperature"    />
+        <result property="meteorologicalHumidity"    column="meteorological_humidity"    />
+        <result property="meteorologicalWindspeed"    column="meteorological_windSpeed"    />
+        <result property="meteorologicalRainfall"    column="meteorological_rainfall"    />
+        <result property="meteorologicalAirpressure"    column="meteorological_airPressure"    />
+        <result property="meteorologicalWinddirection"    column="meteorological_windDirection"    />
+        <result property="outsideVideoUrl"    column="outside_video_url"    />
+        <result property="innerVideoUrl"    column="inner_video_url"    />
+        <result property="uavId"    column="uav_id"    />
+        <result property="fcId"    column="fc_id"    />
+        <result property="uavState"    column="uav_state"    />
+        <result property="uavRtk"    column="uav_rtk"    />
+        <result property="uavBattery"    column="uav_battery"    />
+        <result property="uavAltinm"    column="uav_altinM"    />
+        <result property="uavTran"    column="uav_tran"    />
+        <result property="uavSrcurl"    column="uav_srcUrl"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+    </resultMap>
+
+    <sql id="selectTAirportVo">
+        select airport_id,airport_name, airport_code, relname, location_lat, location_lon, location_altinM, spare_lat, spare_lon, spare_altinM, mount, action_status, state, is_smoke, humidity, is_ponding, in_temperature, city_electricity, intrusion, meteorological_state, meteorological_temperature, meteorological_humidity, meteorological_windSpeed, meteorological_rainfall, meteorological_airPressure, meteorological_windDirection, outside_video_url, inner_video_url, uav_id, fc_id, uav_state, uav_rtk, uav_battery, uav_altinM, uav_tran, uav_srcUrl, update_time, spare0, spare1, spare2, spare3, spare4 from t_airport
+    </sql>
+
+    <select id="selectTAirportList" parameterType="TAirport" resultMap="TAirportResult">
+        <include refid="selectTAirportVo"/>
+        <where>  
+            <if test="airportCode != null  and airportCode != ''"> and airport_code like concat('%', #{airportCode}, '%')</if>
+            <if test="airportName != null  and airportName != ''"> and airport_name like concat('%', #{airportName}, '%')</if>
+            <if test="relname != null  and relname != ''"> and relname like concat('%', #{relname}, '%')</if>
+            <if test="locationLat != null  and locationLat != ''"> and location_lat = #{locationLat}</if>
+            <if test="locationLon != null  and locationLon != ''"> and location_lon = #{locationLon}</if>
+            <if test="locationAltinm != null  and locationAltinm != ''"> and location_altinM = #{locationAltinm}</if>
+            <if test="spareLat != null  and spareLat != ''"> and spare_lat = #{spareLat}</if>
+            <if test="spareLon != null  and spareLon != ''"> and spare_lon = #{spareLon}</if>
+            <if test="spareAltinm != null  and spareAltinm != ''"> and spare_altinM = #{spareAltinm}</if>
+            <if test="mount != null  and mount != ''"> and mount = #{mount}</if>
+            <if test="actionStatus != null "> and action_status = #{actionStatus}</if>
+            <if test="state != null "> and state = #{state}</if>
+            <if test="isSmoke != null  and isSmoke != ''"> and is_smoke = #{isSmoke}</if>
+            <if test="humidity != null  and humidity != ''"> and humidity = #{humidity}</if>
+            <if test="isPonding != null  and isPonding != ''"> and is_ponding = #{isPonding}</if>
+            <if test="inTemperature != null  and inTemperature != ''"> and in_temperature = #{inTemperature}</if>
+            <if test="cityElectricity != null  and cityElectricity != ''"> and city_electricity = #{cityElectricity}</if>
+            <if test="intrusion != null  and intrusion != ''"> and intrusion = #{intrusion}</if>
+            <if test="meteorologicalState != null  and meteorologicalState != ''"> and meteorological_state = #{meteorologicalState}</if>
+            <if test="meteorologicalTemperature != null  and meteorologicalTemperature != ''"> and meteorological_temperature = #{meteorologicalTemperature}</if>
+            <if test="meteorologicalHumidity != null  and meteorologicalHumidity != ''"> and meteorological_humidity = #{meteorologicalHumidity}</if>
+            <if test="meteorologicalWindspeed != null  and meteorologicalWindspeed != ''"> and meteorological_windSpeed = #{meteorologicalWindspeed}</if>
+            <if test="meteorologicalRainfall != null  and meteorologicalRainfall != ''"> and meteorological_rainfall = #{meteorologicalRainfall}</if>
+            <if test="meteorologicalAirpressure != null  and meteorologicalAirpressure != ''"> and meteorological_airPressure = #{meteorologicalAirpressure}</if>
+            <if test="meteorologicalWinddirection != null  and meteorologicalWinddirection != ''"> and meteorological_windDirection = #{meteorologicalWinddirection}</if>
+            <if test="outsideVideoUrl != null  and outsideVideoUrl != ''"> and outside_video_url = #{outsideVideoUrl}</if>
+            <if test="innerVideoUrl != null  and innerVideoUrl != ''"> and inner_video_url = #{innerVideoUrl}</if>
+            <if test="uavId != null  and uavId != ''"> and uav_id = #{uavId}</if>
+            <if test="fcId != null  and fcId != ''"> and fc_id = #{fcId}</if>
+            <if test="uavState != null "> and uav_state = #{uavState}</if>
+            <if test="uavRtk != null  and uavRtk != ''"> and uav_rtk = #{uavRtk}</if>
+            <if test="uavBattery != null  and uavBattery != ''"> and uav_battery = #{uavBattery}</if>
+            <if test="uavAltinm != null  and uavAltinm != ''"> and uav_altinM = #{uavAltinm}</if>
+            <if test="uavTran != null  and uavTran != ''"> and uav_tran = #{uavTran}</if>
+            <if test="uavSrcurl != null  and uavSrcurl != ''"> and uav_srcUrl = #{uavSrcurl}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+            <if test="keyword != null and keyword != ''"> and ( airport_code like concat('%', #{keyword}, '%') or airport_name like concat('%', #{keyword}, '%'))</if>
+        </where>
+    </select>
+    
+    <select id="selectTAirportById" parameterType="Long" resultMap="TAirportResult">
+        <include refid="selectTAirportVo"/>
+        where airport_id = #{airportId}
+    </select>
+        
+    <insert id="insertTAirport" parameterType="TAirport" useGeneratedKeys="true" keyProperty="airportId">
+        insert into t_airport
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="airportCode != null">airport_code,</if>
+            <if test="airportName != null">airport_name,</if>
+            <if test="relname != null">relname,</if>
+            <if test="locationLat != null">location_lat,</if>
+            <if test="locationLon != null">location_lon,</if>
+            <if test="locationAltinm != null">location_altinM,</if>
+            <if test="spareLat != null">spare_lat,</if>
+            <if test="spareLon != null">spare_lon,</if>
+            <if test="spareAltinm != null">spare_altinM,</if>
+            <if test="mount != null">mount,</if>
+            <if test="actionStatus != null">action_status,</if>
+            <if test="state != null">state,</if>
+            <if test="isSmoke != null">is_smoke,</if>
+            <if test="humidity != null">humidity,</if>
+            <if test="isPonding != null">is_ponding,</if>
+            <if test="inTemperature != null">in_temperature,</if>
+            <if test="cityElectricity != null">city_electricity,</if>
+            <if test="intrusion != null">intrusion,</if>
+            <if test="meteorologicalState != null">meteorological_state,</if>
+            <if test="meteorologicalTemperature != null">meteorological_temperature,</if>
+            <if test="meteorologicalHumidity != null">meteorological_humidity,</if>
+            <if test="meteorologicalWindspeed != null">meteorological_windSpeed,</if>
+            <if test="meteorologicalRainfall != null">meteorological_rainfall,</if>
+            <if test="meteorologicalAirpressure != null">meteorological_airPressure,</if>
+            <if test="meteorologicalWinddirection != null">meteorological_windDirection,</if>
+            <if test="outsideVideoUrl != null">outside_video_url,</if>
+            <if test="innerVideoUrl != null">inner_video_url,</if>
+            <if test="uavId != null">uav_id,</if>
+            <if test="fcId != null">fc_id,</if>
+            <if test="uavState != null">uav_state,</if>
+            <if test="uavRtk != null">uav_rtk,</if>
+            <if test="uavBattery != null">uav_battery,</if>
+            <if test="uavAltinm != null">uav_altinM,</if>
+            <if test="uavTran != null">uav_tran,</if>
+            <if test="uavSrcurl != null">uav_srcUrl,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="airportCode != null">#{airportCode},</if>
+            <if test="airportName != null">#{airportName},</if>
+            <if test="relname != null">#{relname},</if>
+            <if test="locationLat != null">#{locationLat},</if>
+            <if test="locationLon != null">#{locationLon},</if>
+            <if test="locationAltinm != null">#{locationAltinm},</if>
+            <if test="spareLat != null">#{spareLat},</if>
+            <if test="spareLon != null">#{spareLon},</if>
+            <if test="spareAltinm != null">#{spareAltinm},</if>
+            <if test="mount != null">#{mount},</if>
+            <if test="actionStatus != null">#{actionStatus},</if>
+            <if test="state != null">#{state},</if>
+            <if test="isSmoke != null">#{isSmoke},</if>
+            <if test="humidity != null">#{humidity},</if>
+            <if test="isPonding != null">#{isPonding},</if>
+            <if test="inTemperature != null">#{inTemperature},</if>
+            <if test="cityElectricity != null">#{cityElectricity},</if>
+            <if test="intrusion != null">#{intrusion},</if>
+            <if test="meteorologicalState != null">#{meteorologicalState},</if>
+            <if test="meteorologicalTemperature != null">#{meteorologicalTemperature},</if>
+            <if test="meteorologicalHumidity != null">#{meteorologicalHumidity},</if>
+            <if test="meteorologicalWindspeed != null">#{meteorologicalWindspeed},</if>
+            <if test="meteorologicalRainfall != null">#{meteorologicalRainfall},</if>
+            <if test="meteorologicalAirpressure != null">#{meteorologicalAirpressure},</if>
+            <if test="meteorologicalWinddirection != null">#{meteorologicalWinddirection},</if>
+            <if test="outsideVideoUrl != null">#{outsideVideoUrl},</if>
+            <if test="innerVideoUrl != null">#{innerVideoUrl},</if>
+            <if test="uavId != null">#{uavId},</if>
+            <if test="fcId != null">#{fcId},</if>
+            <if test="uavState != null">#{uavState},</if>
+            <if test="uavRtk != null">#{uavRtk},</if>
+            <if test="uavBattery != null">#{uavBattery},</if>
+            <if test="uavAltinm != null">#{uavAltinm},</if>
+            <if test="uavTran != null">#{uavTran},</if>
+            <if test="uavSrcurl != null">#{uavSrcurl},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTAirport" parameterType="TAirport">
+        update t_airport
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="airportCode != null">airport_code = #{airportCode},</if>
+            <if test="airportName != null">airport_name = #{airportName},</if>
+            <if test="relname != null">relname = #{relname},</if>
+            <if test="locationLat != null">location_lat = #{locationLat},</if>
+            <if test="locationLon != null">location_lon = #{locationLon},</if>
+            <if test="locationAltinm != null">location_altinM = #{locationAltinm},</if>
+            <if test="spareLat != null">spare_lat = #{spareLat},</if>
+            <if test="spareLon != null">spare_lon = #{spareLon},</if>
+            <if test="spareAltinm != null">spare_altinM = #{spareAltinm},</if>
+            <if test="mount != null">mount = #{mount},</if>
+            <if test="actionStatus != null">action_status = #{actionStatus},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="isSmoke != null">is_smoke = #{isSmoke},</if>
+            <if test="humidity != null">humidity = #{humidity},</if>
+            <if test="isPonding != null">is_ponding = #{isPonding},</if>
+            <if test="inTemperature != null">in_temperature = #{inTemperature},</if>
+            <if test="cityElectricity != null">city_electricity = #{cityElectricity},</if>
+            <if test="intrusion != null">intrusion = #{intrusion},</if>
+            <if test="meteorologicalState != null">meteorological_state = #{meteorologicalState},</if>
+            <if test="meteorologicalTemperature != null">meteorological_temperature = #{meteorologicalTemperature},</if>
+            <if test="meteorologicalHumidity != null">meteorological_humidity = #{meteorologicalHumidity},</if>
+            <if test="meteorologicalWindspeed != null">meteorological_windSpeed = #{meteorologicalWindspeed},</if>
+            <if test="meteorologicalRainfall != null">meteorological_rainfall = #{meteorologicalRainfall},</if>
+            <if test="meteorologicalAirpressure != null">meteorological_airPressure = #{meteorologicalAirpressure},</if>
+            <if test="meteorologicalWinddirection != null">meteorological_windDirection = #{meteorologicalWinddirection},</if>
+            <if test="outsideVideoUrl != null">outside_video_url = #{outsideVideoUrl},</if>
+            <if test="innerVideoUrl != null">inner_video_url = #{innerVideoUrl},</if>
+            <if test="uavId != null">uav_id = #{uavId},</if>
+            <if test="fcId != null">fc_id = #{fcId},</if>
+            <if test="uavState != null">uav_state = #{uavState},</if>
+            <if test="uavRtk != null">uav_rtk = #{uavRtk},</if>
+            <if test="uavBattery != null">uav_battery = #{uavBattery},</if>
+            <if test="uavAltinm != null">uav_altinM = #{uavAltinm},</if>
+            <if test="uavTran != null">uav_tran = #{uavTran},</if>
+            <if test="uavSrcurl != null">uav_srcUrl = #{uavSrcurl},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where airport_id = #{airportId}
+    </update>
+
+    <update id="updateTAirportByCode" parameterType="TAirport">
+        update t_airport
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="airportCode != null">airport_code = #{airportCode},</if>
+            <if test="airportName != null">airport_name = #{airportName},</if>
+            <if test="relname != null">relname = #{relname},</if>
+            <if test="locationLat != null">location_lat = #{locationLat},</if>
+            <if test="locationLon != null">location_lon = #{locationLon},</if>
+            <if test="locationAltinm != null">location_altinM = #{locationAltinm},</if>
+            <if test="spareLat != null">spare_lat = #{spareLat},</if>
+            <if test="spareLon != null">spare_lon = #{spareLon},</if>
+            <if test="spareAltinm != null">spare_altinM = #{spareAltinm},</if>
+            <if test="mount != null">mount = #{mount},</if>
+            <if test="actionStatus != null">action_status = #{actionStatus},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="isSmoke != null">is_smoke = #{isSmoke},</if>
+            <if test="humidity != null">humidity = #{humidity},</if>
+            <if test="isPonding != null">is_ponding = #{isPonding},</if>
+            <if test="inTemperature != null">in_temperature = #{inTemperature},</if>
+            <if test="cityElectricity != null">city_electricity = #{cityElectricity},</if>
+            <if test="intrusion != null">intrusion = #{intrusion},</if>
+            <if test="meteorologicalState != null">meteorological_state = #{meteorologicalState},</if>
+            <if test="meteorologicalTemperature != null">meteorological_temperature = #{meteorologicalTemperature},</if>
+            <if test="meteorologicalHumidity != null">meteorological_humidity = #{meteorologicalHumidity},</if>
+            <if test="meteorologicalWindspeed != null">meteorological_windSpeed = #{meteorologicalWindspeed},</if>
+            <if test="meteorologicalRainfall != null">meteorological_rainfall = #{meteorologicalRainfall},</if>
+            <if test="meteorologicalAirpressure != null">meteorological_airPressure = #{meteorologicalAirpressure},</if>
+            <if test="meteorologicalWinddirection != null">meteorological_windDirection = #{meteorologicalWinddirection},</if>
+            <if test="outsideVideoUrl != null">outside_video_url = #{outsideVideoUrl},</if>
+            <if test="innerVideoUrl != null">inner_video_url = #{innerVideoUrl},</if>
+            <if test="uavId != null">uav_id = #{uavId},</if>
+            <if test="fcId != null">fc_id = #{fcId},</if>
+            <if test="uavState != null">uav_state = #{uavState},</if>
+            <if test="uavRtk != null">uav_rtk = #{uavRtk},</if>
+            <if test="uavBattery != null">uav_battery = #{uavBattery},</if>
+            <if test="uavAltinm != null">uav_altinM = #{uavAltinm},</if>
+            <if test="uavTran != null">uav_tran = #{uavTran},</if>
+            <if test="uavSrcurl != null">uav_srcUrl = #{uavSrcurl},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where airport_code = #{airportCode}
+    </update>
+
+    <delete id="deleteTAirportById" parameterType="Long">
+        delete from t_airport where airport_id = #{airportId}
+    </delete>
+
+    <delete id="deleteTAirportByIds" parameterType="String">
+        delete from t_airport where airport_id in 
+        <foreach item="airportId" collection="array" open="(" separator="," close=")">
+            #{airportId}
+        </foreach>
+    </delete>
+
+    <select id="selectAirportIdByAirportCode" parameterType="String" resultType="Long">
+        select airport_id from t_airport where airport_code = #{airportCode}
+    </select>
+</mapper>

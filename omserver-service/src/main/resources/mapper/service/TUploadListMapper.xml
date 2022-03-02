@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TUploadListMapper">
+    
+    <resultMap type="TUploadList" id="TUploadListResult">
+        <result property="id"    column="id"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="ftpUrl"    column="ftp_url"    />
+        <result property="httpUrl"    column="http_url"    />
+        <result property="size"    column="size"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="yuntaiId"    column="yuntai_Id"    />
+    </resultMap>
+
+    <sql id="selectTUploadListVo">
+        select id, file_name, ftp_url, http_url, size, create_time, create_user, yuntai_Id from t_upload_list
+    </sql>
+
+    <select id="selectTUploadListList" parameterType="TUploadList" resultMap="TUploadListResult">
+        <include refid="selectTUploadListVo"/>
+        <where>  
+            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+            <if test="ftpUrl != null  and ftpUrl != ''"> and ftp_url = #{ftpUrl}</if>
+            <if test="httpUrl != null  and httpUrl != ''"> and http_url = #{httpUrl}</if>
+            <if test="size != null  and size != ''"> and size = #{size}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="yuntaiId != null  and yuntaiId != ''"> and yuntai_Id = #{yuntaiId}</if>
+        </where>
+    </select>
+    
+    <select id="selectTUploadListById" parameterType="Long" resultMap="TUploadListResult">
+        <include refid="selectTUploadListVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectTUploadListByYuntaiId" parameterType="Long" resultMap="TUploadListResult">
+        <include refid="selectTUploadListVo"/>
+        where yuntai_Id = #{yuntaiId} order by create_time desc
+    </select>
+        
+    <insert id="insertTUploadList" parameterType="TUploadList" useGeneratedKeys="true" keyProperty="id">
+        insert into t_upload_list
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileName != null">file_name,</if>
+            <if test="ftpUrl != null">ftp_url,</if>
+            <if test="httpUrl != null">http_url,</if>
+            <if test="size != null">size,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="yuntaiId != null">yuntai_Id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileName != null">#{fileName},</if>
+            <if test="ftpUrl != null">#{ftpUrl},</if>
+            <if test="httpUrl != null">#{httpUrl},</if>
+            <if test="size != null">#{size},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTUploadList" parameterType="TUploadList">
+        update t_upload_list
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileName != null">file_name = #{fileName},</if>
+            <if test="ftpUrl != null">ftp_url = #{ftpUrl},</if>
+            <if test="httpUrl != null">http_url = #{httpUrl},</if>
+            <if test="size != null">size = #{size},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="yuntaiId != null">yuntai_Id = #{yuntaiId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTUploadListById" parameterType="Long">
+        delete from t_upload_list where id = #{id}
+    </delete>
+
+    <delete id="deleteTUploadListByIds" parameterType="String">
+        delete from t_upload_list where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

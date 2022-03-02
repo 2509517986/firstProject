@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TTaskPictureMapper">
+    
+    <resultMap type="TTaskPicture" id="TTaskPictureResult">
+        <result property="imageId"    column="image_id"    />
+        <result property="taskhId"    column="taskh_id"    />
+        <result property="taskCode"    column="task_code"    />
+        <result property="routeCode"    column="route_code"    />
+        <result property="airportId"    column="airport_id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="routeId"    column="route_id"    />
+        <result property="imageCode"    column="image_code"    />
+        <result property="path"    column="path"    />
+        <result property="imageName"    column="image_name"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="lat"    column="lat"    />
+        <result property="lon"    column="lon"    />
+        <result property="isCorrect"    column="is_correct"    />
+        <result property="abnormalType"    column="abnormal_type"    />
+        <result property="defectCount"    column="defect_count"    />
+        <result property="defectType"    column="defect_type"    />
+        <result property="affectedLine"    column="affected_line"    />
+        <result property="securityDistance"    column="security_distance"    />
+        <result property="isInform"    column="is_inform"    />
+        <result property="isScene"    column="is_scene"    />
+        <result property="describes"    column="describes"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+        <result property="alarmUser"    column="alarm_user"    />
+        <result property="alarmTime"    column="alarm_time"    />
+    </resultMap>
+
+    <sql id="selectTTaskPictureVo">
+        select image_id, taskh_id, task_code, route_code, airport_id, task_id, route_id, image_code, path, image_name, update_time, lat, lon, is_correct, abnormal_type, defect_count, defect_type, affected_line, security_distance, is_inform, is_scene, describes, spare0, spare1, spare2, spare3, spare4, alarm_user, alarm_time from t_task_picture
+    </sql>
+
+    <select id="selectTTaskPictureList" parameterType="TTaskPicture" resultMap="TTaskPictureResult">
+        <include refid="selectTTaskPictureVo"/>
+        <where>  
+            <if test="taskhId != null "> and taskh_id = #{taskhId}</if>
+            <if test="taskCode != null  and taskCode != ''"> and task_code like concat('%', #{taskCode}, '%')</if>
+            <if test="routeCode != null  and routeCode != ''"> and route_code like concat('%', #{routeCode}, '%')</if>
+            <if test="airportId != null  and airportId != ''"> and airport_id = #{airportId}</if>
+            <if test="taskId != null  and taskId != ''"> and task_id like concat('%', #{taskId}, '%')</if>
+            <if test="routeId != null  and routeId != ''"> and route_id like concat('%', #{routeId}, '%')</if>
+            <if test="imageCode != null  and imageCode != ''"> and image_code = #{imageCode}</if>
+            <if test="path != null  and path != ''"> and path = #{path}</if>
+            <if test="imageName != null  and imageName != ''"> and image_name like concat('%', #{imageName}, '%')</if>
+            <if test="updateTime != null "> and CONCAT(DATE_FORMAT(update_time,'%Y-%m-%d'),' 00:00:00.0') = #{updateTime}</if>
+            <if test="lat != null  and lat != ''"> and lat = #{lat}</if>
+            <if test="lon != null  and lon != ''"> and lon = #{lon}</if>
+            <if test="isCorrect != null  and isCorrect != ''"> and is_correct = #{isCorrect}</if>
+            <if test="abnormalType != null  and abnormalType != ''"> and abnormal_type = #{abnormalType}</if>
+            <if test="defectCount != null  and defectCount != ''"> and defect_count = #{defectCount}</if>
+            <if test="defectType != null  and defectType != ''"> and defect_type = #{defectType}</if>
+            <if test="affectedLine != null  and affectedLine != ''"> and affected_line = #{affectedLine}</if>
+            <if test="securityDistance != null  and securityDistance != ''"> and security_distance = #{securityDistance}</if>
+            <if test="isInform != null  and isInform != ''"> and is_inform = #{isInform}</if>
+            <if test="isScene != null  and isScene != ''"> and is_scene = #{isScene}</if>
+            <if test="describes != null  and describes != ''"> and describes = #{describes}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+            <if test="alarmUser != null  and alarmUser != ''"> and alarm_user = #{alarmUser}</if>
+            <if test="alarmTime != null "> and alarm_time = #{alarmTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectTTaskPictureById" parameterType="Long" resultMap="TTaskPictureResult">
+        <include refid="selectTTaskPictureVo"/>
+        where image_id = #{imageId}
+    </select>
+        
+    <insert id="insertTTaskPicture" parameterType="TTaskPicture" useGeneratedKeys="true" keyProperty="imageId">
+        insert into t_task_picture
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskhId != null">taskh_id,</if>
+            <if test="taskCode != null">task_code,</if>
+            <if test="routeCode != null">route_code,</if>
+            <if test="airportId != null">airport_id,</if>
+            <if test="taskId != null">task_id,</if>
+            <if test="routeId != null">route_id,</if>
+            <if test="imageCode != null">image_code,</if>
+            <if test="path != null">path,</if>
+            <if test="imageName != null">image_name,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="lat != null">lat,</if>
+            <if test="lon != null">lon,</if>
+            <if test="isCorrect != null">is_correct,</if>
+            <if test="abnormalType != null">abnormal_type,</if>
+            <if test="defectCount != null">defect_count,</if>
+            <if test="defectType != null">defect_type,</if>
+            <if test="affectedLine != null">affected_line,</if>
+            <if test="securityDistance != null">security_distance,</if>
+            <if test="isInform != null">is_inform,</if>
+            <if test="isScene != null">is_scene,</if>
+            <if test="describes != null">describes,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+            <if test="alarmUser != null">alarm_user,</if>
+            <if test="alarmTime != null">alarm_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskhId != null">#{taskhId},</if>
+            <if test="taskCode != null">#{taskCode},</if>
+            <if test="routeCode != null">#{routeCode},</if>
+            <if test="airportId != null">#{airportId},</if>
+            <if test="taskId != null">#{taskId},</if>
+            <if test="routeId != null">#{routeId},</if>
+            <if test="imageCode != null">#{imageCode},</if>
+            <if test="path != null">#{path},</if>
+            <if test="imageName != null">#{imageName},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="lat != null">#{lat},</if>
+            <if test="lon != null">#{lon},</if>
+            <if test="isCorrect != null">#{isCorrect},</if>
+            <if test="abnormalType != null">#{abnormalType},</if>
+            <if test="defectCount != null">#{defectCount},</if>
+            <if test="defectType != null">#{defectType},</if>
+            <if test="affectedLine != null">#{affectedLine},</if>
+            <if test="securityDistance != null">#{securityDistance},</if>
+            <if test="isInform != null">#{isInform},</if>
+            <if test="isScene != null">#{isScene},</if>
+            <if test="describes != null">#{describes},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+            <if test="alarmUser != null">#{alarmUser},</if>
+            <if test="alarmTime != null">#{alarmTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTTaskPicture" parameterType="TTaskPicture">
+        update t_task_picture
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskhId != null">taskh_id = #{taskhId},</if>
+            <if test="taskCode != null">task_code = #{taskCode},</if>
+            <if test="routeCode != null">route_code = #{routeCode},</if>
+            <if test="imageCode != null">image_code = #{imageCode},</if>
+            <if test="airportId != null">airport_id = #{airportId},</if>
+            <if test="taskId != null">task_id = #{taskId},</if>
+            <if test="routeId != null">route_id = #{routeId},</if>
+            <if test="path != null">path = #{path},</if>
+            <if test="imageName != null">image_name = #{imageName},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="lat != null">lat = #{lat},</if>
+            <if test="lon != null">lon = #{lon},</if>
+            <if test="isCorrect != null">is_correct = #{isCorrect},</if>
+            <if test="abnormalType != null">abnormal_type = #{abnormalType},</if>
+            <if test="defectCount != null">defect_count = #{defectCount},</if>
+            <if test="defectType != null">defect_type = #{defectType},</if>
+            <if test="affectedLine != null">affected_line = #{affectedLine},</if>
+            <if test="securityDistance != null">security_distance = #{securityDistance},</if>
+            <if test="isInform != null">is_inform = #{isInform},</if>
+            <if test="isScene != null">is_scene = #{isScene},</if>
+            <if test="describes != null">describes = #{describes},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+            <if test="alarmUser != null">alarm_user = #{alarmUser},</if>
+            <if test="alarmTime != null">alarm_time = #{alarmTime},</if>
+        </trim>
+        where image_id = #{imageId}
+    </update>
+
+    <delete id="deleteTTaskPictureById" parameterType="Long">
+        delete from t_task_picture where image_id = #{imageId}
+    </delete>
+
+    <delete id="deleteTTaskPictureByIds" parameterType="String">
+        delete from t_task_picture where image_id in 
+        <foreach item="imageId" collection="array" open="(" separator="," close=")">
+            #{imageId}
+        </foreach>
+    </delete>
+</mapper>

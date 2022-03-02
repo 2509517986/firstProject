@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.system.mapper.TInspectionAlarmMapper">
+    
+    <resultMap type="TInspectionAlarm" id="TInspectionAlarmResult">
+        <result property="id"    column="id"    />
+        <result property="reportId"    column="report_id"    />
+        <result property="alarmId"    column="alarm_id"    />
+        <result property="lineId"    column="line_id"    />
+        <result property="towerId"    column="tower_id"    />
+        <result property="deptName"    column="dept_name"    />
+        <result property="pictureId"    column="picture_id"    />
+        <result property="sceneType"    column="scene_type"    />
+        <result property="level"    column="level"    />
+        <result property="voltage"    column="voltage"    />
+        <result property="sceneName"    column="scene_name"    />
+        <result property="checkResult"    column="check_result"    />
+        <result property="imageDir"    column="image_dir"    />
+        <result property="diagnose"    column="diagnose"    />
+        <result property="remark"    column="remark"    />
+        <result property="imageName"    column="image_name"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="alarmDir"    column="alarm_dir"    />
+        <result property="alarmUrl"    column="alarm_url"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="modifyUser"    column="modify_user"    />
+        <result property="modifyTime"    column="modify_time"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+    </resultMap>
+
+    <sql id="selectTInspectionAlarmVo">
+        select id, report_id, alarm_id, line_id, tower_id, dept_name, picture_id, scene_type, level, voltage, scene_name, check_result, image_dir, diagnose, remark, image_name, create_user, alarm_dir, alarm_url, create_time, modify_user, modify_time, spare0, spare1, spare2, spare3, spare4 from t_inspection_alarm
+    </sql>
+
+    <select id="selectTInspectionAlarmList" parameterType="TInspectionAlarm" resultMap="TInspectionAlarmResult">
+        <include refid="selectTInspectionAlarmVo"/>
+        <where>  
+            <if test="reportId != null "> and report_id = #{reportId}</if>
+            <if test="alarmId != null "> and alarm_id = #{alarmId}</if>
+            <if test="lineId != null "> and line_id = #{lineId}</if>
+            <if test="towerId != null "> and tower_id = #{towerId}</if>
+            <if test="deptName != null  and deptName != ''"> and dept_name like concat('%', #{deptName}, '%')</if>
+            <if test="pictureId != null "> and picture_id = #{pictureId}</if>
+            <if test="sceneType != null  and sceneType != ''"> and scene_type = #{sceneType}</if>
+            <if test="level != null  and level != ''"> and level = #{level}</if>
+            <if test="voltage != null  and voltage != ''"> and voltage = #{voltage}</if>
+            <if test="sceneName != null  and sceneName != ''"> and scene_name like concat('%', #{sceneName}, '%')</if>
+            <if test="checkResult != null  and checkResult != ''"> and check_result = #{checkResult}</if>
+            <if test="imageDir != null  and imageDir != ''"> and image_dir = #{imageDir}</if>
+            <if test="diagnose != null  and diagnose != ''"> and diagnose = #{diagnose}</if>
+            <if test="imageName != null  and imageName != ''"> and image_name like concat('%', #{imageName}, '%')</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="alarmDir != null  and alarmDir != ''"> and alarm_dir = #{alarmDir}</if>
+            <if test="alarmUrl != null  and alarmUrl != ''"> and alarm_url = #{alarmUrl}</if>
+            <if test="modifyUser != null  and modifyUser != ''"> and modify_user = #{modifyUser}</if>
+            <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+        </where>
+    </select>
+    
+    <select id="selectTInspectionAlarmById" parameterType="Long" resultMap="TInspectionAlarmResult">
+        <include refid="selectTInspectionAlarmVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTInspectionAlarm" parameterType="TInspectionAlarm">
+        insert into t_inspection_alarm
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="reportId != null">report_id,</if>
+            <if test="alarmId != null">alarm_id,</if>
+            <if test="lineId != null">line_id,</if>
+            <if test="towerId != null">tower_id,</if>
+            <if test="deptName != null">dept_name,</if>
+            <if test="pictureId != null">picture_id,</if>
+            <if test="sceneType != null">scene_type,</if>
+            <if test="level != null">level,</if>
+            <if test="voltage != null">voltage,</if>
+            <if test="sceneName != null">scene_name,</if>
+            <if test="checkResult != null">check_result,</if>
+            <if test="imageDir != null">image_dir,</if>
+            <if test="diagnose != null">diagnose,</if>
+            <if test="remark != null">remark,</if>
+            <if test="imageName != null">image_name,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="alarmDir != null">alarm_dir,</if>
+            <if test="alarmUrl != null">alarm_url,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="modifyUser != null">modify_user,</if>
+            <if test="modifyTime != null">modify_time,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="reportId != null">#{reportId},</if>
+            <if test="alarmId != null">#{alarmId},</if>
+            <if test="lineId != null">#{lineId},</if>
+            <if test="towerId != null">#{towerId},</if>
+            <if test="deptName != null">#{deptName},</if>
+            <if test="pictureId != null">#{pictureId},</if>
+            <if test="sceneType != null">#{sceneType},</if>
+            <if test="level != null">#{level},</if>
+            <if test="voltage != null">#{voltage},</if>
+            <if test="sceneName != null">#{sceneName},</if>
+            <if test="checkResult != null">#{checkResult},</if>
+            <if test="imageDir != null">#{imageDir},</if>
+            <if test="diagnose != null">#{diagnose},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="imageName != null">#{imageName},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="alarmDir != null">#{alarmDir},</if>
+            <if test="alarmUrl != null">#{alarmUrl},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="modifyUser != null">#{modifyUser},</if>
+            <if test="modifyTime != null">#{modifyTime},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTInspectionAlarm" parameterType="TInspectionAlarm">
+        update t_inspection_alarm
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="reportId != null">report_id = #{reportId},</if>
+            <if test="alarmId != null">alarm_id = #{alarmId},</if>
+            <if test="lineId != null">line_id = #{lineId},</if>
+            <if test="towerId != null">tower_id = #{towerId},</if>
+            <if test="deptName != null">dept_name = #{deptName},</if>
+            <if test="pictureId != null">picture_id = #{pictureId},</if>
+            <if test="sceneType != null">scene_type = #{sceneType},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="voltage != null">voltage = #{voltage},</if>
+            <if test="sceneName != null">scene_name = #{sceneName},</if>
+            <if test="checkResult != null">check_result = #{checkResult},</if>
+            <if test="imageDir != null">image_dir = #{imageDir},</if>
+            <if test="diagnose != null">diagnose = #{diagnose},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="imageName != null">image_name = #{imageName},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="alarmDir != null">alarm_dir = #{alarmDir},</if>
+            <if test="alarmUrl != null">alarm_url = #{alarmUrl},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="modifyUser != null">modify_user = #{modifyUser},</if>
+            <if test="modifyTime != null">modify_time = #{modifyTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTInspectionAlarmById" parameterType="Long">
+        delete from t_inspection_alarm where id = #{id}
+    </delete>
+
+    <delete id="deleteTInspectionAlarmByIds" parameterType="String">
+        delete from t_inspection_alarm where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

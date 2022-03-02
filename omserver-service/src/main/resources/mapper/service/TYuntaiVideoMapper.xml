@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiVideoMapper">
+
+    <resultMap type="TYuntaiVideo" id="TYuntaiVideoResult">
+        <result property="id"    column="id"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+        <result property="lineId"    column="line_id"    />
+        <result property="towerId"    column="tower_id"    />
+        <result property="videoUrl"    column="video_url"    />
+        <result property="captureUser"    column="capture_user"    />
+        <result property="captureTime"    column="capture_time"    />
+        <result property="strategy"    column="strategy"    />
+        <result property="presetBit"    column="preset_bit"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+    </resultMap>
+
+    <sql id="selectTYuntaiVideoVo">
+        select id, yuntai_id, line_id, tower_id, video_url, capture_user, capture_time, strategy, preset_bit, spare0, spare1, spare2, spare3, spare4 from t_yuntai_video
+    </sql>
+
+    <select id="selectTYuntaiVideoList" parameterType="TYuntaiVideo" resultMap="TYuntaiVideoResult">
+        <include refid="selectTYuntaiVideoVo"/>
+        <where>  
+            <if test="yuntaiId != null "> and yuntai_id = #{yuntaiId}</if>
+            <if test="lineId != null "> and line_id = #{lineId}</if>
+            <if test="towerId != null "> and tower_id = #{towerId}</if>
+            <if test="videoUrl != null  and videoUrl != ''"> and video_url = #{videoUrl}</if>
+            <if test="captureUser != null  and captureUser != ''"> and capture_user = #{captureUser}</if>
+            <if test="captureTime != null "> and (capture_time  <![CDATA[ >= ]]> #{captureTime} and capture_time  <![CDATA[ < ]]> #{spare0}) </if>
+            <if test="strategy != null  and strategy != ''"> and strategy = #{strategy}</if>
+            <if test="presetBit != null  and presetBit != ''"> and preset_bit = #{presetBit}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYuntaiVideoById" parameterType="Long" resultMap="TYuntaiVideoResult">
+        <include refid="selectTYuntaiVideoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYuntaiVideo" parameterType="TYuntaiVideo">
+        insert into t_yuntai_video
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="yuntaiId != null">yuntai_id,</if>
+            <if test="lineId != null">line_id,</if>
+            <if test="towerId != null">tower_id,</if>
+            <if test="videoUrl != null">video_url,</if>
+            <if test="captureUser != null">capture_user,</if>
+            <if test="captureTime != null">capture_time,</if>
+            <if test="strategy != null">strategy,</if>
+            <if test="presetBit != null">preset_bit,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+            <if test="lineId != null">#{lineId},</if>
+            <if test="towerId != null">#{towerId},</if>
+            <if test="videoUrl != null">#{videoUrl},</if>
+            <if test="captureUser != null">#{captureUser},</if>
+            <if test="captureTime != null">#{captureTime},</if>
+            <if test="strategy != null">#{strategy},</if>
+            <if test="presetBit != null">#{presetBit},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYuntaiVideo" parameterType="TYuntaiVideo">
+        update t_yuntai_video
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+            <if test="lineId != null">line_id = #{lineId},</if>
+            <if test="towerId != null">tower_id = #{towerId},</if>
+            <if test="videoUrl != null">video_url = #{videoUrl},</if>
+            <if test="captureUser != null">capture_user = #{captureUser},</if>
+            <if test="captureTime != null">capture_time = #{captureTime},</if>
+            <if test="strategy != null">strategy = #{strategy},</if>
+            <if test="presetBit != null">preset_bit = #{presetBit},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiVideoById" parameterType="Long">
+        delete from t_yuntai_video where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiVideoByIds" parameterType="String">
+        delete from t_yuntai_video where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

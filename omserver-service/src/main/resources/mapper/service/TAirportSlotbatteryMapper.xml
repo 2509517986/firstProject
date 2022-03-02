@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TAirportSlotbatteryMapper">
+    
+    <resultMap type="TAirportSlotbattery" id="TAirportSlotbatteryResult">
+        <result property="slotbatteryId"    column="slotbattery_id"    />
+        <result property="airportId"    column="airport_id"    />
+        <result property="ord"    column="ord"    />
+        <result property="state"    column="state"    />
+        <result property="occupy"    column="occupy"    />
+        <result property="errmsg"    column="errMsg"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+    </resultMap>
+
+    <sql id="selectTAirportSlotbatteryVo">
+        select slotbattery_id, airport_id, ord, state, occupy, errMsg, update_time, spare0, spare1, spare2, spare3, spare4 from t_airport_slotbattery
+    </sql>
+
+    <select id="selectTAirportSlotbatteryList" parameterType="TAirportSlotbattery" resultMap="TAirportSlotbatteryResult">
+        <include refid="selectTAirportSlotbatteryVo"/>
+        <where>  
+            <if test="airportId != null "> and airport_id = #{airportId}</if>
+            <if test="ord != null "> and ord = #{ord}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+            <if test="occupy != null  and occupy != ''"> and occupy = #{occupy}</if>
+            <if test="errmsg != null  and errmsg != ''"> and errMsg = #{errmsg}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+        </where>
+    </select>
+    
+    <select id="selectTAirportSlotbatteryById" parameterType="Long" resultMap="TAirportSlotbatteryResult">
+        <include refid="selectTAirportSlotbatteryVo"/>
+        where slotbattery_id = #{slotbatteryId}
+    </select>
+        
+    <insert id="insertTAirportSlotbattery" parameterType="TAirportSlotbattery" useGeneratedKeys="true" keyProperty="slotbatteryId">
+        insert into t_airport_slotbattery
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="airportId != null">airport_id,</if>
+            <if test="ord != null">ord,</if>
+            <if test="state != null">state,</if>
+            <if test="occupy != null">occupy,</if>
+            <if test="errmsg != null">errMsg,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="airportId != null">#{airportId},</if>
+            <if test="ord != null">#{ord},</if>
+            <if test="state != null">#{state},</if>
+            <if test="occupy != null">#{occupy},</if>
+            <if test="errmsg != null">#{errmsg},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTAirportSlotbattery" parameterType="TAirportSlotbattery">
+        update t_airport_slotbattery
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="airportId != null">airport_id = #{airportId},</if>
+            <if test="ord != null">ord = #{ord},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="occupy != null">occupy = #{occupy},</if>
+            <if test="errmsg != null">errMsg = #{errmsg},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where slotbattery_id = #{slotbatteryId}
+    </update>
+
+    <delete id="deleteTAirportSlotbatteryById" parameterType="Long">
+        delete from t_airport_slotbattery where slotbattery_id = #{slotbatteryId}
+    </delete>
+
+    <delete id="deleteTAirportSlotbatteryByIds" parameterType="String">
+        delete from t_airport_slotbattery where slotbattery_id in 
+        <foreach item="slotbatteryId" collection="array" open="(" separator="," close=")">
+            #{slotbatteryId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteTAirportSlotbatteryByAirportCode" parameterType="String">
+        delete from t_airport_slotbattery where spare0 = #{airportCode}
+    </delete>
+</mapper>

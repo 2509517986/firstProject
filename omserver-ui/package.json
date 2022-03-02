@@ -1,0 +1,89 @@
+{
+  "name": "senxu",
+  "version": "3.4.0",
+  "description": "配电在线监测系统",
+  "author": "森旭",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build:prod": "vue-cli-service build",
+    "build:stage": "vue-cli-service build --mode staging",
+    "preview": "node build/index.js --preview",
+    "lint": "eslint --ext .js,.vue src"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,vue}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "keywords": [
+    "vue",
+    "admin",
+    "dashboard",
+    "boilerplate",
+    "admin-template",
+    "management-system"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/y_project/Vue.git"
+  },
+  "dependencies": {
+    "@riophae/vue-treeselect": "0.4.0",
+    "axios": "^0.24.0",
+    "clipboard": "2.0.6",
+    "core-js": "3.8.1",
+    "default-passive-events": "^2.0.0",
+    "echarts": "^5.3.0",
+    "file-saver": "2.0.4",
+    "fuse.js": "6.4.3",
+    "highlight.js": "9.18.5",
+    "js-beautify": "1.13.0",
+    "js-cookie": "2.2.1",
+    "jsencrypt": "3.0.0-rc.1",
+    "nprogress": "0.2.0",
+    "qs": "^6.10.1",
+    "quill": "1.3.7",
+    "screenfull": "5.0.2",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0",
+    "sockjs-client": "^1.5.2",
+    "sortablejs": "1.10.2",
+    "stompjs": "^2.3.3",
+    "swiper": "^5.4.5",
+    "videojs-flash": "^2.2.1",
+    "vue": "2.6.12",
+    "vue-awesome-swiper": "^4.1.1",
+    "vue-count-to": "1.0.13",
+    "vue-cropper": "0.5.5",
+    "vue-router": "3.4.9",
+    "vue-video-player": "^5.0.2",
+    "vuedraggable": "2.24.3",
+    "vuex": "3.6.0",
+    "zrender": "^5.1.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "4.4.6",
+    "@vue/cli-plugin-eslint": "4.4.6",
+    "@vue/cli-service": "4.4.6",
+    "babel-eslint": "10.1.0",
+    "chalk": "4.1.0",
+    "connect": "3.6.6",
+    "eslint": "^5.6.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-vue": "^7.0.0",
+    "lint-staged": "10.5.3",
+    "runjs": "4.4.2",
+    "sass": "1.32.0",
+    "sass-loader": "10.1.0",
+    "script-ext-html-webpack-plugin": "2.1.5",
+    "svg-sprite-loader": "5.1.1",
+    "vue-template-compiler": "2.6.12"
+  }
+}

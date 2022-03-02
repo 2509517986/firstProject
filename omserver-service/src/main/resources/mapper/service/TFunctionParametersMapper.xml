@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TFunctionParametersMapper">
+
+    <resultMap type="TFunctionParameters" id="TFunctionParametersResult">
+        <result property="id"    column="id"    />
+        <result property="brightness"    column="brightness"    />
+        <result property="contrast"    column="contrast"    />
+        <result property="saturation"    column="saturation"    />
+        <result property="wiper"    column="wiper"    />
+        <result property="windowsHeat"    column="windows_heat"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+    </resultMap>
+
+    <sql id="selectTFunctionParametersVo">
+        select id, brightness, contrast, saturation, windows_heat, wiper, windows_heat, yuntai_id from t_function_parameters
+    </sql>
+
+    <select id="selectTFunctionParametersList" parameterType="TFunctionParameters" resultMap="TFunctionParametersResult">
+        <include refid="selectTFunctionParametersVo"/>
+        <where>
+            <if test="brightness != null  and brightness != ''"> and brightness = #{brightness}</if>
+            <if test="contrast != null  and contrast != ''">  and contrast = #{contrast}</if>
+            <if test="saturation != null  and saturation != ''"> and saturation = #{saturation}</if>
+            <if test="wiper != null  and wiper != ''"> and wiper = #{wiper}</if>
+            <if test="windowsHeat != null  and windowsHeat != ''"> and windows_heat = #{windowsHeat}</if>
+            <if test="yuntaiId != null  and yuntaiId != ''"> and yuntai_id = #{yuntaiId}</if>
+        </where>
+        order by create_time DESC
+    </select>
+
+    <select id="selectTFunctionParametersById" parameterType="Long" resultMap="TFunctionParametersResult">
+        <include refid="selectTFunctionParametersVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTFunctionParameters" parameterType="TFunctionParameters" useGeneratedKeys="true" keyProperty="id">
+        insert into t_function_parameters
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="brightness != null">brightness,</if>
+            <if test="contrast != null">contrast,</if>
+            <if test="wiper != null">wiper,</if>
+            <if test="saturation != null">saturation,</if>
+            <if test="windowsHeat != null">windows_heat,</if>
+            <if test="yuntaiId != null">yuntai_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="brightness != null">#{brightness},</if>
+            <if test="contrast != null">#{contrast},</if>
+            <if test="wiper != null">#{wiper},</if>
+            <if test="saturation != null">#{saturation},</if>
+            <if test="windowsHeat != null">#{windowsHeat},</if>
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTFunctionParameters" parameterType="TFunctionParameters">
+        update t_function_parameters
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="brightness != null">brightness = #{brightness},</if>
+            <if test="contrast != null">contrast = #{contrast},</if>
+            <if test="wiper != null">wiper = #{wiper},</if>
+            <if test="saturation != null">saturation = #{saturation},</if>
+            <if test="windowsHeat != null">windows_heat = #{windowsHeat},</if>
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+        </trim>
+        where yuntai_id = #{yuntaiId}
+    </update>
+
+    <delete id="deleteTFunctionParametersById" parameterType="Long">
+        delete from t_function_parameters where id = #{id}
+    </delete>
+
+    <select id="selectTFunctionParametersByYuntaiId" parameterType="Long" resultMap="TFunctionParametersResult">
+        <include refid="selectTFunctionParametersVo"/>
+        where yuntai_id = #{yuntaiId}
+    </select>
+</mapper>

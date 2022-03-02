@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TTaskHistoryMapper">
+    
+    <resultMap type="TTaskHistory" id="TTaskHistoryResult">
+        <result property="taskhId"    column="taskh_id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="taskCode"    column="task_code"    />
+        <result property="describes"    column="describes"    />
+        <result property="airportId"    column="airport_id"    />
+        <result property="ariportName"    column="ariport_name"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="duration"    column="duration"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+    </resultMap>
+
+    <sql id="selectTTaskHistoryVo">
+        select taskh_id, task_id, task_code, describes, airport_id, ariport_name, start_time, end_time, duration, update_time, spare0, spare1, spare2, spare3, spare4 from t_task_history
+    </sql>
+
+    <select id="selectTTaskHistoryList" parameterType="TTaskHistory" resultMap="TTaskHistoryResult">
+        <include refid="selectTTaskHistoryVo"/>
+        <where>  
+            <if test="taskCode != null  and taskCode != ''"> and task_code = #{taskCode}</if>
+            <if test="taskId != null  and taskId != ''"> and task_id = #{taskId}</if>
+            <if test="describes != null  and describes != ''"> and describes = #{describes}</if>
+            <if test="airportId != null "> and airport_id = #{airportId}</if>
+            <if test="ariportName != null  and ariportName != ''"> and ariport_name like concat('%', #{ariportName}, '%')</if>
+            <if test="startTime != null "> and start_time &gt;= #{startTime}</if>
+            <if test="endTime != null "> and end_time &lt;= #{endTime}</if>
+            <if test="duration != null "> and duration = #{duration}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+            <if test="keyword != null and keyword != ''"> and ( task_id like concat('%', #{keyword}, '%') or describes like concat('%', #{keyword}, '%'))</if>
+        </where>
+    </select>
+    
+    <select id="selectTTaskHistoryById" parameterType="Long" resultMap="TTaskHistoryResult">
+        <include refid="selectTTaskHistoryVo"/>
+        where taskh_id = #{taskhId}
+    </select>
+        
+    <insert id="insertTTaskHistory" parameterType="TTaskHistory" useGeneratedKeys="true" keyProperty="taskhId">
+        insert into t_task_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskCode != null">task_code,</if>
+            <if test="taskId != null">task_id,</if>
+            <if test="describes != null">describes,</if>
+            <if test="airportId != null">airport_id,</if>
+            <if test="ariportName != null">ariport_name,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="duration != null">duration,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskCode != null">#{taskCode},</if>
+            <if test="taskId != null">#{taskId},</if>
+            <if test="describes != null">#{describes},</if>
+            <if test="airportId != null">#{airportId},</if>
+            <if test="ariportName != null">#{ariportName},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="duration != null">#{duration},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTTaskHistory" parameterType="TTaskHistory">
+        update t_task_history
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskCode != null">task_code = #{taskCode},</if>
+            <if test="taskId != null">task_id = #{taskId},</if>
+            <if test="describes != null">describes = #{describes},</if>
+            <if test="airportId != null">airport_id = #{airportId},</if>
+            <if test="ariportName != null">ariport_name = #{ariportName},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="duration != null">duration = #{duration},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where taskh_id = #{taskhId}
+    </update>
+
+    <delete id="deleteTTaskHistoryById" parameterType="Long">
+        delete from t_task_history where taskh_id = #{taskhId}
+    </delete>
+
+    <delete id="deleteTTaskHistoryByIds" parameterType="String">
+        delete from t_task_history where taskh_id in 
+        <foreach item="taskhId" collection="array" open="(" separator="," close=")">
+            #{taskhId}
+        </foreach>
+    </delete>
+</mapper>

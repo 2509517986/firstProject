@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TRouteMapper">
+    
+    <resultMap type="TRoute" id="TRouteResult">
+        <result property="routeId"    column="route_id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="routeCode"    column="route_code"    />
+        <result property="name"    column="name"    />
+        <result property="describes"    column="describes"    />
+        <result property="groupId"    column="group_id"    />
+        <result property="kind"    column="kind"    />
+        <result property="startLat"    column="start_lat"    />
+        <result property="startLon"    column="start_lon"    />
+        <result property="startAltinm"    column="start_altInM"    />
+        <result property="endLat"    column="end_lat"    />
+        <result property="endLon"    column="end_lon"    />
+        <result property="endAltinm"    column="end_altInM"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+    </resultMap>
+
+    <sql id="selectTRouteVo">
+        select route_id, task_id, route_code, name, describes, group_id, kind, start_lat, start_lon, start_altInM, end_lat, end_lon, end_altInM, update_time, spare0, spare1, spare2, spare3, spare4 from t_route
+    </sql>
+
+    <select id="selectTRouteList" parameterType="TRoute" resultMap="TRouteResult">
+        <include refid="selectTRouteVo"/>
+        <where>  
+            <if test="taskId != null "> and task_id = #{taskId}</if>
+            <if test="routeCode != null  and routeCode != ''"> and route_code like concat('%', #{routeCode}, '%')</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="describes != null  and describes != ''"> and describes = #{describes}</if>
+            <if test="groupId != null  and groupId != ''"> and group_id = #{groupId}</if>
+            <if test="kind != null  and kind != ''"> and kind = #{kind}</if>
+            <if test="startLat != null  and startLat != ''"> and start_lat = #{startLat}</if>
+            <if test="startLon != null  and startLon != ''"> and start_lon = #{startLon}</if>
+            <if test="startAltinm != null  and startAltinm != ''"> and start_altInM = #{startAltinm}</if>
+            <if test="endLat != null  and endLat != ''"> and end_lat = #{endLat}</if>
+            <if test="endLon != null  and endLon != ''"> and end_lon = #{endLon}</if>
+            <if test="endAltinm != null  and endAltinm != ''"> and end_altInM = #{endAltinm}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+            <if test="keyword != null and keyword != ''"> and ( route_id like concat('%', #{keyword}, '%') or name like concat('%', #{keyword}, '%'))</if>
+        </where>
+    </select>
+    
+    <select id="selectTRouteById" parameterType="Long" resultMap="TRouteResult">
+        <include refid="selectTRouteVo"/>
+        where route_id = #{routeId}
+    </select>
+
+    <select id="selectTRouteByTaskId" parameterType="Long" resultMap="TRouteResult">
+        <include refid="selectTRouteVo"/>
+        where task_id = #{taskId}
+    </select>
+        
+    <insert id="insertTRoute" parameterType="TRoute" >
+        insert into t_route
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="routeId != null">route_id,</if>
+            <if test="taskId != null">task_id,</if>
+            <if test="routeCode != null">route_code,</if>
+            <if test="name != null">name,</if>
+            <if test="describes != null">describes,</if>
+            <if test="groupId != null">group_id,</if>
+            <if test="kind != null">kind,</if>
+            <if test="startLat != null">start_lat,</if>
+            <if test="startLon != null">start_lon,</if>
+            <if test="startAltinm != null">start_altInM,</if>
+            <if test="endLat != null">end_lat,</if>
+            <if test="endLon != null">end_lon,</if>
+            <if test="endAltinm != null">end_altInM,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="routeId != null">#{routeId},</if>
+            <if test="taskId != null">#{taskId},</if>
+            <if test="routeCode != null">#{routeCode},</if>
+            <if test="name != null">#{name},</if>
+            <if test="describes != null">#{describes},</if>
+            <if test="groupId != null">#{groupId},</if>
+            <if test="kind != null">#{kind},</if>
+            <if test="startLat != null">#{startLat},</if>
+            <if test="startLon != null">#{startLon},</if>
+            <if test="startAltinm != null">#{startAltinm},</if>
+            <if test="endLat != null">#{endLat},</if>
+            <if test="endLon != null">#{endLon},</if>
+            <if test="endAltinm != null">#{endAltinm},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTRoute" parameterType="TRoute">
+        update t_route
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskId != null">task_id = #{taskId},</if>
+            <if test="routeCode != null">route_code = #{routeCode},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="describes != null">describes = #{describes},</if>
+            <if test="groupId != null">group_id = #{groupId},</if>
+            <if test="kind != null">kind = #{kind},</if>
+            <if test="startLat != null">start_lat = #{startLat},</if>
+            <if test="startLon != null">start_lon = #{startLon},</if>
+            <if test="startAltinm != null">start_altInM = #{startAltinm},</if>
+            <if test="endLat != null">end_lat = #{endLat},</if>
+            <if test="endLon != null">end_lon = #{endLon},</if>
+            <if test="endAltinm != null">end_altInM = #{endAltinm},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where route_id = #{routeId}
+    </update>
+
+    <update id="updateTRouteByCode" parameterType="TRoute">
+        update t_route
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="describes != null">describes = #{describes},</if>
+            <if test="groupId != null">group_id = #{groupId},</if>
+            <if test="kind != null">kind = #{kind},</if>
+            <if test="startLat != null">start_lat = #{startLat},</if>
+            <if test="startLon != null">start_lon = #{startLon},</if>
+            <if test="startAltinm != null">start_altInM = #{startAltinm},</if>
+            <if test="endLat != null">end_lat = #{endLat},</if>
+            <if test="endLon != null">end_lon = #{endLon},</if>
+            <if test="endAltinm != null">end_altInM = #{endAltinm},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where route_code = #{routeCode} and task_id = #{taskId}
+    </update>
+
+    <delete id="deleteTRouteById" parameterType="Long">
+        delete from t_route where route_id = #{routeId}
+    </delete>
+
+    <delete id="deleteTRouteByIds" parameterType="String">
+        delete from t_route where route_id in 
+        <foreach item="routeId" collection="array" open="(" separator="," close=")">
+            #{routeId}
+        </foreach>
+    </delete>
+
+    <select id="selectRouteIdByRouteCode" parameterType="String" resultType="Long">
+        select distinct route_id from t_route where route_code = #{routeCode}
+    </select>
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TRemoteShoutingMapper">
+    
+    <resultMap type="TRemoteShouting" id="TRemoteShoutingResult">
+        <result property="shoutingId"    column="shouting_id"    />
+        <result property="airportId"    column="airport_id"    />
+        <result property="uavId"    column="uav_id"    />
+        <result property="inputType"    column="input_type"    />
+        <result property="circulatePlay"    column="circulate_play"    />
+        <result property="circulateCount"    column="circulate_count"    />
+        <result property="soundType"    column="sound_type"    />
+        <result property="content"    column="content"    />
+        <result property="inputUser"    column="input_user"    />
+        <result property="inputTime"    column="input_time"    />
+        <result property="sendTime"    column="send_time"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+    </resultMap>
+
+    <sql id="selectTRemoteShoutingVo">
+        select shouting_id, airport_id, uav_id, input_type, circulate_play, circulate_count, sound_type, content, input_user, input_time, send_time, spare0, spare1, spare2, spare3, spare4 from t_remote_shouting
+    </sql>
+
+    <select id="selectTRemoteShoutingList" parameterType="TRemoteShouting" resultMap="TRemoteShoutingResult">
+        <include refid="selectTRemoteShoutingVo"/>
+        <where>  
+            <if test="airportId != null "> and airport_id = #{airportId}</if>
+            <if test="uavId != null  and uavId != ''"> and uav_id = #{uavId}</if>
+            <if test="inputType != null  and inputType != ''"> and input_type = #{inputType}</if>
+            <if test="circulatePlay != null "> and circulate_play = #{circulatePlay}</if>
+            <if test="circulateCount != null "> and circulate_count = #{circulateCount}</if>
+            <if test="soundType != null  and soundType != ''"> and sound_type = #{soundType}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="inputUser != null  and inputUser != ''"> and input_user = #{inputUser}</if>
+            <if test="inputTime != null "> and input_time = #{inputTime}</if>
+            <if test="sendTime != null "> and send_time = #{sendTime}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+        </where>
+    </select>
+    
+    <select id="selectTRemoteShoutingById" parameterType="Long" resultMap="TRemoteShoutingResult">
+        <include refid="selectTRemoteShoutingVo"/>
+        where shouting_id = #{shoutingId}
+    </select>
+        
+    <insert id="insertTRemoteShouting" parameterType="TRemoteShouting" useGeneratedKeys="true" keyProperty="shoutingId">
+        insert into t_remote_shouting
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="airportId != null">airport_id,</if>
+            <if test="uavId != null">uav_id,</if>
+            <if test="inputType != null">input_type,</if>
+            <if test="circulatePlay != null">circulate_play,</if>
+            <if test="circulateCount != null">circulate_count,</if>
+            <if test="soundType != null">sound_type,</if>
+            <if test="content != null">content,</if>
+            <if test="inputUser != null">input_user,</if>
+            <if test="inputTime != null">input_time,</if>
+            <if test="sendTime != null">send_time,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="airportId != null">#{airportId},</if>
+            <if test="uavId != null">#{uavId},</if>
+            <if test="inputType != null">#{inputType},</if>
+            <if test="circulatePlay != null">#{circulatePlay},</if>
+            <if test="circulateCount != null">#{circulateCount},</if>
+            <if test="soundType != null">#{soundType},</if>
+            <if test="content != null">#{content},</if>
+            <if test="inputUser != null">#{inputUser},</if>
+            <if test="inputTime != null">#{inputTime},</if>
+            <if test="sendTime != null">#{sendTime},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTRemoteShouting" parameterType="TRemoteShouting">
+        update t_remote_shouting
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="airportId != null">airport_id = #{airportId},</if>
+            <if test="uavId != null">uav_id = #{uavId},</if>
+            <if test="inputType != null">input_type = #{inputType},</if>
+            <if test="circulatePlay != null">circulate_play = #{circulatePlay},</if>
+            <if test="circulateCount != null">circulate_count = #{circulateCount},</if>
+            <if test="soundType != null">sound_type = #{soundType},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="inputUser != null">input_user = #{inputUser},</if>
+            <if test="inputTime != null">input_time = #{inputTime},</if>
+            <if test="sendTime != null">send_time = #{sendTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where shouting_id = #{shoutingId}
+    </update>
+
+    <delete id="deleteTRemoteShoutingById" parameterType="Long">
+        delete from t_remote_shouting where shouting_id = #{shoutingId}
+    </delete>
+
+    <delete id="deleteTRemoteShoutingByIds" parameterType="String">
+        delete from t_remote_shouting where shouting_id in 
+        <foreach item="shoutingId" collection="array" open="(" separator="," close=")">
+            #{shoutingId}
+        </foreach>
+    </delete>
+</mapper>

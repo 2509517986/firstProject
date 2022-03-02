@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiConfigStrategyMapper">
+    
+    <resultMap type="TYuntaiConfigStrategy" id="TYuntaiConfigStrategyResult">
+        <result property="id"    column="id"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+        <result property="kind"    column="kind"    />
+        <result property="captureTime"    column="capture_time"    />
+        <result property="presetBit"    column="preset_bit"    />
+        <result property="actionType"    column="action_type"    />
+        <result property="duration"    column="duration"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="modifyUser"    column="modify_user"    />
+        <result property="modifyTime"    column="modify_time"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+    </resultMap>
+
+    <sql id="selectTYuntaiConfigStrategyVo">
+        select id, yuntai_id, kind, capture_time, preset_bit, action_type, duration, create_user, create_time, modify_user, modify_time, spare0, spare1, spare2, spare3, spare4 from t_yuntai_config_strategy
+    </sql>
+
+    <select id="selectTYuntaiConfigStrategyList" parameterType="TYuntaiConfigStrategy" resultMap="TYuntaiConfigStrategyResult">
+        <include refid="selectTYuntaiConfigStrategyVo"/>
+        <where>  
+            <if test="yuntaiId != null "> and yuntai_id = #{yuntaiId}</if>
+            <if test="kind != null  and kind != ''"> and kind = #{kind}</if>
+            <if test="captureTime != null  and captureTime != ''"> and capture_time = #{captureTime}</if>
+            <if test="presetBit != null  and presetBit != ''"> and preset_bit = #{presetBit}</if>
+            <if test="actionType != null  and actionType != ''"> and action_type = #{actionType}</if>
+            <if test="duration != null "> and duration = #{duration}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="modifyUser != null  and modifyUser != ''"> and modify_user = #{modifyUser}</if>
+            <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYuntaiConfigStrategyById" parameterType="Long" resultMap="TYuntaiConfigStrategyResult">
+        <include refid="selectTYuntaiConfigStrategyVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYuntaiConfigStrategy" parameterType="TYuntaiConfigStrategy">
+        insert into t_yuntai_config_strategy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id,</if>
+            <if test="kind != null">kind,</if>
+            <if test="captureTime != null">capture_time,</if>
+            <if test="presetBit != null">preset_bit,</if>
+            <if test="actionType != null">action_type,</if>
+            <if test="duration != null">duration,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="modifyUser != null">modify_user,</if>
+            <if test="modifyTime != null">modify_time,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+            <if test="kind != null">#{kind},</if>
+            <if test="captureTime != null">#{captureTime},</if>
+            <if test="presetBit != null">#{presetBit},</if>
+            <if test="actionType != null">#{actionType},</if>
+            <if test="duration != null">#{duration},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="modifyUser != null">#{modifyUser},</if>
+            <if test="modifyTime != null">#{modifyTime},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYuntaiConfigStrategy" parameterType="TYuntaiConfigStrategy">
+        update t_yuntai_config_strategy
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+            <if test="kind != null">kind = #{kind},</if>
+            <if test="captureTime != null">capture_time = #{captureTime},</if>
+            <if test="presetBit != null">preset_bit = #{presetBit},</if>
+            <if test="actionType != null">action_type = #{actionType},</if>
+            <if test="duration != null">duration = #{duration},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="modifyUser != null">modify_user = #{modifyUser},</if>
+            <if test="modifyTime != null">modify_time = #{modifyTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiConfigStrategyById" parameterType="Long">
+        delete from t_yuntai_config_strategy where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiConfigStrategyByIds" parameterType="String">
+        delete from t_yuntai_config_strategy where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
