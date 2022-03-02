@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiWindDancedMapper">
+    
+    <resultMap type="TYuntaiWindDanced" id="TYuntaiWindDancedResult">
+        <result property="id"    column="id"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="time"    column="time"    />
+        <result property="avgPull"    column="avg_pull"    />
+        <result property="pullChangeRange"    column="pull_change_range"    />
+        <result property="pullChangeFre"    column="pull_change_fre"    />
+        <result property="avgWindDefAngleSymbol"    column="avg_wind_def_angle_symbol"    />
+        <result property="avgWindDefAngle"    column="avg_wind_def_angle"    />
+        <result property="windDefAngleRangeSymbol"    column="wind_def_angle_range_symbol"    />
+        <result property="windDefAngleRange"    column="wind_def_angle_range"    />
+        <result property="windDefAngleChangeRange"    column="wind_def_angle_change_range"    />
+        <result property="state"    column="state"    />
+    </resultMap>
+
+    <sql id="selectTYuntaiWindDancedVo">
+        select id, yuntai_id, channel_id, time, avg_pull, pull_change_range, pull_change_fre, avg_wind_def_angle_symbol, avg_wind_def_angle, wind_def_angle_range_symbol, wind_def_angle_range, wind_def_angle_change_range, state from t_yuntai_wind_danced
+    </sql>
+
+    <select id="selectTYuntaiWindDancedList" parameterType="TYuntaiWindDanced" resultMap="TYuntaiWindDancedResult">
+        <include refid="selectTYuntaiWindDancedVo"/>
+        <where>  
+            <if test="yuntaiId != null  and yuntaiId != ''"> and yuntai_id = #{yuntaiId}</if>
+            <if test="channelId != null  and channelId != ''"> and channel_id = #{channelId}</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="avgPull != null  and avgPull != ''"> and avg_pull = #{avgPull}</if>
+            <if test="pullChangeRange != null  and pullChangeRange != ''"> and pull_change_range = #{pullChangeRange}</if>
+            <if test="pullChangeFre != null  and pullChangeFre != ''"> and pull_change_fre = #{pullChangeFre}</if>
+            <if test="avgWindDefAngleSymbol != null  and avgWindDefAngleSymbol != ''"> and avg_wind_def_angle_symbol = #{avgWindDefAngleSymbol}</if>
+            <if test="avgWindDefAngle != null  and avgWindDefAngle != ''"> and avg_wind_def_angle = #{avgWindDefAngle}</if>
+            <if test="windDefAngleRangeSymbol != null  and windDefAngleRangeSymbol != ''"> and wind_def_angle_range_symbol = #{windDefAngleRangeSymbol}</if>
+            <if test="windDefAngleRange != null  and windDefAngleRange != ''"> and wind_def_angle_range = #{windDefAngleRange}</if>
+            <if test="windDefAngleChangeRange != null  and windDefAngleChangeRange != ''"> and wind_def_angle_change_range = #{windDefAngleChangeRange}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYuntaiWindDancedById" parameterType="Long" resultMap="TYuntaiWindDancedResult">
+        <include refid="selectTYuntaiWindDancedVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYuntaiWindDanced" parameterType="TYuntaiWindDanced" useGeneratedKeys="true" keyProperty="id">
+        insert into t_yuntai_wind_danced
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id,</if>
+            <if test="channelId != null">channel_id,</if>
+            <if test="time != null">time,</if>
+            <if test="avgPull != null">avg_pull,</if>
+            <if test="pullChangeRange != null">pull_change_range,</if>
+            <if test="pullChangeFre != null">pull_change_fre,</if>
+            <if test="avgWindDefAngleSymbol != null">avg_wind_def_angle_symbol,</if>
+            <if test="avgWindDefAngle != null">avg_wind_def_angle,</if>
+            <if test="windDefAngleRangeSymbol != null">wind_def_angle_range_symbol,</if>
+            <if test="windDefAngleRange != null">wind_def_angle_range,</if>
+            <if test="windDefAngleChangeRange != null">wind_def_angle_change_range,</if>
+            <if test="state != null">state,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+            <if test="channelId != null">#{channelId},</if>
+            <if test="time != null">#{time},</if>
+            <if test="avgPull != null">#{avgPull},</if>
+            <if test="pullChangeRange != null">#{pullChangeRange},</if>
+            <if test="pullChangeFre != null">#{pullChangeFre},</if>
+            <if test="avgWindDefAngleSymbol != null">#{avgWindDefAngleSymbol},</if>
+            <if test="avgWindDefAngle != null">#{avgWindDefAngle},</if>
+            <if test="windDefAngleRangeSymbol != null">#{windDefAngleRangeSymbol},</if>
+            <if test="windDefAngleRange != null">#{windDefAngleRange},</if>
+            <if test="windDefAngleChangeRange != null">#{windDefAngleChangeRange},</if>
+            <if test="state != null">#{state},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYuntaiWindDanced" parameterType="TYuntaiWindDanced">
+        update t_yuntai_wind_danced
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+            <if test="channelId != null">channel_id = #{channelId},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="avgPull != null">avg_pull = #{avgPull},</if>
+            <if test="pullChangeRange != null">pull_change_range = #{pullChangeRange},</if>
+            <if test="pullChangeFre != null">pull_change_fre = #{pullChangeFre},</if>
+            <if test="avgWindDefAngleSymbol != null">avg_wind_def_angle_symbol = #{avgWindDefAngleSymbol},</if>
+            <if test="avgWindDefAngle != null">avg_wind_def_angle = #{avgWindDefAngle},</if>
+            <if test="windDefAngleRangeSymbol != null">wind_def_angle_range_symbol = #{windDefAngleRangeSymbol},</if>
+            <if test="windDefAngleRange != null">wind_def_angle_range = #{windDefAngleRange},</if>
+            <if test="windDefAngleChangeRange != null">wind_def_angle_change_range = #{windDefAngleChangeRange},</if>
+            <if test="state != null">state = #{state},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiWindDancedById" parameterType="Long">
+        delete from t_yuntai_wind_danced where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiWindDancedByIds" parameterType="String">
+        delete from t_yuntai_wind_danced where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

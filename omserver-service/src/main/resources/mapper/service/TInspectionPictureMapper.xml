@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TInspectionPictureMapper">
+
+    <resultMap type="TInspectionPicture" id="TInspectionPictureResult">
+        <result property="id" column="id"/>
+        <result property="reportId" column="report_id"/>
+        <result property="pictureId" column="picture_id"/>
+        <result property="lineId" column="line_id"/>
+        <result property="towerId" column="tower_id"/>
+        <result property="deptName" column="dept_name"/>
+        <result property="level" column="level"/>
+        <result property="voltage" column="voltage"/>
+        <result property="historyPictureId" column="history_picture_id"/>
+        <result property="imageDir" column="image_dir"/>
+        <result property="imageName" column="image_name"/>
+        <result property="alarmDir" column="alarm_dir"/>
+        <result property="alarmUrl" column="alarm_url"/>
+        <result property="sceneType" column="scene_type"/>
+        <result property="sceneName" column="scene_name"/>
+        <result property="factory" column="factory"/>
+        <result property="kind" column="kind"/>
+        <result property="captureUser" column="capture_user"/>
+        <result property="captureTime" column="capture_time"/>
+        <result property="channelNumber" column="channel_number"/>
+        <result property="presetBit" column="preset_bit"/>
+
+        <result property="imgType" column="img_type"/>
+        <result property="isAlarm" column="is_alarm"/>
+        <result property="checkResult" column="check_result"/>
+        <result property="diagnose" column="diagnose"/>
+        <result property="remark" column="remark"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modifyUser" column="modify_user"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="spare0" column="spare0"/>
+        <result property="spare1" column="spare1"/>
+        <result property="spare2" column="spare2"/>
+        <result property="spare3" column="spare3"/>
+        <result property="spare4" column="spare4"/>
+    </resultMap>
+
+    <sql id="selectTInspectionPictureVo">
+        select id, report_id, picture_id, line_id, tower_id, dept_name, level, voltage, history_picture_id, image_dir, image_name, alarm_dir, alarm_url, scene_type, scene_name, factory, kind, capture_user, capture_time, channel_number, preset_bit, img_type, is_alarm, check_result, diagnose, remark, create_user, create_time, modify_user, modify_time, spare0, spare1, spare2, spare3, spare4 from t_inspection_picture
+    </sql>
+
+    <select id="selectTInspectionPictureList" parameterType="TInspectionPicture" resultMap="TInspectionPictureResult">
+        <include refid="selectTInspectionPictureVo"/>
+        <where>
+            <if test="reportId != null ">and report_id = #{reportId}</if>
+            <if test="pictureId != null ">and picture_id = #{pictureId}</if>
+            <if test="lineId != null ">and line_id = #{lineId}</if>
+            <if test="towerId != null ">and tower_id = #{towerId}</if>
+            <if test="deptName != null  and deptName != ''">and dept_name like concat('%', #{deptName}, '%')</if>
+            <if test="level != null  and level != ''">and level = #{level}</if>
+            <if test="voltage != null  and voltage != ''">and voltage = #{voltage}</if>
+            <if test="historyPictureId != null ">and history_picture_id = #{historyPictureId}</if>
+            <if test="imageDir != null  and imageDir != ''">and image_dir = #{imageDir}</if>
+            <if test="imageName != null  and imageName != ''">and image_name like concat('%', #{imageName}, '%')</if>
+            <if test="alarmDir != null  and alarmDir != ''">and alarm_dir = #{alarmDir}</if>
+            <if test="alarmUrl != null  and alarmUrl != ''">and alarm_url = #{alarmUrl}</if>
+            <if test="sceneType != null  and sceneType != ''">and scene_type = #{sceneType}</if>
+            <if test="sceneName != null  and sceneName != ''">and scene_name like concat('%', #{sceneName}, '%')</if>
+            <if test="factory != null  and factory != ''">and factory = #{factory}</if>
+            <if test="kind != null  and kind != ''">and kind = #{kind}</if>
+            <if test="captureUser != null  and captureUser != ''">and capture_user = #{captureUser}</if>
+            <if test="captureTime != null ">and capture_time = #{captureTime}</if>
+            <if test="channelNumber != null  and channelNumber != ''">and channel_number = #{channelNumber}</if>
+            <if test="presetBit != null  and presetBit != ''">and preset_bit = #{presetBit}</if>
+            <if test="imgType != null  and imgType != ''">and img_type = #{imgType}</if>
+            <if test="isAlarm != null ">and is_alarm = #{isAlarm}</if>
+            <if test="checkResult != null  and checkResult != ''">and check_result = #{checkResult}</if>
+            <if test="diagnose != null  and diagnose != ''">and diagnose = #{diagnose}</if>
+            <if test="createUser != null  and createUser != ''">and create_user = #{createUser}</if>
+            <if test="modifyUser != null  and modifyUser != ''">and modify_user = #{modifyUser}</if>
+            <if test="modifyTime != null ">and modify_time = #{modifyTime}</if>
+            <if test="spare0 != null  and spare0 != ''">and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''">and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''">and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''">and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''">and spare4 = #{spare4}</if>
+        </where>
+    </select>
+
+    <select id="selectTInspectionPictureById" parameterType="Long" resultMap="TInspectionPictureResult">
+        <include refid="selectTInspectionPictureVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTInspectionPicture" parameterType="TInspectionPicture">
+        insert into t_inspection_picture
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="reportId != null">report_id,</if>
+            <if test="pictureId != null">picture_id,</if>
+            <if test="lineId != null">line_id,</if>
+            <if test="towerId != null">tower_id,</if>
+            <if test="deptName != null">dept_name,</if>
+            <if test="level != null">level,</if>
+            <if test="voltage != null">voltage,</if>
+            <if test="historyPictureId != null">history_picture_id,</if>
+            <if test="imageDir != null">image_dir,</if>
+            <if test="imageName != null">image_name,</if>
+            <if test="alarmDir != null">alarm_dir,</if>
+            <if test="alarmUrl != null">alarm_url,</if>
+            <if test="sceneType != null">scene_type,</if>
+            <if test="sceneName != null">scene_name,</if>
+            <if test="factory != null">factory,</if>
+            <if test="kind != null">kind,</if>
+            <if test="captureUser != null">capture_user,</if>
+            <if test="captureTime != null">capture_time,</if>
+            <if test="channelNumber != null">channel_number,</if>
+            <if test="presetBit != null">preset_bit,</if>
+            <if test="imgType != null">img_type,</if>
+            <if test="isAlarm != null">is_alarm,</if>
+            <if test="checkResult != null">check_result,</if>
+            <if test="diagnose != null">diagnose,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="modifyUser != null">modify_user,</if>
+            <if test="modifyTime != null">modify_time,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="reportId != null">#{reportId},</if>
+            <if test="pictureId != null">#{pictureId},</if>
+            <if test="lineId != null">#{lineId},</if>
+            <if test="towerId != null">#{towerId},</if>
+            <if test="deptName != null">#{deptName},</if>
+            <if test="level != null">#{level},</if>
+            <if test="voltage != null">#{voltage},</if>
+            <if test="historyPictureId != null">#{historyPictureId},</if>
+            <if test="imageDir != null">#{imageDir},</if>
+            <if test="imageName != null">#{imageName},</if>
+            <if test="alarmDir != null">#{alarmDir},</if>
+            <if test="alarmUrl != null">#{alarmUrl},</if>
+            <if test="sceneType != null">#{sceneType},</if>
+            <if test="sceneName != null">#{sceneName},</if>
+            <if test="factory != null">#{factory},</if>
+            <if test="kind != null">#{kind},</if>
+            <if test="captureUser != null">#{captureUser},</if>
+            <if test="captureTime != null">#{captureTime},</if>
+            <if test="channelNumber != null">#{channelNumber},</if>
+            <if test="presetBit != null">#{presetBit},</if>
+            <if test="imgType != null">#{imgType},</if>
+            <if test="isAlarm != null">#{isAlarm},</if>
+            <if test="checkResult != null">#{checkResult},</if>
+            <if test="diagnose != null">#{diagnose},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="modifyUser != null">#{modifyUser},</if>
+            <if test="modifyTime != null">#{modifyTime},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTInspectionPicture" parameterType="TInspectionPicture">
+        update t_inspection_picture
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="reportId != null">report_id = #{reportId},</if>
+            <if test="pictureId != null">picture_id = #{pictureId},</if>
+            <if test="lineId != null">line_id = #{lineId},</if>
+            <if test="towerId != null">tower_id = #{towerId},</if>
+            <if test="deptName != null">dept_name = #{deptName},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="voltage != null">voltage = #{voltage},</if>
+            <if test="historyPictureId != null">history_picture_id = #{historyPictureId},</if>
+            <if test="imageDir != null">image_dir = #{imageDir},</if>
+            <if test="imageName != null">image_name = #{imageName},</if>
+            <if test="alarmDir != null">alarm_dir = #{alarmDir},</if>
+            <if test="alarmUrl != null">alarm_url = #{alarmUrl},</if>
+            <if test="sceneType != null">scene_type = #{sceneType},</if>
+            <if test="sceneName != null">scene_name = #{sceneName},</if>
+            <if test="factory != null">factory = #{factory},</if>
+            <if test="kind != null">kind = #{kind},</if>
+            <if test="captureUser != null">capture_user = #{captureUser},</if>
+            <if test="captureTime != null">capture_time = #{captureTime},</if>
+            <if test="channelNumber != null">channel_number = #{channelNumber},</if>
+            <if test="presetBit != null">preset_bit = #{presetBit},</if>
+            <if test="imgType != null">img_type = #{imgType},</if>
+            <if test="isAlarm != null">is_alarm = #{isAlarm},</if>
+            <if test="checkResult != null">check_result = #{checkResult},</if>
+            <if test="diagnose != null">diagnose = #{diagnose},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="modifyUser != null">modify_user = #{modifyUser},</if>
+            <if test="modifyTime != null">modify_time = #{modifyTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTInspectionPictureById" parameterType="Long">
+        delete from t_inspection_picture where id = #{id}
+    </delete>
+
+    <delete id="deleteTInspectionPictureByIds" parameterType="String">
+        delete from t_inspection_picture where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

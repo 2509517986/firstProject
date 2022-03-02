@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiPictureMapper">
+    
+    <resultMap type="TYuntaiPicture" id="TYuntaiPictureResult">
+        <result property="id"    column="id"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+        <result property="lineId"    column="line_id"    />
+        <result property="towerId"    column="tower_id"    />
+        <result property="imageDir"    column="image_dir"    />
+        <result property="imageName"    column="image_name"    />
+        <result property="alarmDir"    column="alarm_dir"    />
+        <result property="alarmUrl"    column="alarm_url"    />
+        <result property="factory"    column="factory"    />
+        <result property="kind"    column="kind"    />
+        <result property="captureUser"    column="capture_user"    />
+        <result property="captureTime"    column="capture_time"    />
+        <result property="presetBit"    column="preset_bit"    />
+        <result property="channelNumber"    column="channel_number"    />
+        <result property="imgType"    column="img_type"    />
+        <result property="isAlarm"    column="is_alarm"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+        <result property="isBrowse"    column="is_browse"    />
+        <result property="shape"    column="shape"    />
+        <result property="captureType"    column="capture_type"    />
+
+    </resultMap>
+
+    <sql id="selectTYuntaiPictureVo">
+        select id, yuntai_id, line_id, tower_id, image_dir, image_name, alarm_dir, alarm_url, factory, kind, capture_user, capture_time, preset_bit, channel_number, img_type, is_alarm, spare0, spare1, spare2, spare3, spare4, capture_type from t_yuntai_picture
+    </sql>
+
+    <sql id="selectTYuntaiPictureVo2">
+        select id, yuntai_id, line_id, tower_id, image_dir, shape, image_name, alarm_dir, alarm_url, factory, kind, capture_user, capture_time, preset_bit, channel_number, img_type, is_alarm, spare0, spare1, spare2, spare3, spare4, IFNULL(is_browse,0) is_browse, capture_type from v_yuntai_picture
+    </sql>
+
+
+    <select id="selectTYuntaiPictureList" parameterType="TYuntaiPicture" resultMap="TYuntaiPictureResult">
+        <include refid="selectTYuntaiPictureVo"/>
+        <where>  
+            <if test="yuntaiId != null "> and yuntai_id = #{yuntaiId}</if>
+            <if test="lineId != null "> and line_id = #{lineId}</if>
+            <if test="towerId != null "> and tower_id = #{towerId}</if>
+            <if test="imageDir != null  and imageDir != ''"> and image_dir = #{imageDir}</if>
+            <if test="imageName != null  and imageName != ''"> and image_name like concat('%', #{imageName}, '%')</if>
+            <if test="alarmDir != null  and alarmDir != ''"> and alarm_dir = #{alarmDir}</if>
+            <if test="alarmUrl != null  and alarmUrl != ''"> and alarm_url = #{alarmUrl}</if>
+            <if test="factory != null  and factory != ''"> and factory = #{factory}</if>
+            <if test="kind != null  and kind != ''"> and kind = #{kind}</if>
+            <if test="captureUser != null  and captureUser != ''"> and capture_user = #{captureUser}</if>
+            <if test="captureTime != null "> and capture_time = #{captureTime}</if>
+            <if test="presetBit != null  and presetBit != ''"> and preset_bit = #{presetBit}</if>
+            <if test="channelNumber != null  and channelNumber != ''"> and channel_number = #{channelNumber}</if>
+            <if test="imgType != null  and imgType != ''"> and img_type = #{imgType}</if>
+            <if test="isAlarm != null "> and is_alarm = #{isAlarm}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+            <if test="lineIds != null  and lineIds != ''"> and line_id in(#{lineIds})</if>
+            <if test="towerIds != null  and towerIds != ''"> and tower_id in(#{towerIds})</if>
+            <if test="spare0 != null "> and date_format(capture_time,'%Y-%m-%d')= #{spare0}</if>
+            <if test="captureType != null  and captureType != ''"> and capture_type = #{captureType}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYuntaiPictureById" parameterType="Long" resultMap="TYuntaiPictureResult">
+        <include refid="selectTYuntaiPictureVo"/>
+        where id = #{id}
+    </select>
+    <!-- 通过日期查询今日抓拍图片 -->
+    <select id="selectTYuntaiPictureListByDay" parameterType="TYuntaiPicture" resultMap="TYuntaiPictureResult">
+        <include refid="selectTYuntaiPictureVo"/>
+        <where>
+            <if test="lineId != null "> and line_id = #{lineId}</if>
+            <if test="towerId != null "> and tower_id = #{towerId}</if>
+            <if test="yuntaiId != null "> and yuntai_id = #{yuntaiId}</if>
+            <if test="spare0 != null and spare1 == null"> and date_format(capture_time,'%Y-%m-%d')= #{spare0}</if>
+            <if test="spare0 != null and spare1 != null"> and capture_time between #{spare0} and #{spare1} </if><!-- 通过备用字段spare0传入查询日期 -->
+            <if test="presetBit != null  and presetBit != ''"> and preset_bit = #{presetBit}</if>
+            <if test="imgTypes != null  and imgTypes != ''"> and img_type in
+                <foreach item="item" collection="imgTypes" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if> 
+            <if test="isAlarm != null "> and is_alarm = #{isAlarm}</if>
+            <if test="captureType != null  and captureType != ''"> and capture_type = #{captureType}</if>
+        </where>
+        order by capture_time desc
+        <if test="imgSize != null "> limit #{imgSize} </if>
+    </select>
+
+
+    <select id="selectTYuntaiPictureCount" parameterType="TYuntaiPicture" resultType="java.lang.Integer">
+        select count(0) from t_yuntai_picture
+        <where>
+            <if test="lineId != null "> and line_id = #{lineId}</if>
+            <if test="towerId != null "> and tower_id = #{towerId}</if>
+            <if test="yuntaiId != null "> and yuntai_id = #{yuntaiId}</if>
+            <if test="spare0 != null and spare1 == null"> and date_format(capture_time,'%Y-%m-%d')= #{spare0}</if>
+            <if test="spare0 != null and spare1 != null"> and capture_time between #{spare0} and #{spare1} </if><!-- 通过备用字段spare0传入查询日期 -->
+            <if test="presetBit != null  and presetBit != ''"> and preset_bit = #{presetBit}</if>
+            <if test="imgTypes != null  and imgTypes != ''"> and img_type in
+                <foreach item="item" collection="imgTypes" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="isAlarm != null "> and is_alarm = #{isAlarm}</if>
+            <if test="captureType != null  and captureType != ''"> and capture_type = #{captureType}</if>
+        </where>
+        order by line_id,tower_id,yuntai_id asc
+        <if test="imgSize != null "> limit #{imgSize} </if>
+    </select>
+
+    <select id="selectTYuntaiPictureCount1" parameterType="TYuntaiPicture" resultType="java.lang.Integer">
+        select count(0) from t_yuntai_picture
+        <where>
+            <if test="lineId != null "> and line_id = #{lineId}</if>
+            <if test="towerId != null "> and tower_id = #{towerId}</if>
+            <if test="yuntaiId != null "> and yuntai_id = #{yuntaiId}</if>
+            <if test="spare0 != null "> and date_format(capture_time,'%Y-%m-%d')= #{spare0}</if><!-- 通过备用字段spare0传入查询日期 -->
+            <if test="presetBit != null  and presetBit != ''"> and preset_bit = #{presetBit}</if>
+            <if test="imgTypes != null  and imgTypes != ''"> and img_type in
+                <foreach item="item" collection="imgTypes" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="isAlarm != null "> and is_alarm = #{isAlarm}</if>
+            <if test="captureType != null  and captureType != ''"> and capture_type = #{captureType}</if>
+        </where>
+        order by line_id,tower_id,yuntai_id asc
+        <if test="imgSize != null "> limit #{imgSize} </if>
+    </select>
+
+
+
+    <!-- 通过时间段查询历史抓拍图片 -->
+    <select id="selectTYuntaiPictureListByHistory" parameterType="TYuntaiPicture" resultMap="TYuntaiPictureResult">
+        <include refid="selectTYuntaiPictureVo"/>
+        <where>
+<!--            <if test="currentUserId != null "> and (preview_userid=#{currentUserId} or preview_userid is NULL)</if>-->
+            <if test="lineId != null "> and line_id = #{lineId}</if>
+            <if test="towerId != null "> and tower_id = #{towerId}</if>
+            <if test="yuntaiId != null "> and yuntai_id = #{yuntaiId}</if>
+            <if test="spare0 != null and spare1 != null"> and capture_time between #{spare0} and #{spare1} </if><!-- 通过备用字段spare0,spare2 传入查询时间段 -->
+            <if test="presetBit != null  and presetBit != ''"> and preset_bit = #{presetBit}</if>
+            <if test="imgTypes != null  and imgTypes != ''"> and img_type in
+                <foreach item="item" collection="imgTypes" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="isAlarm != null "> and is_alarm = #{isAlarm}</if>
+            <if test="isBrowse != null  and  isBrowse ==0 ">
+               and IFNULL(is_browse,0)=0
+            </if>
+            <if test="isBrowse != null  and  isBrowse ==1 ">
+                and IFNULL(is_browse,0)>0
+            </if>
+            <if test="captureType != null  and captureType != ''"> and capture_type = #{captureType}</if>
+        </where>
+        order by capture_time DESC
+        <if test="imgSize != null "> limit #{imgSize} </if>
+    </select>
+
+    <!-- 获取相同预置位前一天的最后一幅图片 -->
+    <select id="selectHistoryPicture" parameterType="TYuntaiPicture" resultMap="TYuntaiPictureResult">
+        <include refid="selectTYuntaiPictureVo"/>
+        where 1=1
+        <if test="id != null "> and id &lt;&gt; #{id}  and DATE_FORMAT(capture_time,'%Y-%m-%d')=(select DATE_FORMAT(DATE_SUB(capture_time,INTERVAL 1 DAY),'%Y-%m-%d') from t_yuntai_picture where id=#{id}) </if>
+        <if test="yuntaiId != null "> and yuntai_id = #{yuntaiId}</if>
+        <if test="presetBit != null  and presetBit != ''"> and preset_bit = #{presetBit}</if>
+        order by capture_time desc
+        limit 1
+    </select>
+
+    <!-- 通过传入查询日期和线路ID返回当天所有告警记录-->
+    <select id="findReportByDate" parameterType="TYuntaiPicture" resultMap="TYuntaiPictureResult">
+        <include refid="selectTYuntaiPictureVo"/>
+        <where>
+            <if test="lineIds != null  and lineIds != ''"> and line_id in(#{lineIds})</if>
+            <if test="yuntaiId != null "> and yuntai_id = #{yuntaiId}</if>
+            <if test="spare0 != null "> and date_format(capture_time,'%Y-%m-%d')= #{spare0}</if>
+        </where>
+        order by capture_time desc
+        <if test="imgSize != null "> limit #{imgSize} </if>
+
+    </select>
+
+    <insert id="insertTYuntaiPicture" parameterType="TYuntaiPicture">
+        insert into t_yuntai_picture
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="yuntaiId != null">yuntai_id,</if>
+            <if test="lineId != null">line_id,</if>
+            <if test="towerId != null">tower_id,</if>
+            <if test="imageDir != null">image_dir,</if>
+            <if test="imageName != null">image_name,</if>
+            <if test="alarmDir != null">alarm_dir,</if>
+            <if test="alarmUrl != null">alarm_url,</if>
+            <if test="factory != null">factory,</if>
+            <if test="kind != null">kind,</if>
+            <if test="captureUser != null">capture_user,</if>
+            <if test="captureTime != null">capture_time,</if>
+            <if test="presetBit != null">preset_bit,</if>
+            <if test="channelNumber != null">channel_number,</if>
+            <if test="imgType != null">img_type,</if>
+            <if test="isAlarm != null">is_alarm,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+            <if test="captureType != null">capture_type,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+            <if test="lineId != null">#{lineId},</if>
+            <if test="towerId != null">#{towerId},</if>
+            <if test="imageDir != null">#{imageDir},</if>
+            <if test="imageName != null">#{imageName},</if>
+            <if test="alarmDir != null">#{alarmDir},</if>
+            <if test="alarmUrl != null">#{alarmUrl},</if>
+            <if test="factory != null">#{factory},</if>
+            <if test="kind != null">#{kind},</if>
+            <if test="captureUser != null">#{captureUser},</if>
+            <if test="captureTime != null">#{captureTime},</if>
+            <if test="presetBit != null">#{presetBit},</if>
+            <if test="channelNumber != null">#{channelNumber},</if>
+            <if test="imgType != null">#{imgType},</if>
+            <if test="isAlarm != null">#{isAlarm},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+            <if test="captureType != null">#{captureType},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYuntaiPicture" parameterType="TYuntaiPicture">
+        update t_yuntai_picture
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+            <if test="lineId != null">line_id = #{lineId},</if>
+            <if test="towerId != null">tower_id = #{towerId},</if>
+            <if test="imageDir != null">image_dir = #{imageDir},</if>
+            <if test="imageName != null">image_name = #{imageName},</if>
+            <if test="alarmDir != null">alarm_dir = #{alarmDir},</if>
+            <if test="alarmUrl != null">alarm_url = #{alarmUrl},</if>
+            <if test="factory != null">factory = #{factory},</if>
+            <if test="kind != null">kind = #{kind},</if>
+            <if test="captureUser != null">capture_user = #{captureUser},</if>
+            <if test="captureTime != null">capture_time = #{captureTime},</if>
+            <if test="presetBit != null">preset_bit = #{presetBit},</if>
+            <if test="channelNumber != null">channel_number = #{channelNumber},</if>
+            <if test="imgType != null">img_type = #{imgType},</if>
+            <if test="isAlarm != null">is_alarm = #{isAlarm},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+            <if test="captureType != null">capture_type = #{captureType},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiPictureById" parameterType="Long">
+        delete from t_yuntai_picture where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiPictureByIds" parameterType="String">
+        delete from t_yuntai_picture where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+
+
+</mapper>

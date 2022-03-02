@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiAlarmMapper">
+
+    <resultMap type="TYuntaiAlarm" id="TYuntaiAlarmResult">
+        <result property="id"    column="id"    />
+        <result property="pictureId"    column="picture_id"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+        <result property="lineId"    column="line_id"    />
+        <result property="towerId"    column="tower_id"    />
+        <result property="alarmDir"    column="alarm_dir"    />
+        <result property="alarmUrl"    column="alarm_url"    />
+        <result property="factory"    column="factory"    />
+        <result property="kind"    column="kind"    />
+        <result property="captureUser"    column="capture_user"    />
+        <result property="captureTime"    column="capture_time"    />
+        <result property="presetBit"    column="preset_bit"    />
+        <result property="channelNumber"    column="channel_number"    />
+        <result property="imgType"    column="img_type"    />
+        <result property="confirmState"    column="confirm_state"    />
+        <result property="confirmUser"    column="confirm_user"    />
+        <result property="confirmTime"    column="confirm_time"    />
+        <result property="isIgnore"    column="is_ignore"    />
+        <result property="isCorrect"    column="is_correct"    />
+        <result property="affectedLine"    column="affected_line"    />
+        <result property="alarmSource"    column="alarm_source"    />
+        <result property="alarmAi"    column="alarm_ai"    />
+        <result property="sceneType"    column="scene_type"    />
+        <result property="alarmDate"    column="alarm_date"    />
+        <result property="alarmDate"    column="alarm_date"    />
+        <result property="alarmDes"    column="alarm_des"    />
+        <result property="securityDistance"    column="security_distance"    />
+        <result property="sceneName"    column="scene_name"    />
+        <result property="isInform"    column="is_inform"    />
+        <result property="isScene"    column="is_scene"    />
+        <result property="dealWith"    column="deal_with"    />
+        <result property="dealWithLimit"    column="deal_with_limit"    />
+        <result property="dutyUser"    column="duty_user"    />
+        <result property="dutyPhone"    column="duty_phone"    />
+        <result property="informDate"    column="inform_date"    />
+        <result property="informContent"    column="inform_content"    />
+        <result property="dealDate"    column="deal_date"    />
+        <result property="dealUser"    column="deal_user"    />
+        <result property="dealResult"    column="deal_result"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+
+        <result property="yuntaiName"    column="yuntai_name"    />
+        <result property="lineName"    column="line_name"    />
+        <result property="towerName"    column="tower_name"    />
+        <result property="isBrowse"    column="is_browse"    />
+        <result property="isAlarm"    column="is_alarm"    />
+    </resultMap>
+
+    <sql id="selectTYuntaiAlarmVo">
+        select id, picture_id, yuntai_id, line_id, tower_id, alarm_dir, alarm_url, factory, kind, capture_user, capture_time, preset_bit, channel_number, img_type, confirm_state, confirm_user, confirm_time, is_ignore, is_correct, affected_line, alarm_source, alarm_ai, scene_type, alarm_des, security_distance, scene_name, is_inform, is_scene, deal_with, deal_with_limit, duty_user, duty_phone, inform_date, inform_content, deal_date, deal_user, deal_result, is_alarm,is_browse, spare0, spare1, spare2, spare3, spare4 from t_yuntai_alarm
+    </sql>
+
+
+
+
+    <select id="selectTYuntaiAlarmList" parameterType="TYuntaiAlarm" resultMap="TYuntaiAlarmResult">
+        <include refid="selectTYuntaiAlarmVo"/>
+        <where>
+            <if test="pictureId != null "> and picture_id = #{pictureId}</if>
+            <if test="yuntaiId != null "> and yuntai_id = #{yuntaiId}</if>
+            <if test="lineId != null "> and line_id = #{lineId}</if>
+            <if test="towerId != null "> and tower_id = #{towerId}</if>
+            <if test="alarmDir != null  and alarmDir != ''"> and alarm_dir = #{alarmDir}</if>
+            <if test="alarmUrl != null  and alarmUrl != ''"> and alarm_url = #{alarmUrl}</if>
+            <if test="factory != null  and factory != ''"> and factory = #{factory}</if>
+            <if test="kind != null  and kind != ''"> and kind = #{kind}</if>
+            <if test="captureUser != null  and captureUser != ''"> and capture_user = #{captureUser}</if>
+            <if test="captureTime != null "> and capture_time = #{captureTime}</if>
+            <if test="presetBit != null  and presetBit != ''"> and preset_bit = #{presetBit}</if>
+            <if test="channelNumber != null  and channelNumber != ''"> and channel_number = #{channelNumber}</if>
+            <if test="imgType != null  and imgType != ''"> and img_type = #{imgType}</if>
+            <if test="confirmState != null  and confirmState != ''"> and confirm_state = #{confirmState}</if>
+            <if test="confirmUser != null  and confirmUser != ''"> and confirm_user = #{confirmUser}</if>
+            <if test="confirmTime != null  and confirmTime != ''"> and confirm_time = #{confirmTime}</if>
+            <if test="confirmState != null  and confirmState != ''"> and confirm_state = #{confirmState}</if>
+            <if test="isIgnore != null "> and is_ignore = #{isIgnore}</if>
+            <if test="isCorrect != null "> and is_correct = #{isCorrect}</if>
+            <if test="affectedLine != null "> and affected_line = #{affectedLine}</if>
+            <if test="alarmSource != null  and alarmSource != ''"> and alarm_source = #{alarmSource}</if>
+            <if test="alarmAi != null  and alarmAi != ''"> and alarm_ai = #{alarmAi}</if>
+            <if test="sceneType != null  and sceneType != ''"> and scene_type = #{sceneType}</if>
+            <if test="alarmDate != null  and alarmDate != ''"> and alarm_date = #{alarmDate}</if>
+            <if test="alarmDes != null  and alarmDes != ''"> and alarm_des = #{alarmDes}</if>
+            <if test="securityDistance != null "> and security_distance = #{securityDistance}</if>
+            <if test="sceneName != null  and sceneName != ''"> and scene_name like concat('%', #{sceneName}, '%')</if>
+            <if test="isInform != null "> and is_inform = #{isInform}</if>
+            <if test="isScene != null "> and is_scene = #{isScene}</if>
+            <if test="dealWith != null "> and deal_with = #{dealWith}</if>
+            <if test="dealWithLimit != null "> and deal_with_limit = #{dealWithLimit}</if>
+            <if test="dutyUser != null  and dutyUser != ''"> and duty_user = #{dutyUser}</if>
+            <if test="dutyPhone != null  and dutyPhone != ''"> and duty_phone = #{dutyPhone}</if>
+            <if test="informDate != null "> and inform_date = #{informDate}</if>
+            <if test="informContent != null  and informContent != ''"> and inform_content = #{informContent}</if>
+            <if test="dealDate != null "> and deal_date = #{dealDate}</if>
+            <if test="dealUser != null  and dealUser != ''"> and deal_user = #{dealUser}</if>
+            <if test="dealResult != null  and dealResult != ''"> and deal_result = #{dealResult}</if>
+            <if test="lineIds != null  and lineIds != ''"> and line_id in(#{lineIds})</if>
+            <if test="towerIds != null  and towerIds != ''"> and tower_id in(#{towerId})</if>
+            <if test="isAlarm != null  and isAlarm != ''"> and is_alarm in(#{isAlarm})</if>
+
+            <!-- 通过备用字段spare0,spare1 传入查询时间段 -->
+            <if test="spare0 != null and spare0 != '' and spare1 != null and spare1 != ''"> and alarm_date between '#{spare0}' and '#{spare1}' </if>
+            <!-- 通过备用字段spare2，spare3来过滤查询阅览状态 -->
+            <if test="spare3 != null and spare3 != ''">and not </if>
+            <if test="spare3 == null and spare3 == ''">and </if>
+            <if test="spare2 != null and spare2 != ''"> exists(select * from t_yuntai_preview yp where yp.picture_id=t_yuntai_alarm.id and yp.preview_user=#{spare2}</if>
+        </where>
+    </select>
+
+    <sql id="selectTYuntaiAlarmVo2">
+        select a.id,a.picture_id,a.yuntai_id,y.`name` as yuntai_name,a.line_id,l.`name` as line_name,a.tower_id ,t.`name` as tower_name,a.alarm_dir,a.alarm_url,a.factory,a.kind,a.capture_user,a.capture_time,a.alarm_date,
+        a.preset_bit,a.channel_number,a.img_type,a.confirm_state,a.confirm_user,a.confirm_time,a.is_ignore,a.is_correct,a.affected_line,
+        a.alarm_source,a.alarm_ai,a.scene_type,a.alarm_des,a.security_distance,a.scene_name,a.is_inform,a.is_scene,a.deal_with,
+        a.deal_with_limit,a.duty_user,a.duty_phone,a.inform_date,a.inform_content,a.deal_date,a.deal_user,a.deal_result,a.spare0,a.spare1,a.spare2,a.spare3,a.spare4 ,
+        a.is_browse,is_alarm
+        from t_yuntai_alarm a
+        LEFT JOIN t_line_info l on a.line_id  = l.id
+        LEFT JOIN t_tower_info  t on t.id  = a.tower_id
+        LEFT JOIN t_yuntai_info y  on y.id  =a.yuntai_id
+    </sql>
+    <select id="selectTYuntaiAlarmListByDetail" parameterType="TYuntaiAlarm" resultMap="TYuntaiAlarmResult">
+        <include refid="selectTYuntaiAlarmVo2"/>
+        <where>
+            <if test="pictureId != null "> and a.picture_id = #{pictureId}</if>
+            <if test="yuntaiId != null "> and a.yuntai_id = #{yuntaiId}</if>
+            <if test="lineId != null "> and a.line_id = #{lineId}</if>
+            <if test="towerId != null "> and a.tower_id = #{towerId}</if>
+            <if test="alarmDir != null  and alarmDir != ''"> and a.alarm_dir = #{alarmDir}</if>
+            <if test="alarmUrl != null  and alarmUrl != ''"> and a.alarm_url = #{alarmUrl}</if>
+            <if test="factory != null  and factory != ''"> and a.factory = #{factory}</if>
+            <if test="kind != null  and kind != ''"> and a.kind = #{kind}</if>
+            <if test="captureUser != null  and captureUser != ''"> and a.capture_user = #{captureUser}</if>
+            <if test="captureTime != null "> and a.capture_time = #{captureTime}</if>
+            <if test="presetBit != null  and presetBit != ''"> and a.preset_bit = #{presetBit}</if>
+            <if test="channelNumber != null  and channelNumber != ''"> and a.channel_number = #{channelNumber}</if>
+            <if test="imgTypes != null  and imgTypes != ''"> and a.img_type  in
+                <foreach item="item" collection="imgTypes" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="confirmStates != null  and confirmStates != ''"> and a.confirm_state in
+                <foreach item="item" collection="confirmStates" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="confirmUser != null  and confirmUser != ''"> and a.confirm_user = #{confirmUser}</if>
+            <if test="confirmTime != null  and confirmTime != ''"> and a.confirm_time = #{confirmTime}</if>
+            <if test="isIgnore != null "> and a.is_ignore = #{isIgnore}</if>
+            <if test="isCorrect != null "> and a.is_correct = #{isCorrect}</if>
+            <if test="affectedLine != null "> and a.affected_line = #{affectedLine}</if>
+            <if test="alarmSources != null  and alarmSources != ''"> and a.alarm_source  in
+                <foreach item="item" collection="alarmSources" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="alarmAis != null  and alarmAis != ''"> and a.alarm_ai in
+                <foreach item="item" collection="alarmAis" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="sceneType != null  and sceneType != ''"> and a.scene_type = #{sceneType}</if>
+            <if test="alarmDate != null  and alarmDate != ''"> and a.alarm_date = #{alarmDate}</if>
+            <if test="alarmDes != null  and alarmDes != ''"> and a.alarm_des = #{alarmDes}</if>
+            <if test="securityDistance != null "> and a.security_distance = #{securityDistance}</if>
+            <if test="sceneName != null  and sceneName != ''"> and a.scene_name like concat('%', #{sceneName}, '%')</if>
+            <if test="isInform != null "> and a.is_inform = #{isInform}</if>
+            <if test="isScene != null "> and a.is_scene = #{isScene}</if>
+            <if test="dealWith != null "> and a.deal_with = #{dealWith}</if>
+            <if test="dealWithLimit != null "> and a.deal_with_limit = #{dealWithLimit}</if>
+            <if test="dutyUser != null  and dutyUser != ''"> and a.duty_user = #{dutyUser}</if>
+            <if test="dutyPhone != null  and dutyPhone != ''"> and a.duty_phone = #{dutyPhone}</if>
+            <if test="informDate != null "> and a.inform_date = #{informDate}</if>
+            <if test="informContent != null  and informContent != ''"> and a.inform_content = #{informContent}</if>
+            <if test="dealDate != null "> and a.deal_date = #{dealDate}</if>
+            <if test="dealUser != null  and dealUser != ''"> and a.deal_user = #{dealUser}</if>
+            <if test="dealResult != null  and dealResult != ''"> and a.deal_result = #{dealResult}</if>
+            <!-- 通过备用字段spare0,spare1 传入查询时间段 -->
+            <if test="spare0 != null and spare0 != '' and spare1 != null and spare1 != ''">
+            and (a.alarm_date  <![CDATA[ >= ]]> #{spare0} and a.alarm_date  <![CDATA[ <= ]]> CONCAT(#{spare1},'23:59:59'))
+             </if>
+            <!-- 通过备用字段spare2，spare3来过滤查询阅览状态 -->
+            <if test="spare3 != null and spare3 != ''">and not </if>
+            <if test="spare3 == null and spare3 == ''">and </if>
+            <if test="spare2 != null and spare2 != ''"> exists(select * from t_yuntai_preview yp where yp.picture_id=t_yuntai_alarm.id and yp.preview_user=#{spare2}</if>
+            <if test="isAlarm != null and isAlarm != ''"> and a.is_alarm = #{isAlarm}</if>
+            <if test="isBrowse != null and isBrowse != ''"> and a.is_browse = #{isBrowse}</if>
+        </where>
+        order by  a.capture_time desc
+    </select>
+
+    <select id="selectTYuntaiAlarmById" parameterType="Long" resultMap="TYuntaiAlarmResult">
+        <include refid="selectTYuntaiAlarmVo"/>
+        where id = #{id}
+    </select>
+
+    <!-- 通过传入查询日期和线路ID返回当天所有告警记录-->
+    <select id="findReportByDate" parameterType="TYuntaiAlarm" resultMap="TYuntaiAlarmResult">
+        <include refid="selectTYuntaiAlarmVo"/>
+        <where>
+            <if test="lineIds != null  and lineIds != ''"> and line_id in(#{lineIds})</if>
+            <if test="spare0 != null "> and date_format(capture_time,'%Y-%m-%d')= #{spare0}</if>
+        </where>
+    </select>
+
+    <insert id="insertTYuntaiAlarm" parameterType="TYuntaiAlarm">
+        insert into t_yuntai_alarm
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="pictureId != null">picture_id,</if>
+            <if test="yuntaiId != null">yuntai_id,</if>
+            <if test="lineId != null">line_id,</if>
+            <if test="towerId != null">tower_id,</if>
+            <if test="alarmDir != null">alarm_dir,</if>
+            <if test="alarmUrl != null">alarm_url,</if>
+            <if test="factory != null">factory,</if>
+            <if test="kind != null">kind,</if>
+            <if test="captureUser != null">capture_user,</if>
+            <if test="captureTime != null">capture_time,</if>
+            <if test="presetBit != null">preset_bit,</if>
+            <if test="channelNumber != null">channel_number,</if>
+            <if test="imgType != null">img_type,</if>
+            <if test="confirmState != null">confirm_state,</if>
+            <if test="confirmUser != null">confirm_user,</if>
+            <if test="confirmTime != null">confirm_time,</if>
+            <if test="isIgnore != null">is_ignore,</if>
+            <if test="isCorrect != null">is_correct,</if>
+            <if test="affectedLine != null">affected_line,</if>
+            <if test="alarmSource != null">alarm_source,</if>
+            <if test="alarmAi != null">alarm_ai,</if>
+            <if test="sceneType != null">scene_type,</if>
+            <if test="alarmDate != null">alarm_date,</if>
+            <if test="alarmDes != null">alarm_des,</if>
+            <if test="securityDistance != null">security_distance,</if>
+            <if test="sceneName != null">scene_name,</if>
+            <if test="isInform != null">is_inform,</if>
+            <if test="isScene != null">is_scene,</if>
+            <if test="dealWith != null">deal_with,</if>
+            <if test="dealWithLimit != null">deal_with_limit,</if>
+            <if test="dutyUser != null">duty_user,</if>
+            <if test="dutyPhone != null">duty_phone,</if>
+            <if test="informDate != null">inform_date,</if>
+            <if test="informContent != null">inform_content,</if>
+            <if test="dealDate != null">deal_date,</if>
+            <if test="dealUser != null">deal_user,</if>
+            <if test="dealResult != null">deal_result,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+            <if test="isAlarm != null">is_alarm,</if>
+            <if test="isBrowse != null">is_browse,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="pictureId != null">#{pictureId},</if>
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+            <if test="lineId != null">#{lineId},</if>
+            <if test="towerId != null">#{towerId},</if>
+            <if test="alarmDir != null">#{alarmDir},</if>
+            <if test="alarmUrl != null">#{alarmUrl},</if>
+            <if test="factory != null">#{factory},</if>
+            <if test="kind != null">#{kind},</if>
+            <if test="captureUser != null">#{captureUser},</if>
+            <if test="captureTime != null">#{captureTime},</if>
+            <if test="presetBit != null">#{presetBit},</if>
+            <if test="channelNumber != null">#{channelNumber},</if>
+            <if test="imgType != null">#{imgType},</if>
+            <if test="confirmState != null">#{confirmState},</if>
+            <if test="confirmUser != null">#{confirmUser},</if>
+            <if test="confirmTime != null">#{confirmTime},</if>
+            <if test="isIgnore != null">#{isIgnore},</if>
+            <if test="isCorrect != null">#{isCorrect},</if>
+            <if test="affectedLine != null">#{affectedLine},</if>
+            <if test="alarmSource != null">#{alarmSource},</if>
+            <if test="alarmAi != null">#{alarmAi},</if>
+            <if test="sceneType != null">#{sceneType},</if>
+            <if test="alarmDate != null">#{alarmDate},</if>
+            <if test="alarmDes != null">#{alarmDes},</if>
+            <if test="securityDistance != null">#{securityDistance},</if>
+            <if test="sceneName != null">#{sceneName},</if>
+            <if test="isInform != null">#{isInform},</if>
+            <if test="isScene != null">#{isScene},</if>
+            <if test="dealWith != null">#{dealWith},</if>
+            <if test="dealWithLimit != null">#{dealWithLimit},</if>
+            <if test="dutyUser != null">#{dutyUser},</if>
+            <if test="dutyPhone != null">#{dutyPhone},</if>
+            <if test="informDate != null">#{informDate},</if>
+            <if test="informContent != null">#{informContent},</if>
+            <if test="dealDate != null">#{dealDate},</if>
+            <if test="dealUser != null">#{dealUser},</if>
+            <if test="dealResult != null">#{dealResult},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+            <if test="isAlarm != null">#{isAlarm},</if>
+            <if test="isBrowse != null">#{isBrowse},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTYuntaiAlarm" parameterType="TYuntaiAlarm">
+        update t_yuntai_alarm
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="pictureId != null">picture_id = #{pictureId},</if>
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+            <if test="lineId != null">line_id = #{lineId},</if>
+            <if test="towerId != null">tower_id = #{towerId},</if>
+            <if test="alarmDir != null">alarm_dir = #{alarmDir},</if>
+            <if test="alarmUrl != null">alarm_url = #{alarmUrl},</if>
+            <if test="factory != null">factory = #{factory},</if>
+            <if test="kind != null">kind = #{kind},</if>
+            <if test="captureUser != null">capture_user = #{captureUser},</if>
+            <if test="captureTime != null">capture_time = #{captureTime},</if>
+            <if test="presetBit != null">preset_bit = #{presetBit},</if>
+            <if test="channelNumber != null">channel_number = #{channelNumber},</if>
+            <if test="imgType != null">img_type = #{imgType},</if>
+            <if test="confirmState != null">confirm_state = #{confirmState},</if>
+            <if test="confirmUser != null">confirm_user = #{confirmUser},</if>
+            <if test="confirmTime != null">confirm_time = #{confirmTime},</if>
+            <if test="confirmState != null">confirm_state = #{confirmState},</if>
+            <if test="isIgnore != null">is_ignore = #{isIgnore},</if>
+            <if test="isCorrect != null">is_correct = #{isCorrect},</if>
+            <if test="affectedLine != null">affected_line = #{affectedLine},</if>
+            <if test="alarmSource != null">alarm_source = #{alarmSource},</if>
+            <if test="alarmAi != null">alarm_ai = #{alarmAi},</if>
+            <if test="sceneType != null">scene_type = #{sceneType},</if>
+            <if test="alarmDate != null">alarm_date = #{alarmDate},</if>
+            <if test="alarmDes != null">alarm_des = #{alarmDes},</if>
+            <if test="securityDistance != null">security_distance = #{securityDistance},</if>
+            <if test="sceneName != null">scene_name = #{sceneName},</if>
+            <if test="isInform != null">is_inform = #{isInform},</if>
+            <if test="isScene != null">is_scene = #{isScene},</if>
+            <if test="dealWith != null">deal_with = #{dealWith},</if>
+            <if test="dealWithLimit != null">deal_with_limit = #{dealWithLimit},</if>
+            <if test="dutyUser != null">duty_user = #{dutyUser},</if>
+            <if test="dutyPhone != null">duty_phone = #{dutyPhone},</if>
+            <if test="informDate != null">inform_date = #{informDate},</if>
+            <if test="informContent != null">inform_content = #{informContent},</if>
+            <if test="dealDate != null">deal_date = #{dealDate},</if>
+            <if test="dealUser != null">deal_user = #{dealUser},</if>
+            <if test="dealResult != null">deal_result = #{dealResult},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+            <if test="isAlarm != null">is_alarm = #{isAlarm},</if>
+            <if test="isBrowse != null">is_browse = #{isBrowse},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiAlarmById" parameterType="Long">
+        delete from t_yuntai_alarm where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiAlarmByIds" parameterType="String">
+        delete from t_yuntai_alarm where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

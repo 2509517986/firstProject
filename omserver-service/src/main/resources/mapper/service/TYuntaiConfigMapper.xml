@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiConfigMapper">
+    
+    <resultMap type="TYuntaiConfig" id="TYuntaiConfigResult">
+        <result property="id"    column="id"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+        <result property="heartbeatRebootDay"    column="heartbeat_reboot_day"    />
+        <result property="heartbeatRebootHour"    column="heartbeat_reboot_hour"    />
+        <result property="heartbeatRebootMinute"    column="heartbeat_reboot_minute"    />
+        <result property="heartbeatCollect"    column="heartbeat_collect"    />
+        <result property="heartbeatInterval"    column="heartbeat_interval"    />
+        <result property="heartbeatDormancy"    column="heartbeat_dormancy"    />
+        <result property="heartbeatOnline"    column="heartbeat_online"    />
+        <result property="functionPull"    column="function_pull"    />
+        <result property="functionLeakage"    column="function_leakage"    />
+        <result property="functionMeteorological"    column="function_meteorological"    />
+        <result property="functionWirewaytemp"    column="function_wirewaytemp"    />
+        <result property="functionVibrate"    column="function_vibrate"    />
+        <result property="functionLineDipangle"    column="function_line_dipangle"    />
+        <result property="functionVibraterate"    column="function_vibraterate"    />
+        <result property="functionTowerDipangle"    column="function_tower_dipangle"    />
+        <result property="functionLineVibrate"    column="function_line_vibrate"    />
+        <result property="functionPickproof"    column="function_pickproof"    />
+        <result property="functionFire"    column="function_fire"    />
+        <result property="functionFaultCheck"    column="function_fault_check"    />
+        <result property="functionGale"    column="function_gale"    />
+        <result property="functionBreeze"    column="function_breeze"    />
+        <result property="functionWave"    column="function_wave"    />
+        <result property="functionFilth"    column="function_filth"    />
+        <result property="functionSag"    column="function_sag"    />
+        <result property="functionTemp"    column="function_temp"    />
+        <result property="functionCircularCurrent"    column="function_circular_current"    />
+        <result property="functionFaultLocation"    column="function_fault_location"    />
+        <result property="functionFaultJufang"    column="function_fault_jufang"    />
+        <result property="functionJufangPutu"    column="function_jufang_putu"    />
+        <result property="functionFile"    column="function_file"    />
+        <result property="functionImage"    column="function_image"    />
+        <result property="functionVideo"    column="function_video"    />
+        <result property="platformIp"    column="platform_ip"    />
+        <result property="platformProt"    column="platform_prot"    />
+        <result property="platformCard"    column="platform_card"    />
+        <result property="pictureConduit"    column="picture_conduit"    />
+        <result property="pictureConduitType"    column="picture_conduit_type"    />
+        <result property="pictureColor"    column="picture_color"    />
+        <result property="pictureBrightness"    column="picture_brightness"    />
+        <result property="pictureContrast"    column="picture_contrast"    />
+        <result property="pictureSaturation"    column="picture_saturation"    />
+        <result property="pictureResolution"    column="picture_resolution"    />
+        <result property="videoConduit"    column="video_conduit"    />
+        <result property="videoConduitType"    column="video_conduit_type"    />
+        <result property="videoRate"    column="video_rate"    />
+        <result property="videoFrameInterval"    column="video_frame_interval"    />
+        <result property="videoEncoded"    column="video_encoded"    />
+        <result property="videoBitrateType"    column="video_bitrate_type"    />
+        <result property="videoBitrate"    column="video_bitrate"    />
+        <result property="videoResolution"    column="video_resolution"    />
+        <result property="upgradePack"    column="upgrade_pack"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="modifyUser"    column="modify_user"    />
+        <result property="modifyTime"    column="modify_time"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+    </resultMap>
+
+    <sql id="selectTYuntaiConfigVo">
+        select id, yuntai_id, heartbeat_reboot_day, heartbeat_reboot_hour, heartbeat_reboot_minute, heartbeat_collect, heartbeat_interval, heartbeat_dormancy, heartbeat_online, function_pull, function_leakage, function_meteorological, function_wirewaytemp, function_vibrate, function_line_dipangle, function_vibraterate, function_tower_dipangle, function_line_vibrate, function_pickproof, function_fire, function_fault_check, function_gale, function_breeze, function_wave, function_filth, function_sag, function_temp, function_circular_current, function_fault_location, function_fault_jufang, function_jufang_putu, function_file, function_image, function_video, platform_ip, platform_prot, platform_card, picture_conduit, picture_conduit_type, picture_color, picture_brightness, picture_contrast, picture_saturation, picture_resolution, video_conduit, video_conduit_type, video_rate, video_frame_interval, video_encoded, video_bitrate_type, video_bitrate, video_resolution, upgrade_pack, create_user, create_time, modify_user, modify_time, spare0, spare1, spare2, spare3, spare4 from t_yuntai_config
+    </sql>
+
+    <select id="selectTYuntaiConfigList" parameterType="TYuntaiConfig" resultMap="TYuntaiConfigResult">
+        <include refid="selectTYuntaiConfigVo"/>
+        <where>  
+            <if test="yuntaiId != null "> and yuntai_id = #{yuntaiId}</if>
+            <if test="heartbeatRebootDay != null "> and heartbeat_reboot_day = #{heartbeatRebootDay}</if>
+            <if test="heartbeatRebootHour != null "> and heartbeat_reboot_hour = #{heartbeatRebootHour}</if>
+            <if test="heartbeatRebootMinute != null "> and heartbeat_reboot_minute = #{heartbeatRebootMinute}</if>
+            <if test="heartbeatCollect != null "> and heartbeat_collect = #{heartbeatCollect}</if>
+            <if test="heartbeatInterval != null "> and heartbeat_interval = #{heartbeatInterval}</if>
+            <if test="heartbeatDormancy != null "> and heartbeat_dormancy = #{heartbeatDormancy}</if>
+            <if test="heartbeatOnline != null "> and heartbeat_online = #{heartbeatOnline}</if>
+            <if test="functionPull != null "> and function_pull = #{functionPull}</if>
+            <if test="functionLeakage != null "> and function_leakage = #{functionLeakage}</if>
+            <if test="functionMeteorological != null "> and function_meteorological = #{functionMeteorological}</if>
+            <if test="functionWirewaytemp != null "> and function_wirewaytemp = #{functionWirewaytemp}</if>
+            <if test="functionVibrate != null "> and function_vibrate = #{functionVibrate}</if>
+            <if test="functionLineDipangle != null "> and function_line_dipangle = #{functionLineDipangle}</if>
+            <if test="functionVibraterate != null "> and function_vibraterate = #{functionVibraterate}</if>
+            <if test="functionTowerDipangle != null "> and function_tower_dipangle = #{functionTowerDipangle}</if>
+            <if test="functionLineVibrate != null "> and function_line_vibrate = #{functionLineVibrate}</if>
+            <if test="functionPickproof != null "> and function_pickproof = #{functionPickproof}</if>
+            <if test="functionFire != null "> and function_fire = #{functionFire}</if>
+            <if test="functionFaultCheck != null "> and function_fault_check = #{functionFaultCheck}</if>
+            <if test="functionGale != null "> and function_gale = #{functionGale}</if>
+            <if test="functionBreeze != null "> and function_breeze = #{functionBreeze}</if>
+            <if test="functionWave != null "> and function_wave = #{functionWave}</if>
+            <if test="functionFilth != null "> and function_filth = #{functionFilth}</if>
+            <if test="functionSag != null "> and function_sag = #{functionSag}</if>
+            <if test="functionTemp != null "> and function_temp = #{functionTemp}</if>
+            <if test="functionCircularCurrent != null "> and function_circular_current = #{functionCircularCurrent}</if>
+            <if test="functionFaultLocation != null "> and function_fault_location = #{functionFaultLocation}</if>
+            <if test="functionFaultJufang != null "> and function_fault_jufang = #{functionFaultJufang}</if>
+            <if test="functionJufangPutu != null "> and function_jufang_putu = #{functionJufangPutu}</if>
+            <if test="functionFile != null "> and function_file = #{functionFile}</if>
+            <if test="functionImage != null "> and function_image = #{functionImage}</if>
+            <if test="functionVideo != null "> and function_video = #{functionVideo}</if>
+            <if test="platformIp != null  and platformIp != ''"> and platform_ip = #{platformIp}</if>
+            <if test="platformProt != null  and platformProt != ''"> and platform_prot = #{platformProt}</if>
+            <if test="platformCard != null  and platformCard != ''"> and platform_card = #{platformCard}</if>
+            <if test="pictureConduit != null  and pictureConduit != ''"> and picture_conduit = #{pictureConduit}</if>
+            <if test="pictureConduitType != null  and pictureConduitType != ''"> and picture_conduit_type = #{pictureConduitType}</if>
+            <if test="pictureColor != null  and pictureColor != ''"> and picture_color = #{pictureColor}</if>
+            <if test="pictureBrightness != null  and pictureBrightness != ''"> and picture_brightness = #{pictureBrightness}</if>
+            <if test="pictureContrast != null  and pictureContrast != ''"> and picture_contrast = #{pictureContrast}</if>
+            <if test="pictureSaturation != null  and pictureSaturation != ''"> and picture_saturation = #{pictureSaturation}</if>
+            <if test="pictureResolution != null  and pictureResolution != ''"> and picture_resolution = #{pictureResolution}</if>
+            <if test="videoConduit != null  and videoConduit != ''"> and video_conduit = #{videoConduit}</if>
+            <if test="videoConduitType != null  and videoConduitType != ''"> and video_conduit_type = #{videoConduitType}</if>
+            <if test="videoRate != null  and videoRate != ''"> and video_rate = #{videoRate}</if>
+            <if test="videoFrameInterval != null  and videoFrameInterval != ''"> and video_frame_interval = #{videoFrameInterval}</if>
+            <if test="videoEncoded != null  and videoEncoded != ''"> and video_encoded = #{videoEncoded}</if>
+            <if test="videoBitrateType != null  and videoBitrateType != ''"> and video_bitrate_type = #{videoBitrateType}</if>
+            <if test="videoBitrate != null  and videoBitrate != ''"> and video_bitrate = #{videoBitrate}</if>
+            <if test="videoResolution != null  and videoResolution != ''"> and video_resolution = #{videoResolution}</if>
+            <if test="upgradePack != null  and upgradePack != ''"> and upgrade_pack = #{upgradePack}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="modifyUser != null  and modifyUser != ''"> and modify_user = #{modifyUser}</if>
+            <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYuntaiConfigById" parameterType="Long" resultMap="TYuntaiConfigResult">
+        <include refid="selectTYuntaiConfigVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYuntaiConfig" parameterType="TYuntaiConfig">
+        insert into t_yuntai_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id,</if>
+            <if test="heartbeatRebootDay != null">heartbeat_reboot_day,</if>
+            <if test="heartbeatRebootHour != null">heartbeat_reboot_hour,</if>
+            <if test="heartbeatRebootMinute != null">heartbeat_reboot_minute,</if>
+            <if test="heartbeatCollect != null">heartbeat_collect,</if>
+            <if test="heartbeatInterval != null">heartbeat_interval,</if>
+            <if test="heartbeatDormancy != null">heartbeat_dormancy,</if>
+            <if test="heartbeatOnline != null">heartbeat_online,</if>
+            <if test="functionPull != null">function_pull,</if>
+            <if test="functionLeakage != null">function_leakage,</if>
+            <if test="functionMeteorological != null">function_meteorological,</if>
+            <if test="functionWirewaytemp != null">function_wirewaytemp,</if>
+            <if test="functionVibrate != null">function_vibrate,</if>
+            <if test="functionLineDipangle != null">function_line_dipangle,</if>
+            <if test="functionVibraterate != null">function_vibraterate,</if>
+            <if test="functionTowerDipangle != null">function_tower_dipangle,</if>
+            <if test="functionLineVibrate != null">function_line_vibrate,</if>
+            <if test="functionPickproof != null">function_pickproof,</if>
+            <if test="functionFire != null">function_fire,</if>
+            <if test="functionFaultCheck != null">function_fault_check,</if>
+            <if test="functionGale != null">function_gale,</if>
+            <if test="functionBreeze != null">function_breeze,</if>
+            <if test="functionWave != null">function_wave,</if>
+            <if test="functionFilth != null">function_filth,</if>
+            <if test="functionSag != null">function_sag,</if>
+            <if test="functionTemp != null">function_temp,</if>
+            <if test="functionCircularCurrent != null">function_circular_current,</if>
+            <if test="functionFaultLocation != null">function_fault_location,</if>
+            <if test="functionFaultJufang != null">function_fault_jufang,</if>
+            <if test="functionJufangPutu != null">function_jufang_putu,</if>
+            <if test="functionFile != null">function_file,</if>
+            <if test="functionImage != null">function_image,</if>
+            <if test="functionVideo != null">function_video,</if>
+            <if test="platformIp != null">platform_ip,</if>
+            <if test="platformProt != null">platform_prot,</if>
+            <if test="platformCard != null">platform_card,</if>
+            <if test="pictureConduit != null">picture_conduit,</if>
+            <if test="pictureConduitType != null">picture_conduit_type,</if>
+            <if test="pictureColor != null">picture_color,</if>
+            <if test="pictureBrightness != null">picture_brightness,</if>
+            <if test="pictureContrast != null">picture_contrast,</if>
+            <if test="pictureSaturation != null">picture_saturation,</if>
+            <if test="pictureResolution != null">picture_resolution,</if>
+            <if test="videoConduit != null">video_conduit,</if>
+            <if test="videoConduitType != null">video_conduit_type,</if>
+            <if test="videoRate != null">video_rate,</if>
+            <if test="videoFrameInterval != null">video_frame_interval,</if>
+            <if test="videoEncoded != null">video_encoded,</if>
+            <if test="videoBitrateType != null">video_bitrate_type,</if>
+            <if test="videoBitrate != null">video_bitrate,</if>
+            <if test="videoResolution != null">video_resolution,</if>
+            <if test="upgradePack != null">upgrade_pack,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="modifyUser != null">modify_user,</if>
+            <if test="modifyTime != null">modify_time,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+            <if test="heartbeatRebootDay != null">#{heartbeatRebootDay},</if>
+            <if test="heartbeatRebootHour != null">#{heartbeatRebootHour},</if>
+            <if test="heartbeatRebootMinute != null">#{heartbeatRebootMinute},</if>
+            <if test="heartbeatCollect != null">#{heartbeatCollect},</if>
+            <if test="heartbeatInterval != null">#{heartbeatInterval},</if>
+            <if test="heartbeatDormancy != null">#{heartbeatDormancy},</if>
+            <if test="heartbeatOnline != null">#{heartbeatOnline},</if>
+            <if test="functionPull != null">#{functionPull},</if>
+            <if test="functionLeakage != null">#{functionLeakage},</if>
+            <if test="functionMeteorological != null">#{functionMeteorological},</if>
+            <if test="functionWirewaytemp != null">#{functionWirewaytemp},</if>
+            <if test="functionVibrate != null">#{functionVibrate},</if>
+            <if test="functionLineDipangle != null">#{functionLineDipangle},</if>
+            <if test="functionVibraterate != null">#{functionVibraterate},</if>
+            <if test="functionTowerDipangle != null">#{functionTowerDipangle},</if>
+            <if test="functionLineVibrate != null">#{functionLineVibrate},</if>
+            <if test="functionPickproof != null">#{functionPickproof},</if>
+            <if test="functionFire != null">#{functionFire},</if>
+            <if test="functionFaultCheck != null">#{functionFaultCheck},</if>
+            <if test="functionGale != null">#{functionGale},</if>
+            <if test="functionBreeze != null">#{functionBreeze},</if>
+            <if test="functionWave != null">#{functionWave},</if>
+            <if test="functionFilth != null">#{functionFilth},</if>
+            <if test="functionSag != null">#{functionSag},</if>
+            <if test="functionTemp != null">#{functionTemp},</if>
+            <if test="functionCircularCurrent != null">#{functionCircularCurrent},</if>
+            <if test="functionFaultLocation != null">#{functionFaultLocation},</if>
+            <if test="functionFaultJufang != null">#{functionFaultJufang},</if>
+            <if test="functionJufangPutu != null">#{functionJufangPutu},</if>
+            <if test="functionFile != null">#{functionFile},</if>
+            <if test="functionImage != null">#{functionImage},</if>
+            <if test="functionVideo != null">#{functionVideo},</if>
+            <if test="platformIp != null">#{platformIp},</if>
+            <if test="platformProt != null">#{platformProt},</if>
+            <if test="platformCard != null">#{platformCard},</if>
+            <if test="pictureConduit != null">#{pictureConduit},</if>
+            <if test="pictureConduitType != null">#{pictureConduitType},</if>
+            <if test="pictureColor != null">#{pictureColor},</if>
+            <if test="pictureBrightness != null">#{pictureBrightness},</if>
+            <if test="pictureContrast != null">#{pictureContrast},</if>
+            <if test="pictureSaturation != null">#{pictureSaturation},</if>
+            <if test="pictureResolution != null">#{pictureResolution},</if>
+            <if test="videoConduit != null">#{videoConduit},</if>
+            <if test="videoConduitType != null">#{videoConduitType},</if>
+            <if test="videoRate != null">#{videoRate},</if>
+            <if test="videoFrameInterval != null">#{videoFrameInterval},</if>
+            <if test="videoEncoded != null">#{videoEncoded},</if>
+            <if test="videoBitrateType != null">#{videoBitrateType},</if>
+            <if test="videoBitrate != null">#{videoBitrate},</if>
+            <if test="videoResolution != null">#{videoResolution},</if>
+            <if test="upgradePack != null">#{upgradePack},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="modifyUser != null">#{modifyUser},</if>
+            <if test="modifyTime != null">#{modifyTime},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYuntaiConfig" parameterType="TYuntaiConfig">
+        update t_yuntai_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+            <if test="heartbeatRebootDay != null">heartbeat_reboot_day = #{heartbeatRebootDay},</if>
+            <if test="heartbeatRebootHour != null">heartbeat_reboot_hour = #{heartbeatRebootHour},</if>
+            <if test="heartbeatRebootMinute != null">heartbeat_reboot_minute = #{heartbeatRebootMinute},</if>
+            <if test="heartbeatCollect != null">heartbeat_collect = #{heartbeatCollect},</if>
+            <if test="heartbeatInterval != null">heartbeat_interval = #{heartbeatInterval},</if>
+            <if test="heartbeatDormancy != null">heartbeat_dormancy = #{heartbeatDormancy},</if>
+            <if test="heartbeatOnline != null">heartbeat_online = #{heartbeatOnline},</if>
+            <if test="functionPull != null">function_pull = #{functionPull},</if>
+            <if test="functionLeakage != null">function_leakage = #{functionLeakage},</if>
+            <if test="functionMeteorological != null">function_meteorological = #{functionMeteorological},</if>
+            <if test="functionWirewaytemp != null">function_wirewaytemp = #{functionWirewaytemp},</if>
+            <if test="functionVibrate != null">function_vibrate = #{functionVibrate},</if>
+            <if test="functionLineDipangle != null">function_line_dipangle = #{functionLineDipangle},</if>
+            <if test="functionVibraterate != null">function_vibraterate = #{functionVibraterate},</if>
+            <if test="functionTowerDipangle != null">function_tower_dipangle = #{functionTowerDipangle},</if>
+            <if test="functionLineVibrate != null">function_line_vibrate = #{functionLineVibrate},</if>
+            <if test="functionPickproof != null">function_pickproof = #{functionPickproof},</if>
+            <if test="functionFire != null">function_fire = #{functionFire},</if>
+            <if test="functionFaultCheck != null">function_fault_check = #{functionFaultCheck},</if>
+            <if test="functionGale != null">function_gale = #{functionGale},</if>
+            <if test="functionBreeze != null">function_breeze = #{functionBreeze},</if>
+            <if test="functionWave != null">function_wave = #{functionWave},</if>
+            <if test="functionFilth != null">function_filth = #{functionFilth},</if>
+            <if test="functionSag != null">function_sag = #{functionSag},</if>
+            <if test="functionTemp != null">function_temp = #{functionTemp},</if>
+            <if test="functionCircularCurrent != null">function_circular_current = #{functionCircularCurrent},</if>
+            <if test="functionFaultLocation != null">function_fault_location = #{functionFaultLocation},</if>
+            <if test="functionFaultJufang != null">function_fault_jufang = #{functionFaultJufang},</if>
+            <if test="functionJufangPutu != null">function_jufang_putu = #{functionJufangPutu},</if>
+            <if test="functionFile != null">function_file = #{functionFile},</if>
+            <if test="functionImage != null">function_image = #{functionImage},</if>
+            <if test="functionVideo != null">function_video = #{functionVideo},</if>
+            <if test="platformIp != null">platform_ip = #{platformIp},</if>
+            <if test="platformProt != null">platform_prot = #{platformProt},</if>
+            <if test="platformCard != null">platform_card = #{platformCard},</if>
+            <if test="pictureConduit != null">picture_conduit = #{pictureConduit},</if>
+            <if test="pictureConduitType != null">picture_conduit_type = #{pictureConduitType},</if>
+            <if test="pictureColor != null">picture_color = #{pictureColor},</if>
+            <if test="pictureBrightness != null">picture_brightness = #{pictureBrightness},</if>
+            <if test="pictureContrast != null">picture_contrast = #{pictureContrast},</if>
+            <if test="pictureSaturation != null">picture_saturation = #{pictureSaturation},</if>
+            <if test="pictureResolution != null">picture_resolution = #{pictureResolution},</if>
+            <if test="videoConduit != null">video_conduit = #{videoConduit},</if>
+            <if test="videoConduitType != null">video_conduit_type = #{videoConduitType},</if>
+            <if test="videoRate != null">video_rate = #{videoRate},</if>
+            <if test="videoFrameInterval != null">video_frame_interval = #{videoFrameInterval},</if>
+            <if test="videoEncoded != null">video_encoded = #{videoEncoded},</if>
+            <if test="videoBitrateType != null">video_bitrate_type = #{videoBitrateType},</if>
+            <if test="videoBitrate != null">video_bitrate = #{videoBitrate},</if>
+            <if test="videoResolution != null">video_resolution = #{videoResolution},</if>
+            <if test="upgradePack != null">upgrade_pack = #{upgradePack},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="modifyUser != null">modify_user = #{modifyUser},</if>
+            <if test="modifyTime != null">modify_time = #{modifyTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiConfigById" parameterType="Long">
+        delete from t_yuntai_config where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiConfigByIds" parameterType="String">
+        delete from t_yuntai_config where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

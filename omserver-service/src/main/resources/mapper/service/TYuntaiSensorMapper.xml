@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiSensorMapper">
+    
+    <resultMap type="TYuntaiSensor" id="TYuntaiSensorResult">
+        <result property="id"    column="id"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+        <result property="dataKind"    column="data_kind"    />
+        <result property="dataLabel"    column="data_label"    />
+        <result property="dataValue"    column="data_value"    />
+        <result property="samplingTime"    column="sampling_time"    />
+        <result property="receiveTime"    column="receive_time"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+    </resultMap>
+
+    <sql id="selectTYuntaiSensorVo">
+        select id, yuntai_id, data_kind, data_label, data_value, sampling_time, receive_time, spare0, spare1, spare2, spare3, spare4 from t_yuntai_sensor
+    </sql>
+
+    <select id="selectTYuntaiSensorList" parameterType="TYuntaiSensor" resultMap="TYuntaiSensorResult">
+        <include refid="selectTYuntaiSensorVo"/>
+        <where>  
+            <if test="yuntaiId != null "> and yuntai_id = #{yuntaiId}</if>
+            <if test="dataKind != null  and dataKind != ''"> and data_kind = #{dataKind}</if>
+            <if test="dataLabel != null  and dataLabel != ''"> and data_label = #{dataLabel}</if>
+            <if test="dataValue != null  and dataValue != ''"> and data_value = #{dataValue}</if>
+            <if test="samplingTime != null "> and sampling_time = #{samplingTime}</if>
+            <if test="receiveTime != null "> and receive_time = #{receiveTime}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYuntaiSensorById" parameterType="Long" resultMap="TYuntaiSensorResult">
+        <include refid="selectTYuntaiSensorVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYuntaiSensor" parameterType="TYuntaiSensor">
+        insert into t_yuntai_sensor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="yuntaiId != null">yuntai_id,</if>
+            <if test="dataKind != null">data_kind,</if>
+            <if test="dataLabel != null">data_label,</if>
+            <if test="dataValue != null">data_value,</if>
+            <if test="samplingTime != null">sampling_time,</if>
+            <if test="receiveTime != null">receive_time,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+            <if test="dataKind != null">#{dataKind},</if>
+            <if test="dataLabel != null">#{dataLabel},</if>
+            <if test="dataValue != null">#{dataValue},</if>
+            <if test="samplingTime != null">#{samplingTime},</if>
+            <if test="receiveTime != null">#{receiveTime},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYuntaiSensor" parameterType="TYuntaiSensor">
+        update t_yuntai_sensor
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+            <if test="dataKind != null">data_kind = #{dataKind},</if>
+            <if test="dataLabel != null">data_label = #{dataLabel},</if>
+            <if test="dataValue != null">data_value = #{dataValue},</if>
+            <if test="samplingTime != null">sampling_time = #{samplingTime},</if>
+            <if test="receiveTime != null">receive_time = #{receiveTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiSensorById" parameterType="Long">
+        delete from t_yuntai_sensor where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiSensorByIds" parameterType="String">
+        delete from t_yuntai_sensor where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

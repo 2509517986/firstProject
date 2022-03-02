@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiPreviewMapper">
+    
+    <resultMap type="TYuntaiPreview" id="TYuntaiPreviewResult">
+        <result property="id"    column="id"    />
+        <result property="kind"    column="kind"    />
+        <result property="pictureId"    column="picture_id"    />
+        <result property="previewUserid"    column="preview_userid"    />
+        <result property="previewUser"    column="preview_user"    />
+        <result property="previewTime"    column="preview_time"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+    </resultMap>
+
+    <sql id="selectTYuntaiPreviewVo">
+        select id, kind, picture_id, preview_userid, preview_user, preview_time, spare0, spare1, spare2, spare3, spare4 from t_yuntai_preview
+    </sql>
+
+    <select id="selectTYuntaiPreviewList" parameterType="TYuntaiPreview" resultMap="TYuntaiPreviewResult">
+        <include refid="selectTYuntaiPreviewVo"/>
+        <where>  
+            <if test="kind != null "> and kind = #{kind}</if>
+            <if test="pictureId != null "> and picture_id = #{pictureId}</if>
+            <if test="previewUserid != null  and previewUserid != ''"> and preview_userid = #{previewUserid}</if>
+            <if test="previewUser != null  and previewUser != ''"> and preview_user = #{previewUser}</if>
+            <if test="previewTime != null "> and preview_time = #{previewTime}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYuntaiPreviewById" parameterType="Long" resultMap="TYuntaiPreviewResult">
+        <include refid="selectTYuntaiPreviewVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYuntaiPreview" parameterType="TYuntaiPreview">
+        insert into t_yuntai_preview
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="kind != null">kind,</if>
+            <if test="pictureId != null">picture_id,</if>
+            <if test="previewUserid != null">preview_userid,</if>
+            <if test="previewUser != null">preview_user,</if>
+            <if test="previewTime != null">preview_time,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="kind != null">#{kind},</if>
+            <if test="pictureId != null">#{pictureId},</if>
+            <if test="previewUserid != null">#{previewUserid},</if>
+            <if test="previewUser != null">#{previewUser},</if>
+            <if test="previewTime != null">#{previewTime},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYuntaiPreview" parameterType="TYuntaiPreview">
+        update t_yuntai_preview
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="kind != null">kind = #{kind},</if>
+            <if test="pictureId != null">picture_id = #{pictureId},</if>
+            <if test="previewUserid != null">preview_userid = #{previewUserid},</if>
+            <if test="previewUser != null">preview_user = #{previewUser},</if>
+            <if test="previewTime != null">preview_time = #{previewTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiPreviewById" parameterType="Long">
+        delete from t_yuntai_preview where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiPreviewByIds" parameterType="String">
+        delete from t_yuntai_preview where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

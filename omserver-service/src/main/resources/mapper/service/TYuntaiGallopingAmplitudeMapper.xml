@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiGallopingAmplitudeMapper">
+    
+    <resultMap type="TYuntaiGallopingAmplitude" id="TYuntaiGallopingAmplitudeResult">
+        <result property="id"    column="id"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+        <result property="channelName"    column="channel_name"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="time"    column="time"    />
+        <result property="gallopingFre"    column="galloping_fre"    />
+        <result property="gallopingAmplitude"    column="galloping_amplitude"    />
+        <result property="verticalGallopingAmplitude"    column="vertical_galloping_amplitude"    />
+        <result property="levelGallopingAmplitude"    column="level_galloping_amplitude"    />
+        <result property="gallopingincAngleOfEllipse"    column="gallopingInc_angle_of_ellipse"    />
+        <result property="voltage"    column="voltage"    />
+        <result property="state"    column="state"    />
+    </resultMap>
+
+    <sql id="selectTYuntaiGallopingAmplitudeVo">
+        select id, yuntai_id, channel_name, channel_id, time, galloping_fre, galloping_amplitude, vertical_galloping_amplitude, level_galloping_amplitude, gallopingInc_angle_of_ellipse, voltage, state from t_yuntai_galloping_amplitude
+    </sql>
+
+    <select id="selectTYuntaiGallopingAmplitudeList" parameterType="TYuntaiGallopingAmplitude" resultMap="TYuntaiGallopingAmplitudeResult">
+        <include refid="selectTYuntaiGallopingAmplitudeVo"/>
+        <where>  
+            <if test="yuntaiId != null  and yuntaiId != ''"> and yuntai_id = #{yuntaiId}</if>
+            <if test="channelName != null  and channelName != ''"> and channel_name like concat('%', #{channelName}, '%')</if>
+            <if test="channelId != null  and channelId != ''"> and channel_id = #{channelId}</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="gallopingFre != null  and gallopingFre != ''"> and galloping_fre = #{gallopingFre}</if>
+            <if test="gallopingAmplitude != null  and gallopingAmplitude != ''"> and galloping_amplitude = #{gallopingAmplitude}</if>
+            <if test="verticalGallopingAmplitude != null  and verticalGallopingAmplitude != ''"> and vertical_galloping_amplitude = #{verticalGallopingAmplitude}</if>
+            <if test="levelGallopingAmplitude != null  and levelGallopingAmplitude != ''"> and level_galloping_amplitude = #{levelGallopingAmplitude}</if>
+            <if test="gallopingincAngleOfEllipse != null  and gallopingincAngleOfEllipse != ''"> and gallopingInc_angle_of_ellipse = #{gallopingincAngleOfEllipse}</if>
+            <if test="voltage != null  and voltage != ''"> and voltage = #{voltage}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYuntaiGallopingAmplitudeById" parameterType="Long" resultMap="TYuntaiGallopingAmplitudeResult">
+        <include refid="selectTYuntaiGallopingAmplitudeVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYuntaiGallopingAmplitude" parameterType="TYuntaiGallopingAmplitude" useGeneratedKeys="true" keyProperty="id">
+        insert into t_yuntai_galloping_amplitude
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id,</if>
+            <if test="channelName != null">channel_name,</if>
+            <if test="channelId != null">channel_id,</if>
+            <if test="time != null">time,</if>
+            <if test="gallopingFre != null">galloping_fre,</if>
+            <if test="gallopingAmplitude != null">galloping_amplitude,</if>
+            <if test="verticalGallopingAmplitude != null">vertical_galloping_amplitude,</if>
+            <if test="levelGallopingAmplitude != null">level_galloping_amplitude,</if>
+            <if test="gallopingincAngleOfEllipse != null">gallopingInc_angle_of_ellipse,</if>
+            <if test="voltage != null">voltage,</if>
+            <if test="state != null">state,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+            <if test="channelName != null">#{channelName},</if>
+            <if test="channelId != null">#{channelId},</if>
+            <if test="time != null">#{time},</if>
+            <if test="gallopingFre != null">#{gallopingFre},</if>
+            <if test="gallopingAmplitude != null">#{gallopingAmplitude},</if>
+            <if test="verticalGallopingAmplitude != null">#{verticalGallopingAmplitude},</if>
+            <if test="levelGallopingAmplitude != null">#{levelGallopingAmplitude},</if>
+            <if test="gallopingincAngleOfEllipse != null">#{gallopingincAngleOfEllipse},</if>
+            <if test="voltage != null">#{voltage},</if>
+            <if test="state != null">#{state},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYuntaiGallopingAmplitude" parameterType="TYuntaiGallopingAmplitude">
+        update t_yuntai_galloping_amplitude
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+            <if test="channelName != null">channel_name = #{channelName},</if>
+            <if test="channelId != null">channel_id = #{channelId},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="gallopingFre != null">galloping_fre = #{gallopingFre},</if>
+            <if test="gallopingAmplitude != null">galloping_amplitude = #{gallopingAmplitude},</if>
+            <if test="verticalGallopingAmplitude != null">vertical_galloping_amplitude = #{verticalGallopingAmplitude},</if>
+            <if test="levelGallopingAmplitude != null">level_galloping_amplitude = #{levelGallopingAmplitude},</if>
+            <if test="gallopingincAngleOfEllipse != null">gallopingInc_angle_of_ellipse = #{gallopingincAngleOfEllipse},</if>
+            <if test="voltage != null">voltage = #{voltage},</if>
+            <if test="state != null">state = #{state},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiGallopingAmplitudeById" parameterType="Long">
+        delete from t_yuntai_galloping_amplitude where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiGallopingAmplitudeByIds" parameterType="String">
+        delete from t_yuntai_galloping_amplitude where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

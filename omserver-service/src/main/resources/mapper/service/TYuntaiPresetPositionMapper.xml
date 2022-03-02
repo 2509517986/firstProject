@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiPresetPositionMapper">
+
+    <resultMap type="TYuntaiPresetPosition" id="TYuntaiPresetPositionResult">
+        <result property="id"    column="id"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+        <result property="presetBit"    column="preset_bit"    />
+        <result property="presetName"    column="preset_name"    />
+        <result property="modifyUser"    column="modify_user"    />
+        <result property="modifyTime"    column="modify_time"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+    </resultMap>
+
+    <sql id="selectTYuntaiPresetPositionVo">
+        select id, yuntai_id, preset_bit, preset_name, modify_user, modify_time, spare0, spare1, spare2, spare3, spare4 from t_yuntai_preset_position
+    </sql>
+
+    <select id="selectTYuntaiPresetPositionList" parameterType="TYuntaiPresetPosition" resultMap="TYuntaiPresetPositionResult">
+        <include refid="selectTYuntaiPresetPositionVo"/>
+        <where>
+            <if test="yuntaiId != null "> and yuntai_id = #{yuntaiId}</if>
+            <if test="presetBit != null  and presetBit != ''"> and preset_bit = #{presetBit}</if>
+            <if test="modifyUser != null  and modifyUser != ''"> and modify_user = #{modifyUser}</if>
+            <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
+            <if test="presetName != null "> and preset_name = #{presetName}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+        </where>
+    </select>
+
+    <select id="selectTYuntaiPresetPositionById" parameterType="Long" resultMap="TYuntaiPresetPositionResult">
+        <include refid="selectTYuntaiPresetPositionVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectTYuntaiPresetPosition" parameterType="TYuntaiPresetPosition" resultMap="TYuntaiPresetPositionResult">
+        <include refid="selectTYuntaiPresetPositionVo"/>
+        <where>
+            <if test="yuntaiId != null "> and yuntai_id = #{yuntaiId}</if>
+            <if test="presetBit != null  and presetBit != ''"> and preset_bit = #{presetBit}</if>
+            <if test="modifyUser != null  and modifyUser != ''"> and modify_user = #{modifyUser}</if>
+            <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
+            <if test="presetName != null "> and preset_name = #{presetName}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+        </where>
+    </select>
+
+    <insert id="insertTYuntaiPresetPosition" parameterType="TYuntaiPresetPosition">
+        insert into t_yuntai_preset_position
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="yuntaiId != null">yuntai_id,</if>
+            <if test="presetBit != null">preset_bit,</if>
+            <if test="modifyUser != null">modify_user,</if>
+            <if test="modifyTime != null">modify_time,</if>
+            <if test="presetName != null">preset_name,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+            <if test="presetBit != null">#{presetBit},</if>
+            <if test="modifyUser != null">#{modifyUser},</if>
+            <if test="modifyTime != null">#{modifyTime},</if>
+            <if test="presetName != null">#{presetName},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTYuntaiPresetPosition" parameterType="TYuntaiPresetPosition">
+        update t_yuntai_preset_position
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+            <if test="presetBit != null">preset_bit = #{presetBit},</if>
+            <if test="modifyUser != null">modify_user = #{modifyUser},</if>
+            <if test="modifyTime != null">modify_time = #{modifyTime},</if>
+            <if test="presetName != null">preset_name = #{presetName},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiPresetPositionById" parameterType="Long">
+        delete from t_yuntai_preset_position where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiPresetPositionByIds" parameterType="String">
+        delete from t_yuntai_preset_position where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

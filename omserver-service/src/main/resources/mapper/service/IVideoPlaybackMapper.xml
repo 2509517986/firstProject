@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.IVideoPlaybackMapper">
+
+    <resultMap type="IVideoPlayback" id="IVideoPlaybackResult">
+        <result property="id"    column="id"    />
+        <result property="presetBit"    column="preset_bit"    />
+        <result property="captureTime"    column="capture_time"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="filename"    column="filename"    />
+        <result property="code"    column="code"    />
+    </resultMap>
+
+    <sql id="selectIVideoPlaybackVo">
+        select id, preset_bit, capture_time,create_user, create_time, code,filename from t_video_playback
+    </sql>
+
+    <select id="selectIVideoPlaybackList" parameterType="IVideoPlayback" resultMap="IVideoPlaybackResult">
+        <include refid="selectIVideoPlaybackVo"/>
+        <where>
+            <if test="presetBit != null  and presetBit != ''"> and preset_bit = #{presetBit}</if>
+            <if test="captureTime != null  and captureTime != ''">  and capture_time = #{captureTime}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="createTime != null  and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+        </where>
+        order by create_time DESC
+    </select>
+
+    <select id="selectIVideoPlaybackById" parameterType="Long" resultMap="IVideoPlaybackResult">
+        <include refid="selectIVideoPlaybackVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertIVideoPlayback" parameterType="IVideoPlayback" useGeneratedKeys="true" keyProperty="id">
+        insert into t_video_playback
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="presetBit != null">preset_bit,</if>
+            <if test="captureTime != null">capture_time,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="code != null">code,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="presetBit != null">#{presetBit},</if>
+            <if test="captureTime != null">#{captureTime},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="code != null">#{code},</if>
+        </trim>
+    </insert>
+
+    <update id="updateIVideoPlayback" parameterType="IVideoPlayback">
+        update t_video_playback
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="presetBit != null">preset_bit = #{presetBit},</if>
+            <if test="captureTime != null">capture_time = #{captureTime},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="code != null">code = #{code},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteIVideoPlaybackById" parameterType="Long">
+        delete from t_video_playback where id = #{id}
+    </delete>
+</mapper>

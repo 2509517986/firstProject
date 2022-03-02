@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.MicroMeteMapper">
+    
+    <resultMap type="MicroMete" id="MicroMeteResult">
+        <result property="id"    column="id"    />
+        <result property="collectDate"    column="collect_date"    />
+        <result property="rainfall"    column="rainfall"    />
+        <result property="rainfallAccumulate"    column="rainfall_accumulate"    />
+        <result property="instantWindSpeed"    column="instant_wind_speed"    />
+        <result property="maxinstantWindSpeed"    column="maxInstant_wind_speed"    />
+        <result property="mininstantWindSpeed"    column="minInstant_wind_speed"    />
+        <result property="avgWindSpeedOneMinute"    column="avg_wind_speed_one_minute"    />
+        <result property="avgWindSpeedTenMinute"    column="avg_wind_speed_ten_minute"    />
+        <result property="maxWindSpeedTenMinute"    column="max_wind_speed_ten_minute"    />
+        <result property="pressure"    column="pressure"    />
+        <result property="maxPressure"    column="max_pressure"    />
+        <result property="minPressure"    column="min_pressure"    />
+        <result property="instantWindDirection"    column="instant_wind_direction"    />
+        <result property="avgWindWirectionOneMinute"    column="avg_wind_wirection_one_minute"    />
+        <result property="avgWindWirectionTenMinute"    column="avg_wind_wirection_ten_minute"    />
+        <result property="humidity"    column="humidity"    />
+        <result property="maxHumidity"    column="max_humidity"    />
+        <result property="minHumidity"    column="min_humidity"    />
+        <result property="rainfallHour"    column="rainfall_hour"    />
+        <result property="speed"    column="speed"    />
+        <result property="longitude"    column="longitude"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="sunshine"    column="sunshine"    />
+        <result property="state"    column="state"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+        <result property="temperature"    column="temperature"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+    </resultMap>
+
+    <sql id="selectMicroMeteVo">
+        select id, collect_date, rainfall, rainfall_accumulate, instant_wind_speed, maxInstant_wind_speed, minInstant_wind_speed, avg_wind_speed_one_minute, avg_wind_speed_ten_minute, max_wind_speed_ten_minute, pressure, max_pressure, min_pressure, instant_wind_direction, avg_wind_wirection_one_minute, avg_wind_wirection_ten_minute, humidity, max_humidity, min_humidity, rainfall_hour, speed, longitude, latitude, sunshine, state, spare0, spare1, spare2, spare3, spare4, temperature, yuntai_id from micro_mete
+    </sql>
+
+    <select id="selectMicroMeteList" parameterType="MicroMete" resultMap="MicroMeteResult">
+        <include refid="selectMicroMeteVo"/>
+        <where>  
+            <if test="collectDate != null "> and collect_date = #{collectDate}</if>
+            <if test="rainfall != null  and rainfall != ''"> and rainfall = #{rainfall}</if>
+            <if test="rainfallAccumulate != null  and rainfallAccumulate != ''"> and rainfall_accumulate = #{rainfallAccumulate}</if>
+            <if test="instantWindSpeed != null  and instantWindSpeed != ''"> and instant_wind_speed = #{instantWindSpeed}</if>
+            <if test="maxinstantWindSpeed != null  and maxinstantWindSpeed != ''"> and maxInstant_wind_speed = #{maxinstantWindSpeed}</if>
+            <if test="mininstantWindSpeed != null  and mininstantWindSpeed != ''"> and minInstant_wind_speed = #{mininstantWindSpeed}</if>
+            <if test="avgWindSpeedOneMinute != null  and avgWindSpeedOneMinute != ''"> and avg_wind_speed_one_minute = #{avgWindSpeedOneMinute}</if>
+            <if test="avgWindSpeedTenMinute != null  and avgWindSpeedTenMinute != ''"> and avg_wind_speed_ten_minute = #{avgWindSpeedTenMinute}</if>
+            <if test="maxWindSpeedTenMinute != null  and maxWindSpeedTenMinute != ''"> and max_wind_speed_ten_minute = #{maxWindSpeedTenMinute}</if>
+            <if test="pressure != null  and pressure != ''"> and pressure = #{pressure}</if>
+            <if test="maxPressure != null  and maxPressure != ''"> and max_pressure = #{maxPressure}</if>
+            <if test="minPressure != null  and minPressure != ''"> and min_pressure = #{minPressure}</if>
+            <if test="instantWindDirection != null  and instantWindDirection != ''"> and instant_wind_direction = #{instantWindDirection}</if>
+            <if test="avgWindWirectionOneMinute != null  and avgWindWirectionOneMinute != ''"> and avg_wind_wirection_one_minute = #{avgWindWirectionOneMinute}</if>
+            <if test="avgWindWirectionTenMinute != null  and avgWindWirectionTenMinute != ''"> and avg_wind_wirection_ten_minute = #{avgWindWirectionTenMinute}</if>
+            <if test="humidity != null  and humidity != ''"> and humidity = #{humidity}</if>
+            <if test="maxHumidity != null  and maxHumidity != ''"> and max_humidity = #{maxHumidity}</if>
+            <if test="minHumidity != null  and minHumidity != ''"> and min_humidity = #{minHumidity}</if>
+            <if test="rainfallHour != null  and rainfallHour != ''"> and rainfall_hour = #{rainfallHour}</if>
+            <if test="speed != null  and speed != ''"> and speed = #{speed}</if>
+            <if test="longitude != null  and longitude != ''"> and longitude = #{longitude}</if>
+            <if test="latitude != null  and latitude != ''"> and latitude = #{latitude}</if>
+            <if test="sunshine != null  and sunshine != ''"> and sunshine = #{sunshine}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+            <if test="temperature != null  and temperature != ''"> and temperature = #{temperature}</if>
+            <if test="yuntaiId != null  and yuntaiId != ''"> and yuntai_id = #{yuntaiId}</if>
+        </where>
+    </select>
+    
+    <select id="selectMicroMeteById" parameterType="Integer" resultMap="MicroMeteResult">
+        <include refid="selectMicroMeteVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertMicroMete" parameterType="MicroMete" useGeneratedKeys="true" keyProperty="id">
+        insert into micro_mete
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="collectDate != null">collect_date,</if>
+            <if test="rainfall != null">rainfall,</if>
+            <if test="rainfallAccumulate != null">rainfall_accumulate,</if>
+            <if test="instantWindSpeed != null">instant_wind_speed,</if>
+            <if test="maxinstantWindSpeed != null">maxInstant_wind_speed,</if>
+            <if test="mininstantWindSpeed != null">minInstant_wind_speed,</if>
+            <if test="avgWindSpeedOneMinute != null">avg_wind_speed_one_minute,</if>
+            <if test="avgWindSpeedTenMinute != null">avg_wind_speed_ten_minute,</if>
+            <if test="maxWindSpeedTenMinute != null">max_wind_speed_ten_minute,</if>
+            <if test="pressure != null">pressure,</if>
+            <if test="maxPressure != null">max_pressure,</if>
+            <if test="minPressure != null">min_pressure,</if>
+            <if test="instantWindDirection != null">instant_wind_direction,</if>
+            <if test="avgWindWirectionOneMinute != null">avg_wind_wirection_one_minute,</if>
+            <if test="avgWindWirectionTenMinute != null">avg_wind_wirection_ten_minute,</if>
+            <if test="humidity != null">humidity,</if>
+            <if test="maxHumidity != null">max_humidity,</if>
+            <if test="minHumidity != null">min_humidity,</if>
+            <if test="rainfallHour != null">rainfall_hour,</if>
+            <if test="speed != null">speed,</if>
+            <if test="longitude != null">longitude,</if>
+            <if test="latitude != null">latitude,</if>
+            <if test="sunshine != null">sunshine,</if>
+            <if test="state != null">state,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+            <if test="temperature != null">temperature,</if>
+            <if test="yuntaiId != null">yuntai_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="collectDate != null">#{collectDate},</if>
+            <if test="rainfall != null">#{rainfall},</if>
+            <if test="rainfallAccumulate != null">#{rainfallAccumulate},</if>
+            <if test="instantWindSpeed != null">#{instantWindSpeed},</if>
+            <if test="maxinstantWindSpeed != null">#{maxinstantWindSpeed},</if>
+            <if test="mininstantWindSpeed != null">#{mininstantWindSpeed},</if>
+            <if test="avgWindSpeedOneMinute != null">#{avgWindSpeedOneMinute},</if>
+            <if test="avgWindSpeedTenMinute != null">#{avgWindSpeedTenMinute},</if>
+            <if test="maxWindSpeedTenMinute != null">#{maxWindSpeedTenMinute},</if>
+            <if test="pressure != null">#{pressure},</if>
+            <if test="maxPressure != null">#{maxPressure},</if>
+            <if test="minPressure != null">#{minPressure},</if>
+            <if test="instantWindDirection != null">#{instantWindDirection},</if>
+            <if test="avgWindWirectionOneMinute != null">#{avgWindWirectionOneMinute},</if>
+            <if test="avgWindWirectionTenMinute != null">#{avgWindWirectionTenMinute},</if>
+            <if test="humidity != null">#{humidity},</if>
+            <if test="maxHumidity != null">#{maxHumidity},</if>
+            <if test="minHumidity != null">#{minHumidity},</if>
+            <if test="rainfallHour != null">#{rainfallHour},</if>
+            <if test="speed != null">#{speed},</if>
+            <if test="longitude != null">#{longitude},</if>
+            <if test="latitude != null">#{latitude},</if>
+            <if test="sunshine != null">#{sunshine},</if>
+            <if test="state != null">#{state},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+            <if test="temperature != null">#{temperature},</if>
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMicroMete" parameterType="MicroMete">
+        update micro_mete
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="collectDate != null">collect_date = #{collectDate},</if>
+            <if test="rainfall != null">rainfall = #{rainfall},</if>
+            <if test="rainfallAccumulate != null">rainfall_accumulate = #{rainfallAccumulate},</if>
+            <if test="instantWindSpeed != null">instant_wind_speed = #{instantWindSpeed},</if>
+            <if test="maxinstantWindSpeed != null">maxInstant_wind_speed = #{maxinstantWindSpeed},</if>
+            <if test="mininstantWindSpeed != null">minInstant_wind_speed = #{mininstantWindSpeed},</if>
+            <if test="avgWindSpeedOneMinute != null">avg_wind_speed_one_minute = #{avgWindSpeedOneMinute},</if>
+            <if test="avgWindSpeedTenMinute != null">avg_wind_speed_ten_minute = #{avgWindSpeedTenMinute},</if>
+            <if test="maxWindSpeedTenMinute != null">max_wind_speed_ten_minute = #{maxWindSpeedTenMinute},</if>
+            <if test="pressure != null">pressure = #{pressure},</if>
+            <if test="maxPressure != null">max_pressure = #{maxPressure},</if>
+            <if test="minPressure != null">min_pressure = #{minPressure},</if>
+            <if test="instantWindDirection != null">instant_wind_direction = #{instantWindDirection},</if>
+            <if test="avgWindWirectionOneMinute != null">avg_wind_wirection_one_minute = #{avgWindWirectionOneMinute},</if>
+            <if test="avgWindWirectionTenMinute != null">avg_wind_wirection_ten_minute = #{avgWindWirectionTenMinute},</if>
+            <if test="humidity != null">humidity = #{humidity},</if>
+            <if test="maxHumidity != null">max_humidity = #{maxHumidity},</if>
+            <if test="minHumidity != null">min_humidity = #{minHumidity},</if>
+            <if test="rainfallHour != null">rainfall_hour = #{rainfallHour},</if>
+            <if test="speed != null">speed = #{speed},</if>
+            <if test="longitude != null">longitude = #{longitude},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="sunshine != null">sunshine = #{sunshine},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+            <if test="temperature != null">temperature = #{temperature},</if>
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMicroMeteById" parameterType="Integer">
+        delete from micro_mete where id = #{id}
+    </delete>
+
+    <delete id="deleteMicroMeteByIds" parameterType="String">
+        delete from micro_mete where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

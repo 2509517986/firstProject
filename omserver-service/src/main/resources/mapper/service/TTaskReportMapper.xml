@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TTaskReportMapper">
+    
+    <resultMap type="TTaskReport" id="TTaskReportResult">
+        <result property="reportId"    column="report_id"    />
+        <result property="taskhId"    column="taskh_id"    />
+        <result property="taskCode"    column="task_code"    />
+        <result property="routeCode"    column="route_code"    />
+        <result property="reportTime"    column="report_time"    />
+        <result property="area"    column="area"    />
+        <result property="plan"    column="plan"    />
+        <result property="inspectionTime"    column="inspection_time"    />
+        <result property="progress"    column="progress"    />
+        <result property="dept"    column="dept"    />
+        <result property="pictureCount"    column="picture_count"    />
+        <result property="defectCount"    column="defect_count"    />
+        <result property="visibleLightCount"    column="visible_light_count"    />
+        <result property="visibleLightDefect"    column="visible_light_defect"    />
+        <result property="irCount"    column="ir_count"    />
+        <result property="criticalDefect"    column="critical_defect"    />
+        <result property="irDefect"    column="ir_defect"    />
+        <result property="ortherDefect"    column="orther_defect"    />
+        <result property="totalDefect"    column="total_defect"    />
+        <result property="generalDefect"    column="general_defect"    />
+        <result property="graveDefect"    column="grave_defect"    />
+        <result property="inputUser"    column="input_user"    />
+        <result property="inputTime"    column="input_time"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+    </resultMap>
+
+    <sql id="selectTTaskReportVo">
+        select report_id, taskh_id, task_code, route_code, report_time, area, plan, inspection_time, progress, dept, picture_count, defect_count, visible_light_count, visible_light_defect, ir_count, critical_defect, ir_defect, orther_defect, total_defect, general_defect, grave_defect, input_user, input_time, spare0, spare1, spare2, spare3, spare4 from t_task_report
+    </sql>
+
+    <select id="selectTTaskReportList" parameterType="TTaskReport" resultMap="TTaskReportResult">
+        <include refid="selectTTaskReportVo"/>
+        <where>  
+            <if test="taskhId != null "> and taskh_id = #{taskhId}</if>
+            <if test="taskCode != null  and taskCode != ''"> and task_code = #{taskCode}</if>
+            <if test="routeCode != null  and routeCode != ''"> and route_code = #{routeCode}</if>
+            <if test="reportTime != null "> and report_time = #{reportTime}</if>
+            <if test="area != null  and area != ''"> and area = #{area}</if>
+            <if test="plan != null  and plan != ''"> and plan = #{plan}</if>
+            <if test="inspectionTime != null "> and inspection_time = #{inspectionTime}</if>
+            <if test="progress != null  and progress != ''"> and progress = #{progress}</if>
+            <if test="dept != null  and dept != ''"> and dept = #{dept}</if>
+            <if test="pictureCount != null "> and picture_count = #{pictureCount}</if>
+            <if test="defectCount != null "> and defect_count = #{defectCount}</if>
+            <if test="visibleLightCount != null "> and visible_light_count = #{visibleLightCount}</if>
+            <if test="visibleLightDefect != null "> and visible_light_defect = #{visibleLightDefect}</if>
+            <if test="irCount != null "> and ir_count = #{irCount}</if>
+            <if test="criticalDefect != null "> and critical_defect = #{criticalDefect}</if>
+            <if test="irDefect != null "> and ir_defect = #{irDefect}</if>
+            <if test="ortherDefect != null "> and orther_defect = #{ortherDefect}</if>
+            <if test="totalDefect != null "> and total_defect = #{totalDefect}</if>
+            <if test="generalDefect != null "> and general_defect = #{generalDefect}</if>
+            <if test="graveDefect != null "> and grave_defect = #{graveDefect}</if>
+            <if test="inputUser != null  and inputUser != ''"> and input_user = #{inputUser}</if>
+            <if test="inputTime != null "> and input_time = #{inputTime}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+        </where>
+    </select>
+    
+    <select id="selectTTaskReportById" parameterType="Long" resultMap="TTaskReportResult">
+        <include refid="selectTTaskReportVo"/>
+        where report_id = #{reportId}
+    </select>
+        
+    <insert id="insertTTaskReport" parameterType="TTaskReport" useGeneratedKeys="true" keyProperty="reportId">
+        insert into t_task_report
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskhId != null">taskh_id,</if>
+            <if test="taskCode != null">task_code,</if>
+            <if test="routeCode != null">route_code,</if>
+            <if test="reportTime != null">report_time,</if>
+            <if test="area != null">area,</if>
+            <if test="plan != null">plan,</if>
+            <if test="inspectionTime != null">inspection_time,</if>
+            <if test="progress != null">progress,</if>
+            <if test="dept != null">dept,</if>
+            <if test="pictureCount != null">picture_count,</if>
+            <if test="defectCount != null">defect_count,</if>
+            <if test="visibleLightCount != null">visible_light_count,</if>
+            <if test="visibleLightDefect != null">visible_light_defect,</if>
+            <if test="irCount != null">ir_count,</if>
+            <if test="criticalDefect != null">critical_defect,</if>
+            <if test="irDefect != null">ir_defect,</if>
+            <if test="ortherDefect != null">orther_defect,</if>
+            <if test="totalDefect != null">total_defect,</if>
+            <if test="generalDefect != null">general_defect,</if>
+            <if test="graveDefect != null">grave_defect,</if>
+            <if test="inputUser != null">input_user,</if>
+            <if test="inputTime != null">input_time,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskhId != null">#{taskhId},</if>
+            <if test="taskCode != null">#{taskCode},</if>
+            <if test="routeCode != null">#{routeCode},</if>
+            <if test="reportTime != null">#{reportTime},</if>
+            <if test="area != null">#{area},</if>
+            <if test="plan != null">#{plan},</if>
+            <if test="inspectionTime != null">#{inspectionTime},</if>
+            <if test="progress != null">#{progress},</if>
+            <if test="dept != null">#{dept},</if>
+            <if test="pictureCount != null">#{pictureCount},</if>
+            <if test="defectCount != null">#{defectCount},</if>
+            <if test="visibleLightCount != null">#{visibleLightCount},</if>
+            <if test="visibleLightDefect != null">#{visibleLightDefect},</if>
+            <if test="irCount != null">#{irCount},</if>
+            <if test="criticalDefect != null">#{criticalDefect},</if>
+            <if test="irDefect != null">#{irDefect},</if>
+            <if test="ortherDefect != null">#{ortherDefect},</if>
+            <if test="totalDefect != null">#{totalDefect},</if>
+            <if test="generalDefect != null">#{generalDefect},</if>
+            <if test="graveDefect != null">#{graveDefect},</if>
+            <if test="inputUser != null">#{inputUser},</if>
+            <if test="inputTime != null">#{inputTime},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTTaskReport" parameterType="TTaskReport">
+        update t_task_report
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskhId != null">taskh_id = #{taskhId},</if>
+            <if test="taskCode != null">task_code = #{taskCode},</if>
+            <if test="routeCode != null">route_code = #{routeCode},</if>
+            <if test="reportTime != null">report_time = #{reportTime},</if>
+            <if test="area != null">area = #{area},</if>
+            <if test="plan != null">plan = #{plan},</if>
+            <if test="inspectionTime != null">inspection_time = #{inspectionTime},</if>
+            <if test="progress != null">progress = #{progress},</if>
+            <if test="dept != null">dept = #{dept},</if>
+            <if test="pictureCount != null">picture_count = #{pictureCount},</if>
+            <if test="defectCount != null">defect_count = #{defectCount},</if>
+            <if test="visibleLightCount != null">visible_light_count = #{visibleLightCount},</if>
+            <if test="visibleLightDefect != null">visible_light_defect = #{visibleLightDefect},</if>
+            <if test="irCount != null">ir_count = #{irCount},</if>
+            <if test="criticalDefect != null">critical_defect = #{criticalDefect},</if>
+            <if test="irDefect != null">ir_defect = #{irDefect},</if>
+            <if test="ortherDefect != null">orther_defect = #{ortherDefect},</if>
+            <if test="totalDefect != null">total_defect = #{totalDefect},</if>
+            <if test="generalDefect != null">general_defect = #{generalDefect},</if>
+            <if test="graveDefect != null">grave_defect = #{graveDefect},</if>
+            <if test="inputUser != null">input_user = #{inputUser},</if>
+            <if test="inputTime != null">input_time = #{inputTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where report_id = #{reportId}
+    </update>
+
+    <delete id="deleteTTaskReportById" parameterType="Long">
+        delete from t_task_report where report_id = #{reportId}
+    </delete>
+
+    <delete id="deleteTTaskReportByIds" parameterType="String">
+        delete from t_task_report where report_id in 
+        <foreach item="reportId" collection="array" open="(" separator="," close=")">
+            #{reportId}
+        </foreach>
+    </delete>
+</mapper>

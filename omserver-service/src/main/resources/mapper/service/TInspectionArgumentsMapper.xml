@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TInspectionArgumentsMapper">
+
+    <resultMap type="TInspectionArguments" id="TInspectionArgumentsResult">
+        <result property="id"    column="id"    />
+        <result property="chanelNum"    column="chanel_num"    />
+        <result property="inspectionTacticsId"    column="inspection_tactics_Id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="groupId"    column="group_id"    />
+        <result property="code"    column="code"    />
+    </resultMap>
+
+    <sql id="selectTInspectionArgumentsVo">
+        select id, chanel_num, inspection_tactics_Id, create_time, create_user, group_id, code from t_inspection_arguments
+    </sql>
+
+    <select id="selectTInspectionArgumentsList" parameterType="TInspectionArguments" resultMap="TInspectionArgumentsResult">
+        <include refid="selectTInspectionArgumentsVo"/>
+        <where>
+            <if test="chanelNum != null  and chanelNum != ''"> and chanel_num = #{chanelNum}</if>
+            <if test="inspectionTacticsId != null  and inspectionTacticsId != ''">and inspection_tactics_Id = #{inspectionTacticsId}</if>
+            <if test="createTime != null  and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="groupId != null  and groupId != ''"> and group_id = #{groupId}</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+        </where>
+    </select>
+
+    <select id="selectTInspectionArgumentsById" parameterType="Long" resultMap="TInspectionArgumentsResult">
+        <include refid="selectTInspectionArgumentsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTInspectionArguments" parameterType="TInspectionArguments" useGeneratedKeys="true" keyProperty="id">
+        insert into t_inspection_arguments
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="chanelNum != null">chanel_num,</if>
+            <if test="inspectionTacticsId != null">inspection_tactics_Id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="groupId != null">group_id,</if>
+            <if test="code != null">code,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="chanelNum != null">#{chanelNum},</if>
+            <if test="inspectionTacticsId != null">#{inspectionTacticsId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="groupId != null">#{groupId},</if>
+            <if test="code != null">#{code},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTInspectionArguments" parameterType="TInspectionArguments">
+        update t_inspection_arguments
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="chanelNum != null">chanel_num = #{chanelNum},</if>
+            <if test="inspectionTacticsId != null">inspection_tactics_Id = #{inspectionTacticsId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="groupId != null">group_id = #{groupId},</if>
+            <if test="code != null">code = #{code},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTInspectionArgumentsById" parameterType="Long">
+        delete from t_inspection_arguments where id = #{id}
+    </delete>
+
+    <delete id="deleteTInspectionArgumentsByIds" parameterType="String">
+        delete from t_inspection_arguments where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

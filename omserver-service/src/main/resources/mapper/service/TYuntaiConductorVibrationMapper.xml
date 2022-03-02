@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiConductorVibrationMapper">
+    
+    <resultMap type="TYuntaiConductorVibration" id="TYuntaiConductorVibrationResult">
+        <result property="id"    column="id"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+        <result property="channelName"    column="channel_name"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="time"    column="time"    />
+        <result property="vibrationFre"    column="vibration_fre"    />
+        <result property="amplitude"    column="amplitude"    />
+        <result property="voltage"    column="voltage"    />
+        <result property="state"    column="state"    />
+    </resultMap>
+
+    <sql id="selectTYuntaiConductorVibrationVo">
+        select id, yuntai_id, channel_name, channel_id, time, vibration_fre, amplitude, voltage, state from t_yuntai_conductor_vibration
+    </sql>
+
+    <select id="selectTYuntaiConductorVibrationList" parameterType="TYuntaiConductorVibration" resultMap="TYuntaiConductorVibrationResult">
+        <include refid="selectTYuntaiConductorVibrationVo"/>
+        <where>  
+            <if test="yuntaiId != null  and yuntaiId != ''"> and yuntai_id = #{yuntaiId}</if>
+            <if test="channelName != null  and channelName != ''"> and channel_name like concat('%', #{channelName}, '%')</if>
+            <if test="channelId != null  and channelId != ''"> and channel_id = #{channelId}</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="vibrationFre != null  and vibrationFre != ''"> and vibration_fre = #{vibrationFre}</if>
+            <if test="amplitude != null  and amplitude != ''"> and amplitude = #{amplitude}</if>
+            <if test="voltage != null  and voltage != ''"> and voltage = #{voltage}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYuntaiConductorVibrationById" parameterType="Long" resultMap="TYuntaiConductorVibrationResult">
+        <include refid="selectTYuntaiConductorVibrationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYuntaiConductorVibration" parameterType="TYuntaiConductorVibration" useGeneratedKeys="true" keyProperty="id">
+        insert into t_yuntai_conductor_vibration
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id,</if>
+            <if test="channelName != null">channel_name,</if>
+            <if test="channelId != null">channel_id,</if>
+            <if test="time != null">time,</if>
+            <if test="vibrationFre != null">vibration_fre,</if>
+            <if test="amplitude != null">amplitude,</if>
+            <if test="voltage != null">voltage,</if>
+            <if test="state != null">state,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+            <if test="channelName != null">#{channelName},</if>
+            <if test="channelId != null">#{channelId},</if>
+            <if test="time != null">#{time},</if>
+            <if test="vibrationFre != null">#{vibrationFre},</if>
+            <if test="amplitude != null">#{amplitude},</if>
+            <if test="voltage != null">#{voltage},</if>
+            <if test="state != null">#{state},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYuntaiConductorVibration" parameterType="TYuntaiConductorVibration">
+        update t_yuntai_conductor_vibration
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+            <if test="channelName != null">channel_name = #{channelName},</if>
+            <if test="channelId != null">channel_id = #{channelId},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="vibrationFre != null">vibration_fre = #{vibrationFre},</if>
+            <if test="amplitude != null">amplitude = #{amplitude},</if>
+            <if test="voltage != null">voltage = #{voltage},</if>
+            <if test="state != null">state = #{state},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiConductorVibrationById" parameterType="Long">
+        delete from t_yuntai_conductor_vibration where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiConductorVibrationByIds" parameterType="String">
+        delete from t_yuntai_conductor_vibration where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

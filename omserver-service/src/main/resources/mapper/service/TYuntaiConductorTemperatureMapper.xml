@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.serivce.mapper.TYuntaiConductorTemperatureMapper">
+    
+    <resultMap type="TYuntaiConductorTemperature" id="TYuntaiConductorTemperatureResult">
+        <result property="id"    column="id"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+        <result property="channelName"    column="channel_name"    />
+        <result property="channelId"    column="channel_id"    />
+        <result property="time"    column="time"    />
+        <result property="temperature"    column="temperature"    />
+        <result property="current"    column="current"    />
+        <result property="voltage"    column="voltage"    />
+        <result property="state"    column="state"    />
+    </resultMap>
+
+    <sql id="selectTYuntaiConductorTemperatureVo">
+        select id, yuntai_id, channel_name, channel_id, time, temperature, current, voltage, state from t_yuntai_conductor_temperature
+    </sql>
+
+    <select id="selectTYuntaiConductorTemperatureList" parameterType="TYuntaiConductorTemperature" resultMap="TYuntaiConductorTemperatureResult">
+        <include refid="selectTYuntaiConductorTemperatureVo"/>
+        <where>  
+            <if test="yuntaiId != null  and yuntaiId != ''"> and yuntai_id = #{yuntaiId}</if>
+            <if test="channelName != null  and channelName != ''"> and channel_name like concat('%', #{channelName}, '%')</if>
+            <if test="channelId != null  and channelId != ''"> and channel_id = #{channelId}</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="temperature != null  and temperature != ''"> and temperature = #{temperature}</if>
+            <if test="current != null  and current != ''"> and current = #{current}</if>
+            <if test="voltage != null  and voltage != ''"> and voltage = #{voltage}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYuntaiConductorTemperatureById" parameterType="Long" resultMap="TYuntaiConductorTemperatureResult">
+        <include refid="selectTYuntaiConductorTemperatureVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYuntaiConductorTemperature" parameterType="TYuntaiConductorTemperature" useGeneratedKeys="true" keyProperty="id">
+        insert into t_yuntai_conductor_temperature
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id,</if>
+            <if test="channelName != null">channel_name,</if>
+            <if test="channelId != null">channel_id,</if>
+            <if test="time != null">time,</if>
+            <if test="temperature != null">temperature,</if>
+            <if test="current != null">current,</if>
+            <if test="voltage != null">voltage,</if>
+            <if test="state != null">state,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+            <if test="channelName != null">#{channelName},</if>
+            <if test="channelId != null">#{channelId},</if>
+            <if test="time != null">#{time},</if>
+            <if test="temperature != null">#{temperature},</if>
+            <if test="current != null">#{current},</if>
+            <if test="voltage != null">#{voltage},</if>
+            <if test="state != null">#{state},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYuntaiConductorTemperature" parameterType="TYuntaiConductorTemperature">
+        update t_yuntai_conductor_temperature
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+            <if test="channelName != null">channel_name = #{channelName},</if>
+            <if test="channelId != null">channel_id = #{channelId},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="temperature != null">temperature = #{temperature},</if>
+            <if test="current != null">current = #{current},</if>
+            <if test="voltage != null">voltage = #{voltage},</if>
+            <if test="state != null">state = #{state},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiConductorTemperatureById" parameterType="Long">
+        delete from t_yuntai_conductor_temperature where id = #{id}
+    </delete>
+
+    <delete id="deleteTYuntaiConductorTemperatureByIds" parameterType="String">
+        delete from t_yuntai_conductor_temperature where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

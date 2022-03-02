@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TRoutePointMapper">
+    
+    <resultMap type="TRoutePoint" id="TRoutePointResult">
+        <result property="routePointId"    column="route_point_id"    />
+        <result property="routeId"    column="route_id"    />
+        <result property="ord"    column="ord"    />
+        <result property="lat"    column="lat"    />
+        <result property="lon"    column="lon"    />
+        <result property="alt"    column="alt"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="spare0"    column="spare0"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+    </resultMap>
+
+    <sql id="selectTRoutePointVo">
+        select route_point_id, route_id, ord, lat, lon, alt, update_time, spare0, spare1, spare2, spare3, spare4 from t_route_point
+    </sql>
+
+    <select id="selectTRoutePointList" parameterType="TRoutePoint" resultMap="TRoutePointResult">
+        <include refid="selectTRoutePointVo"/>
+        <where>  
+            <if test="routeId != null "> and route_id = #{routeId}</if>
+            <if test="ord != null "> and ord = #{ord}</if>
+            <if test="lat != null  and lat != ''"> and lat = #{lat}</if>
+            <if test="lon != null  and lon != ''"> and lon = #{lon}</if>
+            <if test="alt != null  and alt != ''"> and alt = #{alt}</if>
+            <if test="spare0 != null  and spare0 != ''"> and spare0 = #{spare0}</if>
+            <if test="spare1 != null  and spare1 != ''"> and spare1 = #{spare1}</if>
+            <if test="spare2 != null  and spare2 != ''"> and spare2 = #{spare2}</if>
+            <if test="spare3 != null  and spare3 != ''"> and spare3 = #{spare3}</if>
+            <if test="spare4 != null  and spare4 != ''"> and spare4 = #{spare4}</if>
+        </where>
+    </select>
+    
+    <select id="selectTRoutePointById" parameterType="Long" resultMap="TRoutePointResult">
+        <include refid="selectTRoutePointVo"/>
+        where route_point_id = #{routePointId}
+    </select>
+
+    <select id="selectTRoutePointByRouteId" parameterType="Long" resultMap="TRoutePointResult">
+        <include refid="selectTRoutePointVo"/>
+        where route_id = #{routeId}
+    </select>
+        
+    <insert id="insertTRoutePoint" parameterType="TRoutePoint" useGeneratedKeys="true" keyProperty="routePointId">
+        insert into t_route_point
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="routeId != null">route_id,</if>
+            <if test="ord != null">ord,</if>
+            <if test="lat != null">lat,</if>
+            <if test="lon != null">lon,</if>
+            <if test="alt != null">alt,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="spare0 != null">spare0,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="routeId != null">#{routeId},</if>
+            <if test="ord != null">#{ord},</if>
+            <if test="lat != null">#{lat},</if>
+            <if test="lon != null">#{lon},</if>
+            <if test="alt != null">#{alt},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="spare0 != null">#{spare0},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTRoutePoint" parameterType="TRoutePoint">
+        update t_route_point
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="routeId != null">route_id = #{routeId},</if>
+            <if test="ord != null">ord = #{ord},</if>
+            <if test="lat != null">lat = #{lat},</if>
+            <if test="lon != null">lon = #{lon},</if>
+            <if test="alt != null">alt = #{alt},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="spare0 != null">spare0 = #{spare0},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+        </trim>
+        where route_point_id = #{routePointId}
+    </update>
+
+    <delete id="deleteTRoutePointById" parameterType="Long">
+        delete from t_route_point where route_point_id = #{routePointId}
+    </delete>
+
+    <delete id="deleteTRoutePointByIds" parameterType="String">
+        delete from t_route_point where route_point_id in 
+        <foreach item="routePointId" collection="array" open="(" separator="," close=")">
+            #{routePointId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteTRoutePointByRouteId" parameterType="Long">
+        delete from t_route_point where route_id = #{routeId}
+    </delete>
+</mapper>

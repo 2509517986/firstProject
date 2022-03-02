@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TYuntaiCruiseMapper">
+
+    <resultMap type="TYuntaiCruise" id="TYuntaiCruiseResult">
+        <result property="id"    column="id"    />
+        <result property="chanelNum"    column="chanel_num"    />
+        <result property="cruiseGroupNum"    column="cruise_group_num"    />
+        <result property="presetNum"    column="preset_num"    />
+        <result property="residenceTime"    column="residence_time"    />
+        <result property="speed"    column="speed"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="code"    column="code"    />
+    </resultMap>
+
+    <sql id="selectTYuntaiCruiseVo">
+        select id, chanel_num, cruise_group_num, preset_num,residence_time, speed, create_user, create_time, code from t_yuntai_cruise
+    </sql>
+
+    <select id="selectTYuntaiCruiseList" parameterType="TYuntaiCruise" resultMap="TYuntaiCruiseResult">
+        <include refid="selectTYuntaiCruiseVo"/>
+        <where>
+            <if test="chanelNum != null  and chanelNum != ''"> and chanel_num = #{chanelNum}</if>
+            <if test="cruiseGroupNum != null  and cruiseGroupNum != ''">  and cruise_group_num = #{cruiseGroupNum}</if>
+            <if test="presetNum != null "> and preset_num = #{presetNum}</if>
+            <if test="residenceTime != null  and residenceTime != ''"> and residence_time = #{residenceTime}</if>
+            <if test="speed != null "> and speed = #{speed}</if>
+            <if test="createTime != null  and createTime != ''"> and create_time = #{createTime}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+       </where>
+        order by id DESC
+    </select>
+
+    <select id="selectTYuntaiCruiseById" parameterType="Long" resultMap="TYuntaiCruiseResult">
+        <include refid="selectTYuntaiCruiseVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTYuntaiCruise" parameterType="TYuntaiCruise" useGeneratedKeys="true" keyProperty="id">
+        insert into t_yuntai_cruise
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="chanelNum != null">chanel_num,</if>
+            <if test="cruiseGroupNum != null">cruise_group_num,</if>
+            <if test="presetNum != null">preset_num,</if>
+            <if test="residenceTime != null">residence_time,</if>
+            <if test="speed != null">speed,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="code != null">code,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="chanelNum != null">#{chanelNum},</if>
+            <if test="cruiseGroupNum != null">#{cruiseGroupNum},</if>
+            <if test="presetNum != null">#{presetNum},</if>
+            <if test="residenceTime != null">#{residenceTime},</if>
+            <if test="speed != null">#{speed},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="code != null">#{code},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTYuntaiCruise" parameterType="TYuntaiCruise">
+        update t_yuntai_cruise
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="chanelNum != null">chanelNum = #{chanelNum},</if>
+            <if test="cruiseGroupNum != null">cruise_group_num = #{cruiseGroupNum},</if>
+            <if test="presetNum != null">preset_num = #{presetNum},</if>
+            <if test="speed != null">speed = #{speed},</if>
+            <if test="residenceTime != null">residence_time = #{residenceTime},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="code != null">code = #{code},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYuntaiCruiseById" parameterType="Long">
+        delete from t_yuntai_cruise where id = #{id}
+    </delete>
+</mapper>

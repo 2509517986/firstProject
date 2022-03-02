@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.senxu.omserver.service.mapper.TUpgradeRecordMapper">
+    
+    <resultMap type="TUpgradeRecord" id="TUpgradeRecordResult">
+        <result property="id"    column="id"    />
+        <result property="code"    column="code"    />
+        <result property="name"    column="name"    />
+        <result property="progress"    column="progress"    />
+        <result property="state"    column="state"    />
+        <result property="result"    column="result"    />
+        <result property="description"    column="description"    />
+        <result property="manner"    column="manner"    />
+        <result property="protocol"    column="protocol"    />
+        <result property="purposeEquipment"    column="purpose_equipment"    />
+        <result property="chanelNum"    column="chanel_num"    />
+        <result property="fileType"    column="file_type"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="beginTime"    column="begin_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="oldVersion"    column="old_version"    />
+        <result property="newVersion"    column="new_version"    />
+        <result property="yuntaiId"    column="yuntai_id"    />
+    </resultMap>
+
+    <sql id="selectTUpgradeRecordVo">
+        select id, code, name, progress, state, result, description, manner, protocol, purpose_equipment, chanel_num, file_type, file_name, create_user, begin_time, end_time, old_version, new_version, yuntai_id from t_upgrade_record
+    </sql>
+
+    <select id="selectTUpgradeRecordList" parameterType="TUpgradeRecord" resultMap="TUpgradeRecordResult">
+        <include refid="selectTUpgradeRecordVo"/>
+        <where>  
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="progress != null  and progress != ''"> and progress = #{progress}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+            <if test="result != null  and result != ''"> and result = #{result}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="manner != null  and manner != ''"> and manner = #{manner}</if>yuntai_id
+            <if test="protocol != null  and protocol != ''"> and protocol = #{protocol}</if>
+            <if test="purposeEquipment != null  and purposeEquipment != ''"> and purpose_equipment = #{purposeEquipment}</if>
+            <if test="chanelNum != null  and chanelNum != ''"> and chanel_num = #{chanelNum}</if>
+            <if test="fileType != null  and fileType != ''"> and file_type = #{fileType}</if>
+            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="beginTime != null "> and begin_time = #{beginTime}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+            <if test="oldVersion != null  and oldVersion != ''"> and old_version = #{oldVersion}</if>
+            <if test="newVersion != null  and newVersion != ''"> and new_version = #{newVersion}</if>
+            <if test="yuntaiId != null  and yuntaiId != ''"> and yuntai_id = #{yuntaiId}</if>
+        </where>
+        order by end_time DESC
+    </select>
+    
+    <select id="selectTUpgradeRecordById" parameterType="Long" resultMap="TUpgradeRecordResult">
+        <include refid="selectTUpgradeRecordVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectTUpgradeRecordByYuntaiId" parameterType="Long" resultMap="TUpgradeRecordResult">
+        <include refid="selectTUpgradeRecordVo"/>
+        where yuntai_id = #{yuntaiId}
+    </select>
+        
+    <insert id="insertTUpgradeRecord" parameterType="TUpgradeRecord">
+        insert into t_upgrade_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null">code,</if>
+            <if test="name != null">name,</if>
+            <if test="progress != null">progress,</if>
+            <if test="state != null">state,</if>
+            <if test="result != null">result,</if>
+            <if test="description != null">description,</if>
+            <if test="manner != null">manner,</if>
+            <if test="protocol != null">protocol,</if>
+            <if test="purposeEquipment != null">purpose_equipment,</if>
+            <if test="chanelNum != null">chanel_num,</if>
+            <if test="fileType != null">file_type,</if>
+            <if test="fileName != null">file_name,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="beginTime != null">begin_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="oldVersion != null">old_version,</if>
+            <if test="newVersion != null">new_version,</if>
+            <if test="yuntaiId != null">yuntai_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null">#{code},</if>
+            <if test="name != null">#{name},</if>
+            <if test="progress != null">#{progress},</if>
+            <if test="state != null">#{state},</if>
+            <if test="result != null">#{result},</if>
+            <if test="description != null">#{description},</if>
+            <if test="manner != null">#{manner},</if>
+            <if test="protocol != null">#{protocol},</if>
+            <if test="purposeEquipment != null">#{purposeEquipment},</if>
+            <if test="chanelNum != null">#{chanelNum},</if>
+            <if test="fileType != null">#{fileType},</if>
+            <if test="fileName != null">#{fileName},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="beginTime != null">#{beginTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="oldVersion != null">#{oldVersion},</if>
+            <if test="newVersion != null">#{newVersion},</if>
+            <if test="yuntaiId != null">#{yuntaiId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTUpgradeRecord" parameterType="TUpgradeRecord">
+        update t_upgrade_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="code != null">code = #{code},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="progress != null">progress = #{progress},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="result != null">result = #{result},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="manner != null">manner = #{manner},</if>
+            <if test="protocol != null">protocol = #{protocol},</if>
+            <if test="purposeEquipment != null">purpose_equipment = #{purposeEquipment},</if>
+            <if test="chanelNum != null">chanel_num = #{chanelNum},</if>
+            <if test="fileType != null">file_type = #{fileType},</if>
+            <if test="fileName != null">file_name = #{fileName},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="beginTime != null">begin_time = #{beginTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="oldVersion != null">old_version = #{oldVersion},</if>
+            <if test="newVersion != null">new_version = #{newVersion},</if>
+            <if test="yuntaiId != null">yuntai_id = #{yuntaiId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTUpgradeRecordById" parameterType="Long">
+        delete from t_upgrade_record where id = #{id}
+    </delete>
+
+    <delete id="deleteTUpgradeRecordByIds" parameterType="String">
+        delete from t_upgrade_record where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
